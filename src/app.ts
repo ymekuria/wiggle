@@ -7,6 +7,10 @@ class App {
   constructor() {
     this.app = express();
   }
+
+  private config(): void {
+    this.app.use(bodyParser.json());
+  }
 }
 
 export default new App().app;
