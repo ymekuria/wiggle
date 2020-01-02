@@ -15,6 +15,7 @@ var bodyParser = __importStar(require("body-parser"));
 var App = /** @class */ (function () {
     function App() {
         this.app = express_1.default();
+        this.config();
     }
     App.prototype.config = function () {
         this.app.use(bodyParser.json());
