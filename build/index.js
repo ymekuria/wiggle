@@ -6,8 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var body_parser_1 = __importDefault(require("body-parser"));
 var mongoose_1 = require("mongoose");
-var key_s_1 = require("./config/key`s");
-mongoose_1.connect(key_s_1.mongoURI, {
+var keys_1 = require("./config/keys");
+var authRoutes_1 = __importDefault(require("./routes/authRoutes"));
+var routes_1 = __importDefault(require("./routes/routes"));
+mongoose_1.connect(keys_1.mongoURI, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true
@@ -21,8 +23,8 @@ mongoose_1.connection.on('error', function (err) {
 var app = express_1.default();
 app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: true }));
-// TODO refactor from common js to imports
-require('./routes/routes')(app);
+app.use(routes_1.default);
+app.use(authRoutes_1.default);
 var PORT = process.env.PORT || 3000;
 app.listen(PORT, function () {
     console.log("Listening on port " + PORT);
