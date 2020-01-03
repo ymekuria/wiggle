@@ -8,9 +8,25 @@ import { googleClientID, googleClientSecret } from '../config/keys';
 
 const User = model('users');
 passport.use(
-  new GoogleStrategy({
-    clientID: googleClientID,
-    clientSecret: googleClientSecret,
-    callbackURL: '/auth/google/cb'
-  })
+  new GoogleStrategy(
+    {
+      clientID: googleClientID,
+      clientSecret: googleClientSecret,
+      callbackURL: '/auth/google/cb'
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      const existingUser = await User.findOne({ googleID: profile.id });
+
+      if (existingUser) {
+        console.log('returning existing user: ', existingUser);
+        // return existing user from DB
+        return done(undefined, existingUser);
+      }
+
+      // create a new user record if not found in db
+      const newUser = await new User({ googleID: profile.id }).save();
+      console.log('newUser returned: ', newUser);
+      done(undefined, newUser);
+    }
+  )
 );

@@ -7,6 +7,7 @@ var express_1 = __importDefault(require("express"));
 var body_parser_1 = __importDefault(require("body-parser"));
 var mongoose_1 = require("mongoose");
 require("./models/User");
+require("./services/passport");
 var keys_1 = require("./config/keys");
 var authRoutes_1 = __importDefault(require("./routes/authRoutes"));
 var routes_1 = __importDefault(require("./routes/routes"));
