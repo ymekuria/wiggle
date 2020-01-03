@@ -7,7 +7,12 @@ var express_1 = __importDefault(require("express"));
 var body_parser_1 = __importDefault(require("body-parser"));
 var mongoose_1 = require("mongoose");
 var keys_1 = require("./config/keys");
-mongoose_1.connect(keys_1.mongoURI, { useNewUrlParser: true, useCreateIndex: true });
+console.log('mongoURi');
+mongoose_1.connect(keys_1.mongoURI, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true
+});
 mongoose_1.connection.on('connected', function () {
     console.log('Connected to mongo');
 });

@@ -3,7 +3,13 @@ import bodyParser from 'body-parser';
 import { connect, connection } from 'mongoose';
 import { mongoURI } from './config/keys';
 
-connect(mongoURI, { useNewUrlParser: true, useCreateIndex: true });
+console.log('mongoURi');
+
+connect(mongoURI, {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useUnifiedTopology: true
+});
 
 connection.on('connected', () => {
   console.log('Connected to mongo');
