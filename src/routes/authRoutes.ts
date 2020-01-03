@@ -20,7 +20,7 @@ authRouter.get(
   }
 );
 
-authRouter.get('/login', (req, res) => {
+authRouter.get('/login', (req: Request, res: Response) => {
   res.send('login');
 });
 
