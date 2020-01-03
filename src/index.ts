@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import { connect, connection } from 'mongoose';
+import './models/User';
 import { mongoURI } from './config/keys';
 import authRouter from './routes/authRoutes';
 import homeRouter from './routes/routes';

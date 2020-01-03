@@ -1,8 +1,9 @@
 import { Router, Request, Response } from 'express';
+import passport from 'passport';
 
 const authRouter = Router();
 
-authRouter.get('/signup', (req: Request, res: Response) => {
+authRouter.post('/signup', (req: Request, res: Response) => {
   res.send('Signup');
 });
 
