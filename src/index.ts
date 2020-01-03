@@ -1,9 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import { connect, connection } from 'mongoose';
-import { mongoURI } from './config/keys';
-
-console.log('mongoURi');
+import { mongoURI } from './config/key`s';
 
 connect(mongoURI, {
   useNewUrlParser: true,
@@ -13,6 +11,10 @@ connect(mongoURI, {
 
 connection.on('connected', () => {
   console.log('Connected to mongo');
+});
+
+connection.on('error', err => {
+  console.error('Mongo connection error:', err);
 });
 
 const app = express();
