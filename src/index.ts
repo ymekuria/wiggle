@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import { connect, connection } from 'mongoose';
+import passport from 'passport';
 import './models/User';
 import './services/passport';
 import { mongoURI } from './config/keys';
@@ -24,6 +25,7 @@ connection.on('error', err => {
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(passport.initialize());
 
 app.use(homeRouter);
 app.use(authRouter);

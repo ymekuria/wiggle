@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var body_parser_1 = __importDefault(require("body-parser"));
 var mongoose_1 = require("mongoose");
+var passport_1 = __importDefault(require("passport"));
 require("./models/User");
 require("./services/passport");
 var keys_1 = require("./config/keys");
@@ -25,6 +26,7 @@ mongoose_1.connection.on('error', function (err) {
 var app = express_1.default();
 app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: true }));
+app.use(passport_1.default.initialize());
 app.use(routes_1.default);
 app.use(authRoutes_1.default);
 var PORT = process.env.PORT || 3000;

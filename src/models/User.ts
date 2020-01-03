@@ -6,4 +6,4 @@ const userSchema = new Schema({
   facebookID: String
 });
 
-model('User', userSchema);
+model('users', userSchema);

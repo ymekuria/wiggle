@@ -6,4 +6,4 @@ var userSchema = new mongoose_1.Schema({
     googleID: String,
     facebookID: String
 });
-mongoose_1.model('User', userSchema);
+mongoose_1.model('users', userSchema);

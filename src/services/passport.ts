@@ -7,6 +7,16 @@ import { googleClientID, googleClientSecret } from '../config/keys';
 // requireing User this way to avoid testing errors and collisions
 
 const User = model('users');
+
+passport.serializeUser((user, done) => {
+  done(undefined, user.id);
+});
+
+passport.deserializeUser(async (id, done) => {
+  const user = await User.findById(id);
+  done(undefined, user);
+});
+
 passport.use(
   new GoogleStrategy(
     {

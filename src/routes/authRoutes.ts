@@ -7,9 +7,21 @@ authRouter.post('/signup', (req: Request, res: Response) => {
   res.send('Signup');
 });
 
-authRouter.get('/auth/google',
-  passport.authenticate('google', { scope: ['profile', 'email'] });
+authRouter.get(
+  '/auth/google',
+  passport.authenticate('google', { scope: ['profile', 'email'] })
+);
 
-authRouter.get('/auth/google/cb', passport.authenticate('google'));  
+authRouter.get(
+  '/auth/google/cb',
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/');
+  }
+);
+
+authRouter.get('/login', (req, res) => {
+  res.send('login');
+});
 
 export default authRouter;

@@ -45,6 +45,21 @@ var passport_google_oauth20_1 = require("passport-google-oauth20");
 var keys_1 = require("../config/keys");
 // requireing User this way to avoid testing errors and collisions
 var User = mongoose_1.model('users');
+passport_1.default.serializeUser(function (user, done) {
+    done(undefined, user.id);
+});
+passport_1.default.deserializeUser(function (id, done) { return __awaiter(_this, void 0, void 0, function () {
+    var user;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, User.findById(id)];
+            case 1:
+                user = _a.sent();
+                done(undefined, user);
+                return [2 /*return*/];
+        }
+    });
+}); });
 passport_1.default.use(new passport_google_oauth20_1.Strategy({
     clientID: keys_1.googleClientID,
     clientSecret: keys_1.googleClientSecret,

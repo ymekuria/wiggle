@@ -10,5 +10,10 @@ authRouter.post('/signup', function (req, res) {
     res.send('Signup');
 });
 authRouter.get('/auth/google', passport_1.default.authenticate('google', { scope: ['profile', 'email'] }));
-authRouter.get('/auth/google/cb', passport_1.default.authenticate('google'));
+authRouter.get('/auth/google/cb', passport_1.default.authenticate('google', { failureRedirect: '/login' }), function (req, res) {
+    res.redirect('/');
+});
+authRouter.get('/login', function (req, res) {
+    res.send('login');
+});
 exports.default = authRouter;
