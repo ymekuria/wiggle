@@ -44,7 +44,7 @@ var mongoose_1 = require("mongoose");
 var passport_google_oauth20_1 = require("passport-google-oauth20");
 var keys_1 = require("../config/keys");
 // requireing User this way to avoid testing errors and collisions
-var User = mongoose_1.model('users');
+var User = mongoose_1.model('User');
 passport_1.default.serializeUser(function (user, done) {
     done(undefined, user.id);
 });

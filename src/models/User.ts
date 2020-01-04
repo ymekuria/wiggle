@@ -1,9 +1,13 @@
 import { Schema, model } from 'mongoose';
 
 const userSchema = new Schema({
-  phoneNumber: Number,
+  phoneNumber: {
+    type: Number,
+    unique: true,
+    required: true
+  },
   googleID: String,
   facebookID: String
 });
 
-model('users', userSchema);
+model('User', userSchema);

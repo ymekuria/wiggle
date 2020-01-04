@@ -6,7 +6,7 @@ import { googleClientID, googleClientSecret } from '../config/keys';
 
 // requireing User this way to avoid testing errors and collisions
 
-const User = model('users');
+const User = model('User');
 
 passport.serializeUser((user, done) => {
   done(undefined, user.id);
