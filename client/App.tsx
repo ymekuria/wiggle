@@ -1,12 +1,14 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { Provider } from 'react-redux';
+import store from './store';
 
-const App = (): JSX.Element => {
+export default (): JSX.Element => {
   return (
-    <View>
-      <Text>Wiggle</Text>
-    </View>
+    <Provider store={store}>
+      <View>
+        <Text>Wiggle</Text>
+      </View>
+    </Provider>
   );
 };
-
-export default App;
