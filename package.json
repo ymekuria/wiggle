@@ -6,7 +6,11 @@
   "scripts": {
     "start:build": "tsc -w",
     "start:run": "nodemon build/index.js",
-    "start": "concurrently npm:start:* "
+    "start": "concurrently npm:start:* ",
+    "client": "npm run start --prefix client",
+    "server:debug": "nodemon --inspect src/index.ts",
+    "dev": "concurrently \"npm start\" \"npm run client\"",
+    "devserver:debug": "nodemon --inspect src/index.ts"
   },
   "author": "Yoni Mekuria",
   "license": "ISC",
@@ -28,6 +32,8 @@
     "passport-facebook": "^3.0.0",
     "passport-google-oauth": "^2.0.0",
     "passport-google-oauth20": "^2.0.0",
-    "reflect-metadata": "^0.1.13"
+    "reflect-metadata": "^0.1.13",
+    "ts-node": "^8.5.4",
+    "typescript": "^3.7.4"
   }
 }
