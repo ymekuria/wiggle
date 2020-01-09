@@ -13,7 +13,7 @@ interface SignUpAction {
 
 interface FBsignUpAction {
   type: ActionTypes.FB_LOGIN_SUCCESS | ActionTypes.FB_LOGIN_FAIL;
-  payload?: any;
+  payload?: string | undefined;
 }
 
 const baseUrl = 'https://0815f71c.ngrok.io';
@@ -48,6 +48,8 @@ const executeFblogin = async (dispatch: Dispatch) => {
     return dispatch<FBsignUpAction>({ type: ActionTypes.FB_LOGIN_FAIL });
   }
 
+  // save token to users device for future auth
+  await AsyncStorage.setItem('fb_token', token);
   return dispatch<FBsignUpAction>({
     type: ActionTypes.FB_LOGIN_SUCCESS,
     payload: token
