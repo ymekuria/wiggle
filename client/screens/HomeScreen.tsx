@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { View, Text, Button, FlatList, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { WebBrowser } from 'expo';
-import { signUp } from '../actions';
+import { signUp, facebookLogin } from '../actions';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
   return (
     <View style={styles.container}>
-      <Button title="signup" onPress={() => dispatch(signUp())} />
-      <Text>wiggle</Text>
+      <Button title="Googlesignup" onPress={() => dispatch(signUp())} />
+      <Button title="FBsignup" onPress={() => dispatch(facebookLogin())} />
     </View>
   );
 };

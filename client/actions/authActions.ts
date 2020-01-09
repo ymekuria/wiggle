@@ -29,43 +29,18 @@ export const signUp = () => {
   };
 };
 
-// using redux thunk for async actions
 export const facebookLogin = () => async (dispatch: Dispatch) => {
-  // first checking if a fb session token is stored on the users device before authenticating
   try {
-    let token = await AsyncStorage.getItem('fb_token');
+    await Facebook.initializwAsync(FACEBOOK_APP_ID);
+    let { token, type } = await Facebook.logInWithReadPermissionsAsync(
+      FACEBOOK_APP_ID,
+      {
+        permissions: ['public_profile']
+      }
+    );
 
-    if (token) {
-      return dispatch<FBsignUpAction>({
-        type: ActionTypes.FB_LOGIN_SUCCESS,
-        payload: token
-      });
-    } else {
-      performFbLogin(dispatch);
-    }
+    console.log('token, type');
   } catch (err) {
     console.log(err);
   }
-};
-
-const performFbLogin = async (dispatch: Dispatch) => {
-  // will prompt the user to login via a FB modal and return an object with info about the login ie tokens succes/fail
-  let { token, type } = await Facebook.logInWithReadPermissionsAsync(
-    FACEBOOK_APP_ID,
-    {
-      permissions: ['public_profile']
-    }
-  );
-
-  if (type === 'cancel') {
-    return dispatch<FBsignUpAction>({ type: ActionTypes.FB_LOGIN_FAIL });
-  }
-
-  // saving the fb_token on the users device for future authentication
-  await AsyncStorage.setItem('fb_token', token);
-
-  return dispatch<FBsignUpAction>({
-    type: ActionTypes.FB_LOGIN_SUCCESS,
-    payload: token
-  });
 };
