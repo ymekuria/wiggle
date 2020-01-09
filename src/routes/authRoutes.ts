@@ -4,6 +4,11 @@ import passport from 'passport';
 const authRouter = Router();
 
 authRouter.post('/signup', (req: Request, res: Response) => {
+  console.log('signup route');
+  res.send('Signup');
+});
+authRouter.get('/signup', (req: Request, res: Response) => {
+  console.log('get signup route');
   res.send('Signup');
 });
 

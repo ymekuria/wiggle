@@ -7,6 +7,11 @@ var express_1 = require("express");
 var passport_1 = __importDefault(require("passport"));
 var authRouter = express_1.Router();
 authRouter.post('/signup', function (req, res) {
+    console.log('signup route');
+    res.send('Signup');
+});
+authRouter.get('/signup', function (req, res) {
+    console.log('get signup route');
     res.send('Signup');
 });
 authRouter.get('/auth/google', passport_1.default.authenticate('google', { scope: ['profile', 'email'] }));

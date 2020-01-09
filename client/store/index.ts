@@ -4,7 +4,7 @@ import { createLogger } from 'redux-logger';
 import reducers from '../reducers';
 
 // redux dev tools
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const logger = createLogger({
   collapsed: true,
