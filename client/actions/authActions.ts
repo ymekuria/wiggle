@@ -31,6 +31,15 @@ export const signUp = () => {
 
 export const facebookLogin = () => async (dispatch: Dispatch) => {
   try {
+    let token = await AsyncStorage.getItem('fb_token');
+
+    if (token) {
+      return dispatch<FBsignUpAction>({
+        type: ActionTypes.FB_LOGIN_SUCCESS,
+        payload: token
+      });
+    }
+
     executeFblogin(dispatch);
   } catch (err) {
     console.log(err);
@@ -50,6 +59,7 @@ const executeFblogin = async (dispatch: Dispatch) => {
 
   // save token to users device for future auth
   await AsyncStorage.setItem('fb_token', token);
+
   return dispatch<FBsignUpAction>({
     type: ActionTypes.FB_LOGIN_SUCCESS,
     payload: token
