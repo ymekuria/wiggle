@@ -47,4 +47,9 @@ const executeFblogin = async (dispatch: Dispatch) => {
   if (type === 'cancel') {
     return dispatch<FBsignUpAction>({ type: ActionTypes.FB_LOGIN_FAIL });
   }
+
+  return dispatch<FBsignUpAction>({
+    type: ActionTypes.FB_LOGIN_SUCCESS,
+    payload: token
+  });
 };
