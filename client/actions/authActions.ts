@@ -1,5 +1,5 @@
 import { AsyncStorage } from 'react-native';
-import { Facebook } from 'expo';
+import * as Facebook from 'expo-facebook';
 import { Dispatch } from 'redux';
 import { FACEBOOK_APP_ID } from '../utils/config';
 import axios from 'axios';
@@ -31,15 +31,12 @@ export const signUp = () => {
 
 export const facebookLogin = () => async (dispatch: Dispatch) => {
   try {
-    await Facebook.initializwAsync(FACEBOOK_APP_ID);
-    let { token, type } = await Facebook.logInWithReadPermissionsAsync(
-      FACEBOOK_APP_ID,
-      {
-        permissions: ['public_profile']
-      }
-    );
+    await Facebook.initializeAsync(FACEBOOK_APP_ID, 'Wiggle');
+    let { token } = await Facebook.logInWithReadPermissionsAsync({
+      permissions: ['public_profile']
+    });
 
-    console.log('token, type');
+    console.log('token', token);
   } catch (err) {
     console.log(err);
   }
