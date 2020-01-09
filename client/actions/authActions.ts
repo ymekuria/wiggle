@@ -31,13 +31,20 @@ export const signUp = () => {
 
 export const facebookLogin = () => async (dispatch: Dispatch) => {
   try {
-    await Facebook.initializeAsync(FACEBOOK_APP_ID, 'Wiggle');
-    let { token } = await Facebook.logInWithReadPermissionsAsync({
-      permissions: ['public_profile']
-    });
-
-    console.log('token', token);
+    executeFblogin(dispatch);
   } catch (err) {
     console.log(err);
+  }
+};
+
+const executeFblogin = async (dispatch: Dispatch) => {
+  await Facebook.initializeAsync(FACEBOOK_APP_ID, 'Wiggle');
+  let { type, token } = await Facebook.logInWithReadPermissionsAsync({
+    permissions: ['public_profile']
+  });
+
+  // login fails
+  if (type === 'cancel') {
+    return dispatch<FBsignUpAction>({ type: ActionTypes.FB_LOGIN_FAIL });
   }
 };
