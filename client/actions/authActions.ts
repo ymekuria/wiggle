@@ -13,7 +13,7 @@ interface SignUpAction {
 
 interface FBsignUpAction {
   type: ActionTypes.FB_LOGIN_SUCCESS | ActionTypes.FB_LOGIN_FAIL;
-  payload?: string | undefined;
+  payload?: string;
 }
 
 const baseUrl = 'https://0815f71c.ngrok.io';
@@ -21,7 +21,6 @@ export const signUp = () => {
   return async (dispatch: Dispatch) => {
     try {
       const response = await axios.get(`${baseUrl}/auth/google`);
-      console.log('response ', response);
       dispatch<SignUpAction>({ type: ActionTypes.SIGNUP, payload: response });
     } catch (err) {
       console.log('error: ', err.message);
@@ -41,27 +40,31 @@ export const facebookLogin = () => async (dispatch: Dispatch) => {
     }
 
     executeFblogin(dispatch);
-  } catch (err) {
-    console.log(err);
+  } catch ({ message }) {
+    alert(`Facebook login Error: ${message}`);
   }
 };
 
 const executeFblogin = async (dispatch: Dispatch) => {
-  await Facebook.initializeAsync(FACEBOOK_APP_ID, 'Wiggle');
-  let { type, token } = await Facebook.logInWithReadPermissionsAsync({
-    permissions: ['public_profile']
-  });
+  try {
+    await Facebook.initializeAsync(FACEBOOK_APP_ID, 'Wiggle');
+    let { type, token } = await Facebook.logInWithReadPermissionsAsync({
+      permissions: ['public_profile']
+    });
 
-  // login fails
-  if (type === 'cancel') {
-    return dispatch<FBsignUpAction>({ type: ActionTypes.FB_LOGIN_FAIL });
+    // login fails
+    if (type === 'cancel') {
+      return dispatch<FBsignUpAction>({ type: ActionTypes.FB_LOGIN_FAIL });
+    }
+
+    // save token to users device for future auth
+    await AsyncStorage.setItem('fb_token', token);
+
+    return dispatch<FBsignUpAction>({
+      type: ActionTypes.FB_LOGIN_SUCCESS,
+      payload: token
+    });
+  } catch ({ message }) {
+    alert(`Facebook login Error: ${message}`);
   }
-
-  // save token to users device for future auth
-  await AsyncStorage.setItem('fb_token', token);
-
-  return dispatch<FBsignUpAction>({
-    type: ActionTypes.FB_LOGIN_SUCCESS,
-    payload: token
-  });
 };
