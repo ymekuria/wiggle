@@ -11,7 +11,7 @@ interface SignUpAction {
   payload: any;
 }
 
-interface FBsignUpAction {
+export interface FBsignUpAction {
   type: ActionTypes.FB_LOGIN_SUCCESS | ActionTypes.FB_LOGIN_FAIL;
   payload?: string;
 }
