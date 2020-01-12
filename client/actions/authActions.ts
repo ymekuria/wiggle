@@ -52,7 +52,7 @@ const executeFblogin = async (dispatch: Dispatch) => {
       permissions: ['public_profile']
     });
 
-    // login fails
+    // login fails or user cancels
     if (type === 'cancel') {
       return dispatch<FBsignUpAction>({ type: ActionTypes.FB_LOGIN_FAIL });
     }
