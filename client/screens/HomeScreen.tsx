@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { View, Text, Button, FlatList, StyleSheet } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { signUp, facebookLogin } from '../actions';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
+  const fbAuthToken = useSelector(state => {
+    return state.auth.fbAuthToken;
+  });
+
   return (
     <View style={styles.container}>
       <Button title="Googlesignup" onPress={() => dispatch(signUp())} />
