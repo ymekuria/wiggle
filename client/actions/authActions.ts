@@ -16,6 +16,7 @@ export interface FBsignUpAction {
   payload?: string;
 }
 
+// change for production
 const baseUrl = 'https://0815f71c.ngrok.io';
 export const signUp = () => {
   return async (dispatch: Dispatch) => {

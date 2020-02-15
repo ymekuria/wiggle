@@ -1,6 +1,9 @@
 import { combineReducers } from 'redux';
 import auth from './authReducer';
 
-export default combineReducers({
+export interface StoreState {
+  auth: string;
+}
+export default combineReducers<StoreState>({
   auth
 });
