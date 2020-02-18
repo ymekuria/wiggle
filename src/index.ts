@@ -29,6 +29,7 @@ app.use(passport.initialize());
 
 app.use(homeRouter);
 app.use(authRouter);
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
