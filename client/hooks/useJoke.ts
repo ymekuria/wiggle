@@ -5,6 +5,10 @@ import dadJokes from '../api/dadJokes';
 
 export default () => {
   const getJoke = async () => {
-    let joke = await dadJokes.get('/');
+    try {
+      let joke = await dadJokes.get('/');
+    } catch (e) {
+      console.log('error', e.messege);
+    }
   };
 };
