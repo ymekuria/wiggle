@@ -36,7 +36,7 @@ export const facebookLogin = () => async (dispatch: Dispatch) => {
     if (token) {
       return dispatch<FBsignUpAction>({
         type: ActionTypes.FB_LOGIN_SUCCESS,
-        payload: token
+        payload: token,
       });
     }
 
@@ -47,12 +47,12 @@ export const facebookLogin = () => async (dispatch: Dispatch) => {
 };
 
 const executeFblogin = async (dispatch: Dispatch) => {
+  console.log('hey');
   try {
-    await Facebook.initializeAsync(FACEBOOK_APP_ID, 'Wiggle');
+    await Facebook.initializeAsync(FACEBOOK_APP_ID);
     let { type, token } = await Facebook.logInWithReadPermissionsAsync({
-      permissions: ['public_profile']
+      permissions: ['public_profile'],
     });
-
     // login fails or user cancels
     if (type === 'cancel') {
       return dispatch<FBsignUpAction>({ type: ActionTypes.FB_LOGIN_FAIL });
@@ -63,7 +63,7 @@ const executeFblogin = async (dispatch: Dispatch) => {
 
     return dispatch<FBsignUpAction>({
       type: ActionTypes.FB_LOGIN_SUCCESS,
-      payload: token
+      payload: token,
     });
   } catch ({ message }) {
     alert(`Facebook login Error: ${message}`);
