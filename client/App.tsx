@@ -1,15 +1,24 @@
+import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
-import { Provider, useDispatch } from 'react-redux';
-import HomeScreen from './screens/HomeScreen';
-import store from './store';
-import { signUp } from './actions';
+import { Provider } from 'react-redux';
 
-export default (): JSX.Element => {
-  // const dispatch = useDispatch();
-  return (
-    <Provider store={store}>
-      <HomeScreen />
-    </Provider>
-  );
+import store from './store';
+import useCachedResources from './hooks/useCachedResources';
+import useColorScheme from './hooks/useColorScheme';
+import Navigation from './navigation';
+
+export default (): JSX.Element | null => {
+  const isLoadingComplete = useCachedResources();
+  const colorScheme = useColorScheme();
+
+  if (!isLoadingComplete) {
+    return null;
+  } else {
+    return (
+      <Provider store={store}>
+        <Navigation colorScheme={colorScheme} />
+        <StatusBar />
+      </Provider>
+    );
+  }
 };
