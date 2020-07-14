@@ -4,3 +4,4 @@ ci.ts
 dev.js
 ci.js
 config.ts
+client/config.ts
