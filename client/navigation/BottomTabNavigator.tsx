@@ -11,7 +11,7 @@ import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
-export default function BottomTabNavigator() {
+export default () => {
   const colorScheme = useColorScheme();
 
   return (
@@ -39,7 +39,7 @@ export default function BottomTabNavigator() {
       />
     </BottomTab.Navigator>
   );
-}
+};
 
 function TabBarIcon(props: { name: string; color: string }) {
   return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
