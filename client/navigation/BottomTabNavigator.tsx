@@ -25,16 +25,16 @@ export default () => {
       tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}
       tabBar={(props) => {
         return (
-          <LinearGradient
-            colors={['rgba(191,241,236,1)', 'rgba(109,192,236,1)']}
-            start={[1, 0]}
-            end={[0, 0]}
-          >
-            <BottomTabBar
-              {...props}
-              style={{ backgroundColor: 'transparent' }}
-            />
-          </LinearGradient>
+          // <LinearGradient
+          //   colors={['rgba(191,241,236,1)', 'rgba(109,192,236,1)']}
+          //   // start={[1, 0]}
+          //   // end={[0, 0]}
+          // >
+          <BottomTabBar
+            {...props}
+            style={{ backgroundColor: 'rgba(109,192,236,1)' }}
+          />
+          // </LinearGradient>
         );
       }}
     >
@@ -72,7 +72,10 @@ function TabOneNavigator() {
       <TabOneStack.Screen
         name="TabOneScreen"
         component={TabOneScreen}
-        options={{ headerTitle: 'Tab One Title' }}
+        options={{
+          headerTitle: 'Tab One Title',
+          headerStyle: { backgroundColor: 'rgba(191,241,236,1)' },
+        }}
       />
     </TabOneStack.Navigator>
   );
@@ -86,7 +89,10 @@ function TabTwoNavigator() {
       <TabTwoStack.Screen
         name="TabTwoScreen"
         component={TabTwoScreen}
-        options={{ headerTitle: 'Tab Two Title' }}
+        options={{
+          headerTitle: 'Tab Two Title',
+          headerStyle: { backgroundColor: 'rgba(191,241,236,1)' },
+        }}
       />
     </TabTwoStack.Navigator>
   );
