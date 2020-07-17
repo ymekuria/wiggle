@@ -1,7 +1,8 @@
 import {
   NavigationContainer,
+  getFocusedRouteNameFromRoute,
   DefaultTheme,
-  DarkTheme,
+  DarkTheme
 } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
@@ -12,11 +13,21 @@ import { RootStackParamList } from '../types';
 import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
 
-export default function Navigation({
-  colorScheme,
-}: {
-  colorScheme: ColorSchemeName;
-}) {
+const getHeaderTitle = (route) => {
+  // If the focused route is not found, we need to assume it's the initial screen
+  // This can happen if there hasn't been any navigation inside the screen
+  const routeName = getFocusedRouteNameFromRoute(route) ?? 'TabOne';
+  console.log('routName', routeName);
+  // add routeName and title here for each new tab screen
+  switch (routeName) {
+    case 'TabOne':
+      return 'Tab One';
+    case 'TabTwo':
+      return 'Tab Two';
+  }
+};
+
+export default ({ colorScheme }: { colorScheme: ColorSchemeName }) => {
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
@@ -25,18 +36,21 @@ export default function Navigation({
       <RootNavigator />
     </NavigationContainer>
   );
-}
+};
 
 const Stack = createStackNavigator<RootStackParamList>();
 
-function RootNavigator() {
+const RootNavigator = () => {
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}
-    >
-      <Stack.Screen name="Root" component={BottomTabNavigator} />
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Root"
+        component={BottomTabNavigator}
+        options={({ route }) => ({
+          headerTitle: getHeaderTitle(route),
+          headerStyle: { backgroundColor: 'rgba(191,241,236,1)' }
+        })}
+      />
       <Stack.Screen
         name="NotFound"
         component={NotFoundScreen}
@@ -44,4 +58,4 @@ function RootNavigator() {
       />
     </Stack.Navigator>
   );
-}
+};

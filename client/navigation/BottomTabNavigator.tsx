@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import {
   createBottomTabNavigator,
-  BottomTabBar,
+  BottomTabBar
 } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -44,7 +44,7 @@ export default () => {
         options={{
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="ios-code" color={color} />
-          ),
+          )
         }}
       />
       <BottomTab.Screen
@@ -53,7 +53,7 @@ export default () => {
         options={{
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="ios-code" color={color} />
-          ),
+          )
         }}
       />
     </BottomTab.Navigator>
@@ -73,8 +73,8 @@ function TabOneNavigator() {
         name="TabOneScreen"
         component={TabOneScreen}
         options={{
-          headerTitle: 'Tab One Title',
-          headerStyle: { backgroundColor: 'rgba(191,241,236,1)' },
+          headerTitle: 'Tab One Title'
+          // headerStyle: { backgroundColor: 'rgba(191,241,236,1)' }
         }}
       />
     </TabOneStack.Navigator>
@@ -91,7 +91,7 @@ function TabTwoNavigator() {
         component={TabTwoScreen}
         options={{
           headerTitle: 'Tab Two Title',
-          headerStyle: { backgroundColor: 'rgba(191,241,236,1)' },
+          headerStyle: { backgroundColor: 'rgba(191,241,236,1)' }
         }}
       />
     </TabTwoStack.Navigator>
