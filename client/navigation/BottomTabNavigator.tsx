@@ -1,12 +1,17 @@
 import { Ionicons } from '@expo/vector-icons';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {
+  createBottomTabNavigator,
+  BottomTabBar,
+} from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
+import { LinearGradient } from 'expo-linear-gradient';
 import * as React from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
+// import BottomTabBar from '../components/BottomTabBar';
 import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
@@ -18,6 +23,20 @@ export default () => {
     <BottomTab.Navigator
       initialRouteName="TabOne"
       tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}
+      tabBar={(props) => {
+        return (
+          <LinearGradient
+            colors={['rgba(191,241,236,1)', 'rgba(109,192,236,1)']}
+            start={[1, 0]}
+            end={[0, 0]}
+          >
+            <BottomTabBar
+              {...props}
+              style={{ backgroundColor: 'transparent' }}
+            />
+          </LinearGradient>
+        );
+      }}
     >
       <BottomTab.Screen
         name="TabOne"
