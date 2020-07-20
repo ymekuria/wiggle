@@ -42,6 +42,10 @@ const getHeaderTitle = (route) => {
       return 'Tab One';
     case 'TabTwo':
       return 'Tab Two';
+    case 'TabThree':
+      return 'Tab Three';
+    case 'TabFour':
+      return 'Tab Four';
   }
 };
 

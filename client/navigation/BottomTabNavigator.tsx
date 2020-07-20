@@ -11,6 +11,8 @@ import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
+import TabThreeScreen from '../screens/TabThreeScreen';
+import TabFourScreen from '../screens/TabFourScreen';
 // import BottomTabBar from '../components/BottomTabBar';
 // import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
 
@@ -28,17 +30,23 @@ type TabOneParamList = {
 type TabTwoParamList = {
   TabTwoScreen: undefined;
 };
+
+type TabThreeParamList = {
+  TabThreeScreen: undefined;
+};
+type TabFourParamList = {
+  TabFourScreen: undefined;
+};
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 // 'rgba(163,175,243,1)', 'rgba(220,182,232,1)';
 export default () => {
   const colorScheme = useColorScheme();
-  // headerStyle: { backgroundColor: 'rgba(191,241,236,1)'
 
   return (
     <BottomTab.Navigator
       initialRouteName="TabOne"
       tabBarOptions={{
-        activeTintColor: Colors[colorScheme].tint,
+        activeTintColor: Colors['dark'].tint,
         activeBackgroundColor: 'rgba(247,236,250,.3)'
       }}
       tabBar={(props) => {
@@ -72,7 +80,7 @@ export default () => {
       />
       <BottomTab.Screen
         name="TabThree"
-        component={TabTwoScreen}
+        component={TabThreeScreen}
         options={{
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="ios-code" color={color} />
@@ -81,7 +89,7 @@ export default () => {
       />
       <BottomTab.Screen
         name="TabFour"
-        component={TabTwoScreen}
+        component={TabFourScreen}
         options={{
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="ios-code" color={color} />
