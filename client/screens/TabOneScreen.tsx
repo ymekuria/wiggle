@@ -7,15 +7,10 @@ import { Text, View } from '../components/Themed';
 export default function TabOneScreen() {
   return (
     <LinearGradient
-      colors={['rgba(191,241,236,1)', 'rgba(109,192,236,1)']}
+      colors={['rgba(163,175,243,1)', 'rgba(220,182,232,1)']}
       style={styles.container}
     >
       <Text style={styles.title}>Tab One</Text>
-      <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
-      />
     </LinearGradient>
   );
 }
@@ -25,15 +20,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   title: {
     fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
+    fontWeight: 'bold'
+  }
 });
