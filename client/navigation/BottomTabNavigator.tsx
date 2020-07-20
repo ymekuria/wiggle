@@ -29,7 +29,7 @@ type TabTwoParamList = {
   TabTwoScreen: undefined;
 };
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
-
+// 'rgba(163,175,243,1)', 'rgba(220,182,232,1)';
 export default () => {
   const colorScheme = useColorScheme();
   // headerStyle: { backgroundColor: 'rgba(191,241,236,1)'
@@ -39,9 +39,7 @@ export default () => {
       initialRouteName="TabOne"
       tabBarOptions={{
         activeTintColor: Colors[colorScheme].tint,
-        activeBackgroundColor: 'rgba(180,234,236,.4)'
-        // activeBackgroundColor: 'rgba(197,218,226,1)'
-        // activeBackgroundColor: 'rgba(191,241,236,1)'
+        activeBackgroundColor: 'rgba(247,236,250,.3)'
       }}
       tabBar={(props) => {
         return (
