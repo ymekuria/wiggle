@@ -78,6 +78,10 @@ const TabFourNavigator = () => {
   );
 };
 
+ const TabBarIcon = (props: { name: string; color: string }) {
+  return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
+}
+
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 // 'rgba(163,175,243,1)', 'rgba(220,182,232,1)';
 const BottomTabNavigator: React.FC = () => {
@@ -141,8 +145,5 @@ const BottomTabNavigator: React.FC = () => {
   );
 };
 
-function TabBarIcon(props: { name: string; color: string }) {
-  return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
-}
 
 export default BottomTabNavigator;
