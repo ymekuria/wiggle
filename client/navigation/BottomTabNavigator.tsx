@@ -4,7 +4,7 @@ import {
   BottomTabBar
 } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import { LinearGradient } from 'expo-linear-gradient';
+
 import * as React from 'react';
 
 import Colors from '../constants/Colors';
@@ -13,8 +13,6 @@ import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import TabThreeScreen from '../screens/TabThreeScreen';
 import TabFourScreen from '../screens/TabFourScreen';
-// import BottomTabBar from '../components/BottomTabBar';
-// import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
 
 type BottomTabParamList = {
   TabOne: undefined;
@@ -37,9 +35,52 @@ type TabThreeParamList = {
 type TabFourParamList = {
   TabFourScreen: undefined;
 };
+
+// background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(163,175,243,1) 0%, rgba(220,182,232,1) 100.2% );
+
+const TabOneStack = createStackNavigator<TabOneParamList>();
+
+const TabOneNavigator = () => {
+  return (
+    <TabOneStack.Navigator>
+      <TabOneStack.Screen name="TabOneScreen" component={TabOneScreen} />
+    </TabOneStack.Navigator>
+  );
+};
+
+const TabTwoStack = createStackNavigator<TabTwoParamList>();
+
+const TabTwoNavigator = () => {
+  return (
+    <TabTwoStack.Navigator>
+      <TabTwoStack.Screen name="TabTwoScreen" component={TabTwoScreen} />
+    </TabTwoStack.Navigator>
+  );
+};
+
+const TabThreeStack = createStackNavigator<TabThreeParamList>();
+
+const TabThreeNavigator = () => {
+  return (
+    <TabThreeStack.Navigator>
+      <TabThreeStack.Screen name="TabThreeScreen" component={TabThreeScreen} />
+    </TabThreeStack.Navigator>
+  );
+};
+
+const TabFourStack = createStackNavigator<TabFourParamList>();
+
+const TabFourNavigator = () => {
+  return (
+    <TabFourStack.Navigator>
+      <TabFourStack.Screen name="TabFourScreen" component={TabFourScreen} />
+    </TabFourStack.Navigator>
+  );
+};
+
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 // 'rgba(163,175,243,1)', 'rgba(220,182,232,1)';
-export default () => {
+const BottomTabNavigator: React.FC = () => {
   const colorScheme = useColorScheme();
 
   return (
@@ -80,7 +121,7 @@ export default () => {
       />
       <BottomTab.Screen
         name="TabThree"
-        component={TabThreeScreen}
+        component={TabThreeNavigator}
         options={{
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="ios-code" color={color} />
@@ -89,7 +130,7 @@ export default () => {
       />
       <BottomTab.Screen
         name="TabFour"
-        component={TabFourScreen}
+        component={TabFourNavigator}
         options={{
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="ios-code" color={color} />
@@ -104,24 +145,4 @@ function TabBarIcon(props: { name: string; color: string }) {
   return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
 }
 
-// background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(163,175,243,1) 0%, rgba(220,182,232,1) 100.2% );
-
-const TabOneStack = createStackNavigator<TabOneParamList>();
-
-const TabOneNavigator = () => {
-  return (
-    <TabOneStack.Navigator>
-      <TabOneStack.Screen name="TabOneScreen" component={TabOneScreen} />
-    </TabOneStack.Navigator>
-  );
-};
-
-const TabTwoStack = createStackNavigator<TabTwoParamList>();
-
-function TabTwoNavigator() {
-  return (
-    <TabTwoStack.Navigator>
-      <TabTwoStack.Screen name="TabTwoScreen" component={TabTwoScreen} />
-    </TabTwoStack.Navigator>
-  );
-}
+export default BottomTabNavigator;
