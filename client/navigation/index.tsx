@@ -1,6 +1,7 @@
 import {
   NavigationContainer,
   getFocusedRouteNameFromRoute,
+  RouteProp,
   DefaultTheme,
   DarkTheme
 } from '@react-navigation/native';
@@ -31,7 +32,7 @@ type TabTwoParamList = {
   TabTwoScreen: undefined;
 };
 
-const getHeaderTitle = (route) => {
+const getHeaderTitle = (route: RouteProp<RootStackParamList, 'Root'>) => {
   // If the focused route is not found, we need to assume it's the initial screen
   // This can happen if there hasn't been any navigation inside the screen
   const routeName = getFocusedRouteNameFromRoute(route) ?? 'TabOne';
@@ -49,11 +50,7 @@ const getHeaderTitle = (route) => {
   }
 };
 
-const Navigation: React.FC = ({
-  colorScheme
-}: {
-  colorScheme: ColorSchemeName;
-}) => {
+const Navigation = ({ colorScheme }: { colorScheme: ColorSchemeName }) => {
   return (
     <NavigationContainer
       linking={LinkingConfiguration}

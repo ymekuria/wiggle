@@ -78,9 +78,9 @@ const TabFourNavigator = () => {
   );
 };
 
- const TabBarIcon = (props: { name: string; color: string }) {
+const TabBarIcon = (props: { name: string; color: string }): JSX.Element => {
   return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
-}
+};
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 // 'rgba(163,175,243,1)', 'rgba(220,182,232,1)';
@@ -92,7 +92,8 @@ const BottomTabNavigator: React.FC = () => {
       initialRouteName="TabOne"
       tabBarOptions={{
         activeTintColor: Colors['dark'].tint,
-        activeBackgroundColor: 'rgba(247,236,250,.3)'
+        activeBackgroundColor: 'rgba(247,236,250,.3)',
+        showLabel: false
       }}
       tabBar={(props) => {
         return (
@@ -109,9 +110,7 @@ const BottomTabNavigator: React.FC = () => {
         name="TabOne"
         component={TabOneNavigator}
         options={{
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="ios-code" color={color} />
-          )
+          tabBarIcon: ({ color }) => <TabBarIcon name="ios-add" color={color} />
         }}
       />
       <BottomTab.Screen
@@ -119,7 +118,7 @@ const BottomTabNavigator: React.FC = () => {
         component={TabTwoNavigator}
         options={{
           tabBarIcon: ({ color }) => (
-            <TabBarIcon name="ios-code" color={color} />
+            <TabBarIcon name="ios-calendar" color={color} />
           )
         }}
       />
@@ -128,7 +127,7 @@ const BottomTabNavigator: React.FC = () => {
         component={TabThreeNavigator}
         options={{
           tabBarIcon: ({ color }) => (
-            <TabBarIcon name="ios-code" color={color} />
+            <TabBarIcon name="ios-share" color={color} />
           )
         }}
       />
@@ -137,13 +136,12 @@ const BottomTabNavigator: React.FC = () => {
         component={TabFourNavigator}
         options={{
           tabBarIcon: ({ color }) => (
-            <TabBarIcon name="ios-code" color={color} />
+            <TabBarIcon name="ios-settings" color={color} />
           )
         }}
       />
     </BottomTab.Navigator>
   );
 };
-
 
 export default BottomTabNavigator;
