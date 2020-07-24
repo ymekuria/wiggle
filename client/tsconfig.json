@@ -7,6 +7,15 @@
     "noEmit": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "strict": true
+    "strict": true,
+    "types": [
+      "mathjs",
+      "react",
+      "react-native",
+      "react-native-drawer",
+      "react-native-orientation",
+      "react-navigation",
+      "jest"
+    ]
   }
 }

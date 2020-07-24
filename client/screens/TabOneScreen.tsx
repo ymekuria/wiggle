@@ -1,11 +1,20 @@
-import * as React from 'react';
+import React, { useEffect, use } from 'react';
 import { StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import * as SMS from 'expo-sms';
 
 import { Text, View } from '../components/Themed';
 import _default from '@react-navigation/bottom-tabs/lib/typescript/src/navigators/createBottomTabNavigator';
+// import useIsSMSAvailable from '../hooks/useIsSMSavailable';
 
-const TabOneScreen: React.FC = () => {
+const TabOneScreen = () => {
+  useEffect(() => {
+    async function getSMSstatus() {
+      let isSMSAvailable = await SMS.isAvailableAsync();
+    }
+    getSMSstatus();
+  });
+
   return (
     <LinearGradient
       colors={['rgba(163,175,243,1)', 'rgba(220,182,232,1)']}
