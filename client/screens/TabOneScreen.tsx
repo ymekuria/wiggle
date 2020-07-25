@@ -1,19 +1,14 @@
-import React, { useEffect, use } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as SMS from 'expo-sms';
 
 import { Text, View } from '../components/Themed';
 import _default from '@react-navigation/bottom-tabs/lib/typescript/src/navigators/createBottomTabNavigator';
-// import useIsSMSAvailable from '../hooks/useIsSMSavailable';
+import useIsSMSAvailable from '../hooks/useIsSMSavailable';
 
 const TabOneScreen = () => {
-  useEffect(() => {
-    async function getSMSstatus() {
-      let isSMSAvailable = await SMS.isAvailableAsync();
-    }
-    getSMSstatus();
-  });
+  const isSMSavailable = useIsSMSAvailable();
 
   return (
     <LinearGradient
@@ -21,6 +16,7 @@ const TabOneScreen = () => {
       style={styles.container}
     >
       <Text style={styles.title}>Tab One</Text>
+      <Text style={styles.title}>Can Send SMS {isSMSavailable.toString()}</Text>
     </LinearGradient>
   );
 };

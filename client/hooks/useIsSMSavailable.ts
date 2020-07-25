@@ -1,15 +1,16 @@
 import * as SMS from 'expo-sms';
+import React, { useEffect, useState } from 'react';
 
-export default async () => {
-  async function getSMSstatus() {
-    try {
-      let result = await SMS.isAvailableAsync();
-      // console.log(result);
-      return result;
-    } catch (e) {
-      console.log(e);
+export default (): boolean => {
+  const [isSMSavailable, setIsSMSavailable] = useState(false);
+
+  useEffect(() => {
+    async function getSMSstatus() {
+      let smsStatus = await SMS.isAvailableAsync();
+      setIsSMSavailable(smsStatus);
     }
-  }
-  const smsStatus = await getSMSstatus();
-  return smsStatus;
+    getSMSstatus();
+  });
+
+  return isSMSavailable;
 };
