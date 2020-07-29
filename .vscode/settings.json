@@ -1,4 +1,5 @@
 {
   "prettier.trailingComma": "none",
-  "prettier.useEditorConfig": false
+  "prettier.useEditorConfig": false,
+  "workbench.settings.openDefaultKeybindings": true
 }

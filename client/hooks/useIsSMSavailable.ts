@@ -1,5 +1,5 @@
 import * as SMS from 'expo-sms';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default (): boolean => {
   const [isSMSavailable, setIsSMSavailable] = useState(false);
