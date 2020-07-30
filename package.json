@@ -36,5 +36,8 @@
     "ts-node": "^8.5.4",
     "twilio": "^3.39.4",
     "typescript": "^3.7.4"
+  },
+  "devDependencies": {
+    "@prisma/cli": "^2.3.0"
   }
 }
