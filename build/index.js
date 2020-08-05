@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const mongoose_1 = require("mongoose");
+const apollo_server_express_1 = require("apollo-server-express");
 const passport_1 = __importDefault(require("passport"));
 require("./models/User");
 require("./services/passport");
@@ -20,7 +21,7 @@ mongoose_1.connect(keys_1.mongoURI, {
 mongoose_1.connection.on('connected', () => {
     console.log('Connected to mongo');
 });
-mongoose_1.connection.on('error', err => {
+mongoose_1.connection.on('error', (err) => {
     console.error('Mongo connection error:', err);
 });
 const app = express_1.default();
@@ -30,6 +31,20 @@ app.use(passport_1.default.initialize());
 app.use(routes_1.default);
 app.use(authRoutes_1.default);
 const PORT = process.env.PORT || 3000;
+const typeDefs = apollo_server_express_1.gql `
+  type Query {
+    hello: String
+    test: String
+  }
+`;
+const resolvers = {
+    Query: {
+        hello: () => 'Hello world!',
+        test: () => 'Is this thing on?'
+    }
+};
+const server = new apollo_server_express_1.ApolloServer({ typeDefs, resolvers });
+server.applyMiddleware({ app });
 app.listen(PORT, () => {
-    console.log(`Listening on port ${PORT}`);
+    console.log(`Server ready at http://localhost:${PORT} ${server.graphqlPath}`);
 });

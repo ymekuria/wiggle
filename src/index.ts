@@ -8,6 +8,8 @@ import './services/passport';
 import { mongoURI } from './config/keys';
 import authRouter from './routes/authRoutes';
 import homeRouter from './routes/routes';
+import resolvers from './resolvers';
+import typeDefs from './schema';
 
 connect(mongoURI, {
   useNewUrlParser: true,
@@ -33,21 +35,9 @@ app.use(authRouter);
 
 const PORT = process.env.PORT || 3000;
 
-const typeDefs = gql`
-  type Query {
-    hello: String
-  }
-`;
-
-const resolvers = {
-  Query: {
-    hello: () => 'Hello world!'
-  }
-};
-
 const server = new ApolloServer({ typeDefs, resolvers });
 server.applyMiddleware({ app });
 
 app.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}`);
+  console.log(`Server ready at http://localhost:${PORT} ${server.graphqlPath}`);
 });
