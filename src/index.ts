@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import { connect, connection } from 'mongoose';
+import { ApolloServer, gql } from 'apollo-server-express';
 import passport from 'passport';
 import './models/User';
 import './services/passport';
@@ -18,7 +19,7 @@ connection.on('connected', () => {
   console.log('Connected to mongo');
 });
 
-connection.on('error', err => {
+connection.on('error', (err) => {
   console.error('Mongo connection error:', err);
 });
 
@@ -31,6 +32,21 @@ app.use(homeRouter);
 app.use(authRouter);
 
 const PORT = process.env.PORT || 3000;
+
+const typeDefs = gql`
+  type Query {
+    hello: String
+  }
+`;
+
+const resolvers = {
+  Query: {
+    hello: () => 'Hello world!'
+  }
+};
+
+const server = new ApolloServer({ typeDefs, resolvers });
+server.applyMiddleware({ app });
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
