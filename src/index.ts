@@ -3,8 +3,14 @@ import bodyParser from 'body-parser';
 import { connect, connection } from 'mongoose';
 import { ApolloServer } from 'apollo-server-express';
 import { HttpLink } from 'apollo-link-http';
+// const fetch = require('node-fetch');
 import fetch from 'node-fetch';
-import { introspectSchema, makeRemoteExecutableSchema } from 'graphql-tools';
+import {
+  introspectSchema,
+  makeRemoteExecutableSchema,
+  makeExecutableSchema,
+  addMockFunctionsToSchema
+} from 'graphql-tools';
 import passport from 'passport';
 import './models/User';
 import './services/passport';
@@ -35,6 +41,19 @@ app.use(passport.initialize());
 
 app.use(homeRouter);
 app.use(authRouter);
+
+const link = new HttpLink({ uri: 'https://icanhazdadjoke.com/graphql', fetch });
+
+const schema = await introspectSchema(link);
+
+const executableSchema = makeRemoteExecutableSchema({
+  schema,
+  link
+});
+
+addMockFunctionsToSchema({ schema: executableSchema });
+
+const baseSchema = makeExecutableSchema(typeDefs);
 
 const PORT = process.env.PORT || 3000;
 
