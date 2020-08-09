@@ -1,7 +1,10 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import { connect, connection } from 'mongoose';
-import { ApolloServer, gql } from 'apollo-server-express';
+import { ApolloServer } from 'apollo-server-express';
+import { HttpLink } from 'apollo-link-http';
+import fetch from 'node-fetch';
+import { introspectSchema, makeRemoteExecutableSchema } from 'graphql-tools';
 import passport from 'passport';
 import './models/User';
 import './services/passport';
