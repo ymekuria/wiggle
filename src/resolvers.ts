@@ -1,7 +1,8 @@
 const resolvers = {
   Query: {
     hello: () => 'Hello world!',
-    test: () => 'Is this thing on?'
+    test: () => 'Is this thing on?',
+    one: () => 'hey'
   }
 };
 

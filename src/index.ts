@@ -1,59 +1,59 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import { connect, connection } from 'mongoose';
+// import { connect, connection } from 'mongoose';
 import { ApolloServer } from 'apollo-server-express';
-import { HttpLink } from 'apollo-link-http';
+// import { HttpLink } from 'apollo-link-http';
 // const fetch = require('node-fetch');
-import fetch from 'node-fetch';
-import {
-  introspectSchema,
-  makeRemoteExecutableSchema,
-  makeExecutableSchema,
-  addMockFunctionsToSchema
-} from 'graphql-tools';
-import passport from 'passport';
-import './models/User';
-import './services/passport';
-import { mongoURI } from './config/keys';
+// import fetch from 'node-fetch';
+// import {
+//   introspectSchema,
+//   makeRemoteExecutableSchema,
+//   makeExecutableSchema,
+//   addMockFunctionsToSchema
+// // } from 'graphql-tools';
+// import passport from 'passport';
+// import './models/User';
+// import './services/passport';
+// import { mongoURI } from './config/keys';
 import authRouter from './routes/authRoutes';
 import homeRouter from './routes/routes';
 import resolvers from './resolvers';
 import typeDefs from './schema';
 
-connect(mongoURI, {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useUnifiedTopology: true
-});
+// connect(mongoURI, {
+//   useNewUrlParser: true,
+//   useCreateIndex: true,
+//   useUnifiedTopology: true
+// });
 
-connection.on('connected', () => {
-  console.log('Connected to mongo');
-});
+// connection.on('connected', () => {
+//   console.log('Connected to mongo');
+// });
 
-connection.on('error', (err) => {
-  console.error('Mongo connection error:', err);
-});
+// connection.on('error', (err) => {
+//   console.error('Mongo connection error:', err);
+// });
 
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(passport.initialize());
+// app.use(passport.initialize());
 
-app.use(homeRouter);
-app.use(authRouter);
+// app.use(homeRouter);
+// app.use(authRouter);
 
-const link = new HttpLink({ uri: 'https://icanhazdadjoke.com/graphql', fetch });
+// const link = new HttpLink({ uri: 'https://icanhazdadjoke.com/graphql', fetch });
 
-const schema = await introspectSchema(link);
+// const schema = await introspectSchema(link);
 
-const executableSchema = makeRemoteExecutableSchema({
-  schema,
-  link
-});
+// const executableSchema = makeRemoteExecutableSchema({
+//   schema,
+//   link
+// });
 
-addMockFunctionsToSchema({ schema: executableSchema });
+// addMockFunctionsToSchema({ schema: executableSchema });
 
-const baseSchema = makeExecutableSchema(typeDefs);
+// const baseSchema = makeExecutableSchema(typeDefs);
 
 const PORT = process.env.PORT || 3000;
 
@@ -61,5 +61,5 @@ const server = new ApolloServer({ typeDefs, resolvers });
 server.applyMiddleware({ app });
 
 app.listen(PORT, () => {
-  console.log(`Server ready at http://localhost:${PORT} ${server.graphqlPath}`);
+  console.log(`Server ready at http://localhost:${PORT}${server.graphqlPath}`);
 });

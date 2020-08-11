@@ -4,6 +4,7 @@ const typeDefs = gql`
   type Query {
     hello: String
     test: String
+    one: String
   }
 `;
 
