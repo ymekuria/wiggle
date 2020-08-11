@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -7,6 +16,8 @@ const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
 // import { connect, connection } from 'mongoose';
 const apollo_server_express_1 = require("apollo-server-express");
+const apollo_link_http_1 = require("apollo-link-http");
+const fetch = require('node-fetch');
 const resolvers_1 = __importDefault(require("./resolvers"));
 const schema_1 = __importDefault(require("./schema"));
 // connect(mongoURI, {
@@ -26,17 +37,30 @@ app.use(body_parser_1.default.urlencoded({ extended: true }));
 // app.use(passport.initialize());
 // app.use(homeRouter);
 // app.use(authRouter);
-// const link = new HttpLink({ uri: 'https://icanhazdadjoke.com/graphql', fetch });
-// const schema = await introspectSchema(link);
-// const executableSchema = makeRemoteExecutableSchema({
-//   schema,
-//   link
-// });
-// addMockFunctionsToSchema({ schema: executableSchema });
-// const baseSchema = makeExecutableSchema(typeDefs);
-const PORT = process.env.PORT || 3000;
-const server = new apollo_server_express_1.ApolloServer({ typeDefs: schema_1.default, resolvers: resolvers_1.default });
-server.applyMiddleware({ app });
-app.listen(PORT, () => {
-    console.log(`Server ready at http://localhost:${PORT}${server.graphqlPath}`);
+const link = new apollo_link_http_1.HttpLink({ uri: 'https://icanhazdadjoke.com/graphql', fetch });
+const createRemoteExecutableSchema = () => __awaiter(void 0, void 0, void 0, function* () {
+    const remoteSchema = yield apollo_server_express_1.introspectSchema(link);
+    const remoteExecutableSchema = apollo_server_express_1.makeRemoteExecutableSchema({
+        schema: remoteSchema,
+        link
+    });
+    return remoteExecutableSchema;
 });
+const createNewSchema = () => __awaiter(void 0, void 0, void 0, function* () {
+    const schema1 = yield createRemoteExecutableSchema();
+    const mergedSchema = apollo_server_express_1.mergeSchemas({
+        schemas: [schema_1.default, schema1],
+        resolvers: resolvers_1.default
+    });
+    return mergedSchema;
+});
+const runServer = () => __awaiter(void 0, void 0, void 0, function* () {
+    const PORT = process.env.PORT || 3000;
+    const schema = yield createNewSchema();
+    const server = new apollo_server_express_1.ApolloServer({ schema });
+    server.applyMiddleware({ app });
+    app.listen(PORT, () => {
+        console.log(`Server ready at http://localhost:${PORT}${server.graphqlPath}`);
+    });
+});
+runServer();

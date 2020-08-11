@@ -1,9 +1,14 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 // import { connect, connection } from 'mongoose';
-import { ApolloServer } from 'apollo-server-express';
-// import { HttpLink } from 'apollo-link-http';
-// const fetch = require('node-fetch');
+import {
+  ApolloServer,
+  introspectSchema,
+  makeRemoteExecutableSchema,
+  mergeSchemas
+} from 'apollo-server-express';
+import { HttpLink } from 'apollo-link-http';
+const fetch = require('node-fetch');
 // import fetch from 'node-fetch';
 // import {
 //   introspectSchema,
@@ -42,24 +47,37 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(homeRouter);
 // app.use(authRouter);
 
-// const link = new HttpLink({ uri: 'https://icanhazdadjoke.com/graphql', fetch });
+const link = new HttpLink({ uri: 'https://icanhazdadjoke.com/graphql', fetch });
 
-// const schema = await introspectSchema(link);
+const createRemoteExecutableSchema = async () => {
+  const remoteSchema = await introspectSchema(link);
+  const remoteExecutableSchema = makeRemoteExecutableSchema({
+    schema: remoteSchema,
+    link
+  });
+  return remoteExecutableSchema;
+};
 
-// const executableSchema = makeRemoteExecutableSchema({
-//   schema,
-//   link
-// });
+const createNewSchema = async () => {
+  const schema1 = await createRemoteExecutableSchema();
+  const mergedSchema = mergeSchemas({
+    schemas: [typeDefs, schema1],
+    resolvers
+  });
+  return mergedSchema;
+};
 
-// addMockFunctionsToSchema({ schema: executableSchema });
+const runServer = async () => {
+  const PORT = process.env.PORT || 3000;
+  const schema = await createNewSchema();
+  const server = new ApolloServer({ schema });
+  server.applyMiddleware({ app });
 
-// const baseSchema = makeExecutableSchema(typeDefs);
+  app.listen(PORT, () => {
+    console.log(
+      `Server ready at http://localhost:${PORT}${server.graphqlPath}`
+    );
+  });
+};
 
-const PORT = process.env.PORT || 3000;
-
-const server = new ApolloServer({ typeDefs, resolvers });
-server.applyMiddleware({ app });
-
-app.listen(PORT, () => {
-  console.log(`Server ready at http://localhost:${PORT}${server.graphqlPath}`);
-});
+runServer();
