@@ -8,8 +8,9 @@ import {
   mergeSchemas
 } from 'apollo-server-express';
 import { HttpLink } from 'apollo-link-http';
-const fetch = require('node-fetch');
+// const fetch = require('node-fetch');
 // import fetch from 'node-fetch';
+import fetch from 'cross-fetch';
 // import {
 //   introspectSchema,
 //   makeRemoteExecutableSchema,

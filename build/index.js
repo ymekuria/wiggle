@@ -17,7 +17,9 @@ const body_parser_1 = __importDefault(require("body-parser"));
 // import { connect, connection } from 'mongoose';
 const apollo_server_express_1 = require("apollo-server-express");
 const apollo_link_http_1 = require("apollo-link-http");
-const fetch = require('node-fetch');
+// const fetch = require('node-fetch');
+// import fetch from 'node-fetch';
+const cross_fetch_1 = __importDefault(require("cross-fetch"));
 const resolvers_1 = __importDefault(require("./resolvers"));
 const schema_1 = __importDefault(require("./schema"));
 // connect(mongoURI, {
@@ -37,7 +39,7 @@ app.use(body_parser_1.default.urlencoded({ extended: true }));
 // app.use(passport.initialize());
 // app.use(homeRouter);
 // app.use(authRouter);
-const link = new apollo_link_http_1.HttpLink({ uri: 'https://icanhazdadjoke.com/graphql', fetch });
+const link = new apollo_link_http_1.HttpLink({ uri: 'https://icanhazdadjoke.com/graphql', fetch: cross_fetch_1.default });
 const createRemoteExecutableSchema = () => __awaiter(void 0, void 0, void 0, function* () {
     const remoteSchema = yield apollo_server_express_1.introspectSchema(link);
     const remoteExecutableSchema = apollo_server_express_1.makeRemoteExecutableSchema({
