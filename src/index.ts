@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 // import { connect, connection } from 'mongoose';
 import { ApolloServer } from 'apollo-server-express';
+import DogAPI from './dataSources/DogAPI';
 import createMergedSchema from './schema';
 // import fetch from 'node-fetch';
 import fetch from 'cross-fetch';
@@ -37,7 +38,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const PORT = process.env.PORT || 3000;
 const runServer = async () => {
   const schema = await createMergedSchema();
-  const server = new ApolloServer({ schema });
+  const server = new ApolloServer({
+    schema,
+    dataSources: () => ({
+      dogAPI: new DogAPI()
+    })
+  });
   server.applyMiddleware({ app });
   return app.listen(PORT);
 };
