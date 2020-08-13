@@ -17,6 +17,12 @@ const body_parser_1 = __importDefault(require("body-parser"));
 // import { connect, connection } from 'mongoose';
 const apollo_server_express_1 = require("apollo-server-express");
 const schema_1 = __importDefault(require("./schema"));
+// import passport from 'passport';
+// import './models/User';
+// import './services/passport';
+// import { mongoURI } from './config/keys';
+// import authRouter from './routes/authRoutes';
+// import homeRouter from './routes/routes';
 // connect(mongoURI, {
 //   useNewUrlParser: true,
 //   useCreateIndex: true,
@@ -39,13 +45,8 @@ const runServer = () => __awaiter(void 0, void 0, void 0, function* () {
     const schema = yield schema_1.default();
     const server = new apollo_server_express_1.ApolloServer({ schema });
     server.applyMiddleware({ app });
-    app.listen(PORT, () => {
-        console.log(`Server ready at http://localhost:${PORT}${server.graphqlPath}`);
-    });
+    return app.listen(PORT);
 });
-try {
-    runServer();
-}
-catch (e) {
-    console.log('Error', e);
-}
+runServer().then(() => {
+    console.log(`Server ready at http://localhost:${PORT}/graphql`);
+});

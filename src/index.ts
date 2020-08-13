@@ -1,24 +1,16 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 // import { connect, connection } from 'mongoose';
-import {
-  ApolloServer,
-  introspectSchema,
-  makeRemoteExecutableSchema,
-  addMockFunctionsToSchema,
-  mergeSchemas
-} from 'apollo-server-express';
-import { HttpLink } from 'apollo-link-http';
+import { ApolloServer } from 'apollo-server-express';
 import createMergedSchema from './schema';
-// const fetch = require('node-fetch');
 // import fetch from 'node-fetch';
 import fetch from 'cross-fetch';
 // import passport from 'passport';
 // import './models/User';
 // import './services/passport';
 // import { mongoURI } from './config/keys';
-import authRouter from './routes/authRoutes';
-import homeRouter from './routes/routes';
+// import authRouter from './routes/authRoutes';
+// import homeRouter from './routes/routes';
 
 // connect(mongoURI, {
 //   useNewUrlParser: true,
@@ -47,16 +39,9 @@ const runServer = async () => {
   const schema = await createMergedSchema();
   const server = new ApolloServer({ schema });
   server.applyMiddleware({ app });
-
-  app.listen(PORT, () => {
-    console.log(
-      `Server ready at http://localhost:${PORT}${server.graphqlPath}`
-    );
-  });
+  return app.listen(PORT);
 };
 
-try {
-  runServer();
-} catch (e) {
-  console.log('Error', e);
-}
+runServer().then(() => {
+  console.log(`Server ready at http://localhost:${PORT}/graphql`);
+});
