@@ -6,9 +6,13 @@ class DogAPI extends RESTDataSource {
     this.baseURL = 'https://dog.ceo/api/';
   }
 
-  async getRandomDogPic() {
-    const response = await this.get('/breeds/image/random');
-    return response;
+  async getDogPic() {
+    try {
+      const { message } = await this.get('/breeds/image/random');
+      return { picture: message };
+    } catch (error) {
+      return error.message;
+    }
   }
 }
 

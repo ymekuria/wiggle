@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import { ApolloServer } from 'apollo-server-express';
 import DogAPI from './dataSources/DogAPI';
 import createMergedSchema from './schema';
+import resolvers from './resolvers';
 // import fetch from 'node-fetch';
 import fetch from 'cross-fetch';
 // import passport from 'passport';
@@ -40,9 +41,10 @@ const runServer = async () => {
   const schema = await createMergedSchema();
   const server = new ApolloServer({
     schema,
-    dataSources: () => ({
-      dogAPI: new DogAPI()
-    })
+    resolvers,
+    dataSources: () => {
+      return { dogAPI: new DogAPI() };
+    }
   });
   server.applyMiddleware({ app });
   return app.listen(PORT);

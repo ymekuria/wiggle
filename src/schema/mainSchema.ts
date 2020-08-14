@@ -4,7 +4,11 @@ const mainSchema = gql`
   type Query {
     hello: String
     test: String
-    one: String
+    dogPic: DogPic
+  }
+
+  type DogPic {
+    picture: String
   }
 `;
 

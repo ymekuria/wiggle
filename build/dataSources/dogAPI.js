@@ -15,10 +15,15 @@ class DogAPI extends apollo_datasource_rest_1.RESTDataSource {
         super();
         this.baseURL = 'https://dog.ceo/api/';
     }
-    getRandomDogPic() {
+    getDogPic() {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield this.get('/breeds/image/random');
-            return response;
+            try {
+                const { message } = yield this.get('/breeds/image/random');
+                return { picture: message };
+            }
+            catch (error) {
+                return error.message;
+            }
         });
     }
 }

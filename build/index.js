@@ -18,6 +18,7 @@ const body_parser_1 = __importDefault(require("body-parser"));
 const apollo_server_express_1 = require("apollo-server-express");
 const DogAPI_1 = __importDefault(require("./dataSources/DogAPI"));
 const schema_1 = __importDefault(require("./schema"));
+const resolvers_1 = __importDefault(require("./resolvers"));
 // import passport from 'passport';
 // import './models/User';
 // import './services/passport';
@@ -46,9 +47,10 @@ const runServer = () => __awaiter(void 0, void 0, void 0, function* () {
     const schema = yield schema_1.default();
     const server = new apollo_server_express_1.ApolloServer({
         schema,
-        dataSources: () => ({
-            dogAPI: new DogAPI_1.default()
-        })
+        resolvers: resolvers_1.default,
+        dataSources: () => {
+            return { dogAPI: new DogAPI_1.default() };
+        }
     });
     server.applyMiddleware({ app });
     return app.listen(PORT);
