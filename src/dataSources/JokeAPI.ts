@@ -1,4 +1,4 @@
-import { RESTDataSource } from 'apollo-datasource-rest';
+import { RESTDataSource, RequestOptions } from 'apollo-datasource-rest';
 type singleJoke = {
   id: string;
   joke: string;
@@ -15,10 +15,13 @@ class JokeAPI extends RESTDataSource {
     super();
     this.baseURL = 'https://icanhazdadjoke.com/';
   }
-
+  willSendRequest(request: RequestOptions) {
+    request.headers.set('Accept', 'application/json');
+  }
   async getRandomJoke(): Promise<singleJokeResponse> {
     try {
       const result = await this.get('/');
+      console.log(result);
       return result;
     } catch (error) {
       return error.message;

@@ -15,10 +15,14 @@ class JokeAPI extends apollo_datasource_rest_1.RESTDataSource {
         super();
         this.baseURL = 'https://icanhazdadjoke.com/';
     }
+    willSendRequest(request) {
+        request.headers.set('Accept', 'application/json');
+    }
     getRandomJoke() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const result = yield this.get('/');
+                console.log(result);
                 return result;
             }
             catch (error) {
