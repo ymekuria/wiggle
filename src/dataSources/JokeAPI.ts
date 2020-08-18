@@ -25,7 +25,7 @@ class JokeAPI extends RESTDataSource {
   }
   async getMultipleRandomJokes(): Promise<multipleJokes> {
     try {
-      const { results } = await this.get('/search');
+      const { results } = await this.get('/search?limit=5');
 
       return results;
     } catch (error) {

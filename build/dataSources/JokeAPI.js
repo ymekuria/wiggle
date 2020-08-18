@@ -33,7 +33,7 @@ class JokeAPI extends apollo_datasource_rest_1.RESTDataSource {
     getMultipleRandomJokes() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const { results } = yield this.get('/search');
+                const { results } = yield this.get('/search?limit=5');
                 return results;
             }
             catch (error) {
