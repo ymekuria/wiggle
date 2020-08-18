@@ -5,7 +5,8 @@ const mainSchema = apollo_server_express_1.gql `
   type Query {
     hello: String
     test: String
-    dogPic: DogPic
+    randomDogPic: DogPic
+    threeRandomDogPics: [DogPic]
   }
 
   type DogPic {

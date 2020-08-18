@@ -3,6 +3,10 @@ import { RESTDataSource, RequestOptions } from 'apollo-datasource-rest';
 type singleDogResponse = {
   picture: string;
 };
+
+type threeRandomDogsResponse = {
+  pictures: singleDogResponse[];
+};
 class DogAPI extends RESTDataSource {
   constructor() {
     super();
@@ -13,6 +17,14 @@ class DogAPI extends RESTDataSource {
     try {
       const { message } = await this.get('/breeds/image/random');
       return { picture: message };
+    } catch (error) {
+      return error.message;
+    }
+  }
+  async getThreeRandomDogPics(): Promise<threeRandomDogsResponse> {
+    try {
+      const { message } = await this.get('/breeds/image/random/3');
+      return { pictures: message };
     } catch (error) {
       return error.message;
     }

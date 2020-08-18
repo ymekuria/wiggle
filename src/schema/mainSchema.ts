@@ -4,7 +4,8 @@ const mainSchema = gql`
   type Query {
     hello: String
     test: String
-    dogPic: DogPic
+    randomDogPic: DogPic
+    threeRandomDogPics: [DogPic]
   }
 
   type DogPic {

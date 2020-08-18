@@ -1,6 +1,6 @@
 const resolvers = {
   Query: {
-    dogPic: (_parent, _args, { dataSources }) => {
+    dogPic: (_parent: any, _args: any, { dataSources }: any) => {
       return dataSources.dogAPI.getRandomDogPic();
     },
     hello: () => 'Hello world!',
