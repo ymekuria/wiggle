@@ -3,7 +3,9 @@ import bodyParser from 'body-parser';
 // import { connect, connection } from 'mongoose';
 import { ApolloServer } from 'apollo-server-express';
 import DogAPI from './dataSources/DogAPI';
+import JokeAPI from './dataSources/JokeAPI';
 import createMergedSchema from './schema';
+import mainSchema from './schema/mainSchema';
 import resolvers from './resolvers';
 // import fetch from 'node-fetch';
 import fetch from 'cross-fetch';
@@ -37,19 +39,33 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(authRouter);
 
 const PORT = process.env.PORT || 3000;
-const runServer = async () => {
-  const schema = await createMergedSchema();
-  const server = new ApolloServer({
-    schema,
-    resolvers,
-    dataSources: () => {
-      return { dogAPI: new DogAPI() };
-    }
-  });
-  server.applyMiddleware({ app });
-  return app.listen(PORT);
-};
+// const runServer = async () => {
+//   const schema = await createMergedSchema();
+//   const server = new ApolloServer({
+//     schema,
+//     resolvers,
+//     dataSources: () => {
+//       return { dogAPI: new DogAPI() };
+//     }
+//   });
+//   server.applyMiddleware({ app });
+//   return app.listen(PORT);
+// };
 
-runServer().then(() => {
+// runServer().then(() => {
+//   console.log(`Server ready at http://localhost:${PORT}/graphql`);
+// });
+
+const server = new ApolloServer({
+  typeDefs: mainSchema,
+  resolvers,
+  dataSources: () => {
+    return { dogAPI: new DogAPI(), jokeAPI: new JokeAPI() };
+  }
+});
+
+server.applyMiddleware({ app });
+
+app.listen(PORT, () => {
   console.log(`Server ready at http://localhost:${PORT}/graphql`);
 });
