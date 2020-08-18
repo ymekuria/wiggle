@@ -4,12 +4,8 @@ type singleJoke = {
   joke: string;
 };
 
-type singleJokeResponse = singleJoke & { status: string };
+type multipleJokes = singleJoke[];
 
-type multipleJokesResponse = {
-  jokes: singleJoke[];
-  status: string;
-};
 class JokeAPI extends RESTDataSource {
   constructor() {
     super();
@@ -18,11 +14,20 @@ class JokeAPI extends RESTDataSource {
   willSendRequest(request: RequestOptions) {
     request.headers.set('Accept', 'application/json');
   }
-  async getRandomJoke(): Promise<singleJokeResponse> {
+  async getRandomJoke(): Promise<singleJoke> {
     try {
       const result = await this.get('/');
       console.log(result);
       return result;
+    } catch (error) {
+      return error.message;
+    }
+  }
+  async getMultipleRandomJokes(): Promise<multipleJokes> {
+    try {
+      const { results } = await this.get('/search');
+
+      return results;
     } catch (error) {
       return error.message;
     }

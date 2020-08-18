@@ -9,6 +9,9 @@ const resolvers = {
     randomJoke: (_parent: any, _args: any, { dataSources }: any) => {
       return dataSources.jokeAPI.getRandomJoke();
     },
+    multipleRandomJokes: (_parent: any, _args: any, { dataSources }: any) => {
+      return dataSources.jokeAPI.getMultipleRandomJokes();
+    },
 
     hello: () => 'Hello world!',
     test: () => 'Is this thing on?'

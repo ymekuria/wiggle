@@ -30,5 +30,16 @@ class JokeAPI extends apollo_datasource_rest_1.RESTDataSource {
             }
         });
     }
+    getMultipleRandomJokes() {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { results } = yield this.get('/search');
+                return results;
+            }
+            catch (error) {
+                return error.message;
+            }
+        });
+    }
 }
 exports.default = JokeAPI;

@@ -11,6 +11,9 @@ const resolvers = {
         randomJoke: (_parent, _args, { dataSources }) => {
             return dataSources.jokeAPI.getRandomJoke();
         },
+        multipleRandomJokes: (_parent, _args, { dataSources }) => {
+            return dataSources.jokeAPI.getMultipleRandomJokes();
+        },
         hello: () => 'Hello world!',
         test: () => 'Is this thing on?'
     }

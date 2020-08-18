@@ -8,6 +8,7 @@ const mainSchema = apollo_server_express_1.gql `
     randomDogPic: DogPic
     threeRandomDogPics: ThreeDogPics
     randomJoke: Joke
+    multipleRandomJokes: [Joke]
   }
 
   type Joke {
