@@ -6,6 +6,7 @@ const resolvers = {
     threeRandomDogPics: (_parent: any, _args: any, { dataSources }: any) => {
       return dataSources.dogAPI.getThreeRandomDogPics();
     },
+
     hello: () => 'Hello world!',
     test: () => 'Is this thing on?'
   }

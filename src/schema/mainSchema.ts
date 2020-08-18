@@ -6,8 +6,13 @@ const mainSchema = gql`
     test: String
     randomDogPic: DogPic
     threeRandomDogPics: ThreeDogPics
+    randomJoke: Joke
   }
 
+  type Joke {
+    id: ID
+    joke: String
+  }
   type DogPic {
     picture: String
   }
