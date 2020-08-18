@@ -28,8 +28,9 @@ class DogAPI extends apollo_datasource_rest_1.RESTDataSource {
     }
     getThreeRandomDogPics() {
         return __awaiter(this, void 0, void 0, function* () {
+            debugger;
             try {
-                const { message } = yield this.get('/breeds/image/random/3');
+                const { message } = yield this.get('breeds/image/random/3');
                 return { pictures: message };
             }
             catch (error) {

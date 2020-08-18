@@ -6,11 +6,14 @@ const mainSchema = apollo_server_express_1.gql `
     hello: String
     test: String
     randomDogPic: DogPic
-    threeRandomDogPics: [DogPic]
+    threeRandomDogPics: ThreeDogPics
   }
 
   type DogPic {
     picture: String
+  }
+  type ThreeDogPics {
+    pictures: [String]
   }
 `;
 exports.default = mainSchema;

@@ -5,11 +5,14 @@ const mainSchema = gql`
     hello: String
     test: String
     randomDogPic: DogPic
-    threeRandomDogPics: [DogPic]
+    threeRandomDogPics: ThreeDogPics
   }
 
   type DogPic {
     picture: String
+  }
+  type ThreeDogPics {
+    pictures: [String]
   }
 `;
 
