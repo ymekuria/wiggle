@@ -20,7 +20,7 @@ authRouter.get(
 authRouter.get(
   '/auth/google/cb',
   passport.authenticate('google', { failureRedirect: '/login' }),
-  function(req, res) {
+  function (req: Request, res: Response) {
     res.redirect('/');
   }
 );

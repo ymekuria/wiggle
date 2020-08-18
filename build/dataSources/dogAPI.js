@@ -15,7 +15,7 @@ class DogAPI extends apollo_datasource_rest_1.RESTDataSource {
         super();
         this.baseURL = 'https://dog.ceo/api/';
     }
-    getDogPic() {
+    getRandomDogPic() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { message } = yield this.get('/breeds/image/random');
