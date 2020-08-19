@@ -22,7 +22,6 @@ class JokeAPI extends RESTDataSource {
     } catch (error) {
       return error.message;
     }
-    return [];
   }
 
   async getRandomJoke(): Promise<singleJoke> {

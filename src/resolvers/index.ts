@@ -6,6 +6,13 @@ const resolvers = {
     threeRandomDogPics: (_parent: any, _args: any, { dataSources }: any) => {
       return dataSources.dogAPI.getThreeRandomDogPics();
     },
+    searchJokes: (
+      _parent: any,
+      { term }: { term: string },
+      { dataSources }: any
+    ) => {
+      return dataSources.jokeAPI.searchJokes(term);
+    },
     randomJoke: (_parent: any, _args: any, { dataSources }: any) => {
       return dataSources.jokeAPI.getRandomJoke();
     },

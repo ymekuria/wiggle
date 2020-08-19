@@ -8,6 +8,9 @@ const resolvers = {
         threeRandomDogPics: (_parent, _args, { dataSources }) => {
             return dataSources.dogAPI.getThreeRandomDogPics();
         },
+        searchJokes: (_parent, { term }, { dataSources }) => {
+            return dataSources.jokeAPI.searchJokes(term);
+        },
         randomJoke: (_parent, _args, { dataSources }) => {
             return dataSources.jokeAPI.getRandomJoke();
         },

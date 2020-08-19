@@ -27,7 +27,6 @@ class JokeAPI extends apollo_datasource_rest_1.RESTDataSource {
             catch (error) {
                 return error.message;
             }
-            return [];
         });
     }
     getRandomJoke() {
