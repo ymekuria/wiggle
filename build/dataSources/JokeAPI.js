@@ -21,8 +21,8 @@ class JokeAPI extends apollo_datasource_rest_1.RESTDataSource {
     searchJokes(term) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const { result } = yield this.get(`/search?term=${term}`);
-                return result;
+                const { results } = yield this.get(`/search?limit=5&term=${term}`);
+                return results;
             }
             catch (error) {
                 return error.message;
