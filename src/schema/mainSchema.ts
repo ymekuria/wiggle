@@ -7,6 +7,7 @@ const mainSchema = gql`
     randomDogPic: DogPic
     threeRandomDogPics: ThreeDogPics
     randomJoke: Joke
+    searchJokes(term: String): [Joke]
     multipleRandomJokes: [Joke]
   }
 

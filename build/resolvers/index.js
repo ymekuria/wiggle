@@ -16,9 +16,7 @@ const resolvers = {
         },
         multipleRandomJokes: (_parent, _args, { dataSources }) => {
             return dataSources.jokeAPI.getMultipleRandomJokes();
-        },
-        hello: () => 'Hello world!',
-        test: () => 'Is this thing on?'
+        }
     }
 };
 exports.default = resolvers;
