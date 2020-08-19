@@ -15,6 +15,16 @@ class JokeAPI extends RESTDataSource {
     request.headers.set('Accept', 'application/json');
   }
 
+  async searchJokes(term: string): Promise<multipleJokes> {
+    try {
+      const { result } = await this.get(`/search?term=${term}`);
+      return result;
+    } catch (error) {
+      return error.message;
+    }
+    return [];
+  }
+
   async getRandomJoke(): Promise<singleJoke> {
     try {
       const result = await this.get('/');
