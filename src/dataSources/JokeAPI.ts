@@ -1,4 +1,5 @@
 import { RESTDataSource, RequestOptions } from 'apollo-datasource-rest';
+
 type singleJoke = {
   id: string;
   joke: string;
@@ -15,19 +16,18 @@ class JokeAPI extends RESTDataSource {
     request.headers.set('Accept', 'application/json');
   }
 
-  async searchJokes(term: string): Promise<multipleJokes> {
-    try {
-      const { results } = await this.get(`/search?limit=5&term=${term}`);
-      return results;
-    } catch (error) {
-      return error.message;
-    }
-  }
-
   async getRandomJoke(): Promise<singleJoke> {
     try {
       const result = await this.get('/');
       return result;
+    } catch (error) {
+      return error.message;
+    }
+  }
+  async searchJokes(term: string): Promise<multipleJokes> {
+    try {
+      const { results } = await this.get(`/search?limit=5&term=${term}`);
+      return results;
     } catch (error) {
       return error.message;
     }

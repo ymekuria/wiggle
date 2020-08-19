@@ -18,22 +18,22 @@ class JokeAPI extends apollo_datasource_rest_1.RESTDataSource {
     willSendRequest(request) {
         request.headers.set('Accept', 'application/json');
     }
-    searchJokes(term) {
+    getRandomJoke() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const { results } = yield this.get(`/search?limit=5&term=${term}`);
-                return results;
+                const result = yield this.get('/');
+                return result;
             }
             catch (error) {
                 return error.message;
             }
         });
     }
-    getRandomJoke() {
+    searchJokes(term) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const result = yield this.get('/');
-                return result;
+                const { results } = yield this.get(`/search?limit=5&term=${term}`);
+                return results;
             }
             catch (error) {
                 return error.message;
