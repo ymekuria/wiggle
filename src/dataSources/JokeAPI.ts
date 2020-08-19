@@ -14,19 +14,22 @@ class JokeAPI extends RESTDataSource {
   willSendRequest(request: RequestOptions) {
     request.headers.set('Accept', 'application/json');
   }
+
   async getRandomJoke(): Promise<singleJoke> {
     try {
       const result = await this.get('/');
-      console.log(result);
       return result;
     } catch (error) {
       return error.message;
     }
   }
-  async getMultipleRandomJokes(): Promise<multipleJokes> {
-    try {
-      const { results } = await this.get('/search?limit=5');
 
+  async getMultipleRandomJokes(): Promise<multipleJokes> {
+    const randomPage = Math.floor(Math.random() * 130) + 1;
+
+    try {
+      // returns 5 random results
+      const { results } = await this.get(`/search?limit=5&page=${randomPage}`);
       return results;
     } catch (error) {
       return error.message;

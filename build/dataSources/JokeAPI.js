@@ -22,7 +22,6 @@ class JokeAPI extends apollo_datasource_rest_1.RESTDataSource {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const result = yield this.get('/');
-                console.log(result);
                 return result;
             }
             catch (error) {
@@ -32,8 +31,10 @@ class JokeAPI extends apollo_datasource_rest_1.RESTDataSource {
     }
     getMultipleRandomJokes() {
         return __awaiter(this, void 0, void 0, function* () {
+            const randomPage = Math.floor(Math.random() * 130) + 1;
             try {
-                const { results } = yield this.get('/search?limit=5');
+                // returns 5 random results
+                const { results } = yield this.get(`/search?limit=5&page=${randomPage}`);
                 return results;
             }
             catch (error) {
