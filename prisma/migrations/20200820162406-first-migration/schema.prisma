@@ -1,0 +1,37 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url = "***"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id       Int      @id @default(autoincrement())
+  userName String   @unique
+  wiggles  Wiggle[]
+
+}
+
+model Wiggle {
+  id   Int  @id @default(autoincrement())
+  user User @relation(fields: [userId], references: [id])
+
+  schedule  String // change to enum once all permutations are determined
+  // add message type
+  contact   Contact @relation(fields: [contactId], references: [id])
+  userId    Int
+  contactId Int
+}
+
+model Contact {
+  id          Int     @id @default(autoincrement())
+  name        String?
+  phoneNumber String
+
+  Wiggle Wiggle[]
+}
