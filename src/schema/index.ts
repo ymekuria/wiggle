@@ -1,15 +1,26 @@
-import { mergeSchemas } from 'apollo-server-express';
-import resolvers from '../resolvers';
-import mainSchema from './mainSchema';
-import createJokeSchema from './jokeSchema';
+import { gql } from 'apollo-server-express';
 
-const createMergedSchema = async () => {
-  const jokeSchema = await createJokeSchema();
-  const mergedSchema = mergeSchemas({
-    schemas: [mainSchema, jokeSchema],
-    resolvers
-  });
-  return mergedSchema;
-};
+const mainSchema = gql`
+  type Query {
+    hello: String
+    test: String
+    randomDogPic: DogPic
+    threeRandomDogPics: ThreeDogPics
+    randomJoke: Joke
+    searchJokes(term: String): [Joke]
+    multipleRandomJokes: [Joke]
+  }
 
-export default createMergedSchema;
+  type Joke {
+    id: ID
+    joke: String
+  }
+  type DogPic {
+    picture: String
+  }
+  type ThreeDogPics {
+    pictures: [String]
+  }
+`;
+
+export default mainSchema;

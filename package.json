@@ -15,6 +15,7 @@
   "author": "Yoni Mekuria",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "^2.5.1",
     "@types/body-parser": "^1.17.1",
     "@types/cookie-session": "^2.0.37",
     "@types/express": "github:types/express",

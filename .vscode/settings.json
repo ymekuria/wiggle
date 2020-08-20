@@ -1,5 +1,10 @@
 {
   "prettier.trailingComma": "none",
   "prettier.useEditorConfig": false,
-  "workbench.settings.openDefaultKeybindings": true
+  "workbench.settings.openDefaultKeybindings": true,
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/.hg/store/**": true
+  }
 }
