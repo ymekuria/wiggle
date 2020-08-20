@@ -11,6 +11,16 @@ generator client {
 }
 
 model User {
-  id Int @id @default(autoincrement())
+  id       Int      @id @default(autoincrement())
+  userName String   @unique
+  wiggles  Wiggle[]
 
+}
+
+model Wiggle {
+  id       Int    @id @default(autoincrement())
+  user     User?  @relation(fields: [userId], references: [id])
+  userId   Int?
+  schedule String // change to enum once all permutations are determined
+  // add message type
 }
