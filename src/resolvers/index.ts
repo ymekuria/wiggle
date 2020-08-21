@@ -26,14 +26,13 @@ const resolvers = {
     }
   },
   Mutation: {
-    createUser: async (
-      _parent: any,
-      { userName }: { userName: string },
-      { prisma }: PrismaContext
-    ) => {
-      const newUser = prisma.user.create({
-        data: { userName }
+    createUser: async (_parent: any, args: any, { prisma }: PrismaContext) => {
+      const newUser = await prisma.user.create({
+        data: {
+          username: args.userName
+        }
       });
+      return newUser;
     }
   }
 };
