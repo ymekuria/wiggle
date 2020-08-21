@@ -28,6 +28,9 @@ const prisma = new PrismaClient();
 const server = new ApolloServer({
   typeDefs: mainSchema,
   resolvers,
+  context: {
+    prisma
+  }
   dataSources: () => {
     return { dogAPI: new DogAPI(), jokeAPI: new JokeAPI() };
   }
