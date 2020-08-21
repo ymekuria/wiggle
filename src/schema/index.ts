@@ -27,6 +27,12 @@ const mainSchema = gql`
     contact: Contact
   }
 
+  type Contact {
+    id: ID
+    phoneNumber: String
+    name: String
+  }
+
   type Joke {
     id: ID
     joke: String
