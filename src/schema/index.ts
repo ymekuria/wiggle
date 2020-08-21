@@ -11,6 +11,16 @@ const mainSchema = gql`
     multipleRandomJokes: [Joke]
   }
 
+  type Mutation {
+    creatUser(userName: String): User
+  }
+
+  type User {
+    id: ID
+    userName: String
+    wiggles: [wiggle]
+  }
+
   type Joke {
     id: ID
     joke: String
