@@ -1,3 +1,8 @@
+import { PrismaClient } from '@prisma/client';
+
+type PrismaContext = {
+  prisma: PrismaClient;
+};
 const resolvers = {
   Query: {
     randomDogPic: (_parent: any, _args: any, { dataSources }: any) => {
@@ -18,6 +23,17 @@ const resolvers = {
     },
     multipleRandomJokes: (_parent: any, _args: any, { dataSources }: any) => {
       return dataSources.jokeAPI.getMultipleRandomJokes();
+    }
+  },
+  Mutation: {
+    createUser: async (
+      _parent: any,
+      { userName }: { userName: string },
+      { prisma }: PrismaContext
+    ) => {
+      const newUser = prisma.user.create({
+        data: { userName }
+      });
     }
   }
 };

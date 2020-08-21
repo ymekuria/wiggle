@@ -30,7 +30,7 @@ const server = new ApolloServer({
   resolvers,
   context: {
     prisma
-  }
+  },
   dataSources: () => {
     return { dogAPI: new DogAPI(), jokeAPI: new JokeAPI() };
   }

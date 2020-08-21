@@ -17,6 +17,14 @@ const resolvers = {
         multipleRandomJokes: (_parent, _args, { dataSources }) => {
             return dataSources.jokeAPI.getMultipleRandomJokes();
         }
+        // Mutation: {
+        //   createUser: async (_parent: any, { userName }: {userName: string}, { prisma }: PrismaContext) => {
+        //     const newUser = prisma.user.create({
+        //       userName
+        //     })
+        //     }
+        // //   }
+        // }
     }
 };
 exports.default = resolvers;
