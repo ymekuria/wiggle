@@ -29,7 +29,7 @@ const resolvers = {
     createUser: async (_parent: any, args: any, { prisma }: PrismaContext) => {
       const newUser = await prisma.user.create({
         data: {
-          username: args.userName
+          userName: args.userName
         }
       });
       return newUser;

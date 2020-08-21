@@ -12,13 +12,13 @@ const mainSchema = gql`
   }
 
   type Mutation {
-    creatUser(userName: String): User
+    createUser(userName: String): User
   }
 
   type User {
     id: ID
     userName: String
-    wiggles: [wiggle]
+    wiggles: [Wiggle]
   }
 
   type Wiggle {

@@ -12,6 +12,28 @@ const mainSchema = apollo_server_express_1.gql `
     multipleRandomJokes: [Joke]
   }
 
+  type Mutation {
+    createUser(userName: String): User
+  }
+
+  type User {
+    id: ID
+    userName: String
+    wiggles: [Wiggle]
+  }
+
+  type Wiggle {
+    id: ID
+    schedule: String
+    contact: Contact
+  }
+
+  type Contact {
+    id: ID
+    phoneNumber: String
+    name: String
+  }
+
   type Joke {
     id: ID
     joke: String
