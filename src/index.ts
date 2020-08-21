@@ -2,30 +2,17 @@ import express from 'express';
 import bodyParser from 'body-parser';
 // import { connect, connection } from 'mongoose';
 import { ApolloServer } from 'apollo-server-express';
+import { PrismaClient } from '@prisma/client';
 import DogAPI from './dataSources/DogAPI';
 import JokeAPI from './dataSources/JokeAPI';
 import mainSchema from './schema';
 import resolvers from './resolvers';
 // import passport from 'passport';
-// import './models/User';
+
 // import './services/passport';
-// import { mongoURI } from './config/keys';
+
 // import authRouter from './routes/authRoutes';
 // import homeRouter from './routes/routes';
-
-// connect(mongoURI, {
-//   useNewUrlParser: true,
-//   useCreateIndex: true,
-//   useUnifiedTopology: true
-// });
-
-// connection.on('connected', () => {
-//   console.log('Connected to mongo');
-// });
-
-// connection.on('error', (err) => {
-//   console.error('Mongo connection error:', err);
-// });
 
 const app = express();
 app.use(bodyParser.json());
@@ -36,6 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(authRouter);
 
 const PORT = process.env.PORT || 3000;
+const prisma = new PrismaClient();
 
 const server = new ApolloServer({
   typeDefs: mainSchema,
