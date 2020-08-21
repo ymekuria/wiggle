@@ -21,6 +21,12 @@ const mainSchema = gql`
     wiggles: [wiggle]
   }
 
+  type Wiggle {
+    id: ID
+    schedule: String
+    contact: Contact
+  }
+
   type Joke {
     id: ID
     joke: String
