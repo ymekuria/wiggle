@@ -6,4 +6,4 @@ ci.js
 config.ts
 .env
 client/config.ts
-build
+build/
