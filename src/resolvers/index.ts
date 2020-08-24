@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, UserCreateArgs } from '@prisma/client';
 
 type PrismaContext = {
   prisma: PrismaClient;

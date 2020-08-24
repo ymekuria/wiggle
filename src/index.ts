@@ -25,6 +25,27 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const PORT = process.env.PORT || 3000;
 const prisma = new PrismaClient();
 
+const main = async () => {
+  const newWiggle = await prisma.wiggle.create({
+    data: {
+      schedule: 'help',
+      user: {
+        connect: { userName: 'test' }
+      },
+      contact: {
+        create: { phoneNumber: '720334444' }
+      }
+    }
+  });
+
+  console.log('newWiggle', newWiggle);
+};
+
+main()
+  .catch((e) => console.log(e))
+  .finally(async () => {
+    await prisma.$disconnect();
+  });
 const server = new ApolloServer({
   typeDefs: mainSchema,
   resolvers,
