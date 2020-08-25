@@ -3,6 +3,12 @@ import { PrismaClient, UserCreateArgs } from '@prisma/client';
 type PrismaContext = {
   prisma: PrismaClient;
 };
+
+type createWiggleArgs = {
+  schedule: string;
+  userName: string;
+  phoneNumber: string;
+};
 const resolvers = {
   Query: {
     randomDogPic: (_parent: any, _args: any, { dataSources }: any) => {
@@ -33,6 +39,24 @@ const resolvers = {
         }
       });
       return newUser;
+    },
+    createWiggle: async (
+      _parent: any,
+      { schedule, userName, phoneNumber }: createWiggleArgs,
+      { prisma }: PrismaContext
+    ) => {
+      const newWiggle = await prisma.wiggle.create({
+        data: {
+          schedule,
+          user: {
+            connect: { userName }
+          },
+          contact: {
+            create: { phoneNumber }
+          }
+        }
+      });
+      return newWiggle;
     }
   }
 };
