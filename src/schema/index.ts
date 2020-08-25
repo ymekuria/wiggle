@@ -12,12 +12,30 @@ const mainSchema = gql`
   }
 
   type Mutation {
-    createUser(userName: String): User
-    createWiggle(
-      userName: String
-      schedule: String
-      phoneNumber: String
-    ): Wiggle
+    createUser(input: CreateUserInput!): CreateUserPayload
+    createWiggle(input: CreateWiggleInput!): CreateWigglePayload
+  }
+  input CreateUserInput {
+    userName: String
+  }
+  type CreateUserPayload {
+    user: User
+  }
+
+  input CreateWiggleInput {
+    userName: String
+    schedule: String
+    contact: ContactInput
+  }
+
+  input ContactInput {
+    id: ID
+    phoneNumber: String
+    name: String
+  }
+
+  type CreateWigglePayload {
+    wiggle: Wiggle
   }
 
   type User {
@@ -28,6 +46,7 @@ const mainSchema = gql`
 
   type Wiggle {
     id: ID
+    userName: String
     schedule: String
     contact: Contact
   }
