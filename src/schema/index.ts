@@ -13,6 +13,11 @@ const mainSchema = gql`
 
   type Mutation {
     createUser(userName: String): User
+    createWiggle(
+      userName: String
+      schedule: String
+      phoneNumber: String
+    ): Wiggle
   }
 
   type User {
