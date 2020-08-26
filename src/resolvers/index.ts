@@ -4,8 +4,38 @@ type PrismaContext = {
   prisma: PrismaClient;
 };
 
-type CreateUserArgs = {
+type CreateUserInput = {
   userName: string;
+};
+
+type CreateUserPayload = {
+  user: User;
+};
+type CreateWiggleInput = {
+  schedule: string;
+  userName: string;
+  contact: Contact;
+};
+
+type CreateWigglePayload = {
+  wiggle: Wiggle;
+};
+// prisma id types don't match graphql types
+type User = {
+  id: any;
+  userName: string;
+  wiggles?: Wiggle[];
+};
+type Wiggle = {
+  id: any;
+  user: User;
+  schedule: string;
+  contact: Contact;
+};
+
+type Contact = {
+  phoneNumber: string;
+  name?: string | null;
 };
 const resolvers = {
   Query: {
@@ -32,9 +62,9 @@ const resolvers = {
   Mutation: {
     createUser: async (
       _parent: any,
-      { input }: any,
+      { input }: { input: CreateUserInput },
       { prisma }: PrismaContext
-    ) => {
+    ): Promise<CreateUserPayload> => {
       const newUser = await prisma.user.create({
         data: {
           userName: input.userName
@@ -44,14 +74,12 @@ const resolvers = {
       return {
         user: newUser
       };
-
-      return newUser;
     },
     createWiggle: async (
       _parent: any,
-      { input }: any,
+      { input }: { input: CreateWiggleInput },
       { prisma }: PrismaContext
-    ) => {
+    ): Promise<CreateWigglePayload> => {
       const { schedule, userName, contact } = input;
 
       const newWiggle = await prisma.wiggle.create({
@@ -64,7 +92,13 @@ const resolvers = {
             create: { phoneNumber: contact.phoneNumber, name: contact.name }
           }
         },
-        include: {
+        // include: {
+        //   user: true,
+        //   contact: true
+        // },
+        select: {
+          id: true,
+          schedule: true,
           user: true,
           contact: true
         }
