@@ -27,15 +27,13 @@ const mainSchema = gql`
     schedule: String
     contact: ContactInput
   }
-
+  type CreateWigglePayload {
+    wiggle: Wiggle
+  }
   input ContactInput {
     id: ID
     phoneNumber: String
     name: String
-  }
-
-  type CreateWigglePayload {
-    wiggle: Wiggle
   }
 
   type User {
@@ -46,15 +44,15 @@ const mainSchema = gql`
 
   type Wiggle {
     id: ID
-    userName: String
+    user: User
     schedule: String
     contact: Contact
   }
 
   type Contact {
     id: ID
-    phoneNumber: String
     name: String
+    phoneNumber: String
   }
 
   type Joke {

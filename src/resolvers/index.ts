@@ -4,12 +4,6 @@ type PrismaContext = {
   prisma: PrismaClient;
 };
 
-type CreateWiggleArgs = {
-  schedule: string;
-  userName: string;
-  phoneNumber: string;
-};
-
 type CreateUserArgs = {
   userName: string;
 };
@@ -38,33 +32,47 @@ const resolvers = {
   Mutation: {
     createUser: async (
       _parent: any,
-      userName: CreateUserArgs,
+      { input }: any,
       { prisma }: PrismaContext
     ) => {
       const newUser = await prisma.user.create({
         data: {
-          userName
+          userName: input.userName
         }
       });
+
+      return {
+        user: newUser
+      };
+
       return newUser;
     },
     createWiggle: async (
       _parent: any,
-      { schedule, userName, phoneNumber }: CreateWiggleArgs,
+      { input }: any,
       { prisma }: PrismaContext
     ) => {
+      const { schedule, userName, contact } = input;
+
       const newWiggle = await prisma.wiggle.create({
         data: {
-          schedule,
           user: {
             connect: { userName }
           },
+          schedule,
           contact: {
-            create: { phoneNumber }
+            create: { phoneNumber: contact.phoneNumber, name: contact.name }
           }
+        },
+        include: {
+          user: true,
+          contact: true
         }
       });
-      return newWiggle;
+
+      return {
+        wiggle: newWiggle
+      };
     }
   }
 };
