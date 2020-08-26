@@ -1,4 +1,4 @@
-import { PrismaClient, UserCreateArgs } from '@prisma/client';
+import { PrismaClient, User, Contact, WiggleGetPayload } from '@prisma/client';
 
 type PrismaContext = {
   prisma: PrismaClient;
@@ -20,23 +20,31 @@ type CreateWiggleInput = {
 type CreateWigglePayload = {
   wiggle: Wiggle;
 };
+type Wiggle = WiggleGetPayload<{
+  select: {
+    id: true;
+    schedule: true;
+    user: true;
+    contact: true;
+  };
+}>;
 // prisma id types don't match graphql types
-type User = {
-  id: any;
-  userName: string;
-  wiggles?: Wiggle[];
-};
-type Wiggle = {
-  id: any;
-  user: User;
-  schedule: string;
-  contact: Contact;
-};
+// type User = {
+//   id: any;
+//   userName: string;
+//   wiggles?: Wiggle[];
+// };
+// type Wiggle = {
+//   id: any;
+//   user: User;
+//   schedule: string;
+//   contact: Contact;
+// };
 
-type Contact = {
-  phoneNumber: string;
-  name?: string | null;
-};
+// type Contact = {
+//   phoneNumber: string;
+//   name?: string | null;
+// };
 const resolvers = {
   Query: {
     randomDogPic: (_parent: any, _args: any, { dataSources }: any) => {
