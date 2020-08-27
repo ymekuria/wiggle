@@ -2,13 +2,12 @@ import { gql } from 'apollo-server-express';
 
 const mainSchema = gql`
   type Query {
-    hello: String
-    test: String
     randomDogPic: DogPic
     threeRandomDogPics: ThreeDogPics
     randomJoke: Joke
     searchJokes(term: String): [Joke]
     multipleRandomJokes: [Joke]
+    findWiggle(input: FindWiggleInput!): FindWigglePayload
   }
 
   type Mutation {
@@ -21,7 +20,13 @@ const mainSchema = gql`
   type CreateUserPayload {
     user: User
   }
-
+  input FindWiggleInput {
+    userName: String
+    phoneNumber: String
+  }
+  type FindWigglePayload {
+    wiggle: Wiggle
+  }
   input CreateWiggleInput {
     userName: String
     schedule: String

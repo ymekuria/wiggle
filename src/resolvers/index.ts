@@ -73,11 +73,13 @@ const resolvers = {
     multipleRandomJokes: (_parent: any, _args: any, { dataSources }: any) => {
       return dataSources.jokeAPI.getMultipleRandomJokes();
     },
-    wiggle: async (
+    findWiggle: async (
       _parent: any,
-      { userName, phoneNumber }: FindWiggleInput,
+      { input }: { input: FindWiggleInput },
       { prisma }: PrismaContext
     ): Promise<FindWigglePayload> => {
+      const { userName, phoneNumber } = input;
+      console.log('username', userName, 'phoneNumber', phoneNumber);
       let result = await prisma.wiggle.findMany({
         where: {
           AND: [{ user: { userName } }, { contact: { phoneNumber } }]
@@ -89,7 +91,7 @@ const resolvers = {
           contact: true
         }
       });
-
+      console.log(result);
       return {
         wiggle: result.length ? result[0] : null
       };
