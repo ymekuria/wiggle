@@ -2,8 +2,26 @@ import {
   PrismaClient,
   Contact,
   WiggleGetPayload,
-  UserGetPayload
+  UserGetPayload,
+  FindOneWiggleArgs
 } from '@prisma/client';
+
+type User = UserGetPayload<{
+  select: {
+    id: true;
+    userName: true;
+    wiggles?: true;
+  };
+}>;
+
+type Wiggle = WiggleGetPayload<{
+  select: {
+    id: true;
+    schedule: true;
+    user: true;
+    contact: true;
+  };
+}>;
 
 type PrismaContext = {
   prisma: PrismaClient;
@@ -25,38 +43,15 @@ type CreateWiggleInput = {
 type CreateWigglePayload = {
   wiggle: Wiggle;
 };
-type User = UserGetPayload<{
-  select: {
-    id: true;
-    userName: true;
-    wiggles: true;
-  };
-}>;
-type Wiggle = WiggleGetPayload<{
-  select: {
-    id: true;
-    schedule: true;
-    user: true;
-    contact: true;
-  };
-}>;
-// prisma id types don't match graphql types
-// type User = {
-//   id: any;
-//   userName: string;
-//   wiggles?: Wiggle[];
-// };
-// type Wiggle = {
-//   id: any;
-//   user: User;
-//   schedule: string;
-//   contact: Contact;
-// };
 
-// type Contact = {
-//   phoneNumber: string;
-//   name?: string | null;
-// };
+type FindWiggleInput = {
+  userName: string;
+  phoneNumber: string;
+};
+type FindWigglePayload = {
+  wiggle: Wiggle | null;
+};
+
 const resolvers = {
   Query: {
     randomDogPic: (_parent: any, _args: any, { dataSources }: any) => {
@@ -77,6 +72,27 @@ const resolvers = {
     },
     multipleRandomJokes: (_parent: any, _args: any, { dataSources }: any) => {
       return dataSources.jokeAPI.getMultipleRandomJokes();
+    },
+    wiggle: async (
+      _parent: any,
+      { userName, phoneNumber }: FindWiggleInput,
+      { prisma }: PrismaContext
+    ): Promise<FindWigglePayload> => {
+      let result = await prisma.wiggle.findMany({
+        where: {
+          AND: [{ user: { userName } }, { contact: { phoneNumber } }]
+        },
+        select: {
+          id: true,
+          schedule: true,
+          user: true,
+          contact: true
+        }
+      });
+
+      return {
+        wiggle: result.length ? result[0] : null
+      };
     }
   },
   Mutation: {
@@ -85,7 +101,7 @@ const resolvers = {
       { input }: { input: CreateUserInput },
       { prisma }: PrismaContext
     ): Promise<CreateUserPayload> => {
-      const newUser = await prisma.user.create({
+      let newUser = await prisma.user.create({
         data: {
           userName: input.userName
         }
@@ -102,7 +118,7 @@ const resolvers = {
     ): Promise<CreateWigglePayload> => {
       const { schedule, userName, contact } = input;
 
-      const newWiggle = await prisma.wiggle.create({
+      let newWiggle = await prisma.wiggle.create({
         data: {
           user: {
             connect: { userName }
@@ -112,10 +128,6 @@ const resolvers = {
             create: { phoneNumber: contact.phoneNumber, name: contact.name }
           }
         },
-        // include: {
-        //   user: true,
-        //   contact: true
-        // },
         select: {
           id: true,
           schedule: true,
@@ -132,4 +144,3 @@ const resolvers = {
 };
 
 export default resolvers;
-//
