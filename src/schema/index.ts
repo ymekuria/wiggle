@@ -7,33 +7,41 @@ const mainSchema = gql`
     randomJoke: Joke
     searchJokes(term: String): [Joke]
     multipleRandomJokes: [Joke]
-    findWiggle(input: FindWiggleInput!): FindWigglePayload
+    wiggle(input: FindWiggleInput!): FindWiggleResponse
   }
 
   type Mutation {
-    createUser(input: CreateUserInput!): CreateUserPayload
-    createWiggle(input: CreateWiggleInput!): CreateWigglePayload
+    createUser(input: CreateUserInput!): CreateUserResponse
+    createWiggle(input: CreateWiggleInput!): CreateWiggleResponse
   }
   input CreateUserInput {
     userName: String
   }
-  type CreateUserPayload {
-    user: User
+  type CreateUserResponse {
+    id: ID
+    userName: String
+    wiggles: [Wiggle]
   }
   input FindWiggleInput {
     userName: String
     phoneNumber: String
   }
-  type FindWigglePayload {
-    wiggle: Wiggle
+  type FindWiggleResponse {
+    id: ID
+    user: User
+    schedule: String
+    contact: Contact
   }
   input CreateWiggleInput {
     userName: String
     schedule: String
     contact: ContactInput
   }
-  type CreateWigglePayload {
-    wiggle: Wiggle
+  type CreateWiggleResponse {
+    id: ID
+    user: User
+    schedule: String
+    contact: Contact
   }
   input ContactInput {
     id: ID

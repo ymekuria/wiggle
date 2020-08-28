@@ -28,6 +28,9 @@ const prisma = new PrismaClient();
 const server = new ApolloServer({
   typeDefs: mainSchema,
   resolvers,
+  engine: {
+    reportSchema: true
+  },
   context: {
     prisma
   },

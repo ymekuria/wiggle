@@ -2,8 +2,7 @@ import {
   PrismaClient,
   Contact,
   WiggleGetPayload,
-  UserGetPayload,
-  FindOneWiggleArgs
+  UserGetPayload
 } from '@prisma/client';
 
 type User = UserGetPayload<{
@@ -31,26 +30,24 @@ type CreateUserInput = {
   userName: string;
 };
 
-type CreateUserPayload = {
-  user: User;
-};
+// type CreateUserPayload = {
+//   user: User;
+// };
 type CreateWiggleInput = {
   schedule: string;
   userName: string;
   contact: Contact;
 };
 
-type CreateWigglePayload = {
-  wiggle: Wiggle;
-};
+// type CreateWigglePayload = {
+//   wiggle: Wiggle;
+// };
 
 type FindWiggleInput = {
   userName: string;
   phoneNumber: string;
 };
-type FindWigglePayload = {
-  wiggle: Wiggle | null;
-};
+type FindWiggleResponse = Wiggle | null;
 
 const resolvers = {
   Query: {
@@ -73,13 +70,13 @@ const resolvers = {
     multipleRandomJokes: (_parent: any, _args: any, { dataSources }: any) => {
       return dataSources.jokeAPI.getMultipleRandomJokes();
     },
-    findWiggle: async (
+    wiggle: async (
       _parent: any,
       { input }: { input: FindWiggleInput },
       { prisma }: PrismaContext
-    ): Promise<FindWigglePayload> => {
+    ): Promise<FindWiggleResponse> => {
       const { userName, phoneNumber } = input;
-      console.log('username', userName, 'phoneNumber', phoneNumber);
+
       let result = await prisma.wiggle.findMany({
         where: {
           AND: [{ user: { userName } }, { contact: { phoneNumber } }]
@@ -91,10 +88,8 @@ const resolvers = {
           contact: true
         }
       });
-      console.log(result);
-      return {
-        wiggle: result.length ? result[0] : null
-      };
+
+      return result.length ? result[0] : null;
     }
   },
   Mutation: {
@@ -102,22 +97,20 @@ const resolvers = {
       _parent: any,
       { input }: { input: CreateUserInput },
       { prisma }: PrismaContext
-    ): Promise<CreateUserPayload> => {
+    ): Promise<User> => {
       let newUser = await prisma.user.create({
         data: {
           userName: input.userName
         }
       });
 
-      return {
-        user: newUser
-      };
+      return newUser;
     },
     createWiggle: async (
       _parent: any,
       { input }: { input: CreateWiggleInput },
       { prisma }: PrismaContext
-    ): Promise<CreateWigglePayload> => {
+    ): Promise<Wiggle> => {
       const { schedule, userName, contact } = input;
 
       let newWiggle = await prisma.wiggle.create({
@@ -138,9 +131,7 @@ const resolvers = {
         }
       });
 
-      return {
-        wiggle: newWiggle
-      };
+      return newWiggle;
     }
   }
 };
