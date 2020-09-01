@@ -30,24 +30,11 @@ type CreateUserInput = {
   userName: string;
 };
 
-// type CreateUserPayload = {
-//   user: User;
-// };
 type CreateWiggleInput = {
   schedule: string;
   userName: string;
   contact: Contact;
 };
-
-// type CreateWigglePayload = {
-//   wiggle: Wiggle;
-// };
-
-type FindWiggleInput = {
-  userName: string;
-  phoneNumber: string;
-};
-type FindWiggleResponse = Wiggle | null;
 
 const Mutation = {
   createUser: async (

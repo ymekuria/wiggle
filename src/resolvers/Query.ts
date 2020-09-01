@@ -1,17 +1,4 @@
-import {
-  PrismaClient,
-  Contact,
-  WiggleGetPayload,
-  UserGetPayload
-} from '@prisma/client';
-
-type User = UserGetPayload<{
-  select: {
-    id: true;
-    userName: true;
-    wiggles?: true;
-  };
-}>;
+import { PrismaClient, WiggleGetPayload } from '@prisma/client';
 
 type Wiggle = WiggleGetPayload<{
   select: {
@@ -25,23 +12,6 @@ type Wiggle = WiggleGetPayload<{
 type PrismaContext = {
   prisma: PrismaClient;
 };
-
-type CreateUserInput = {
-  userName: string;
-};
-
-// type CreateUserPayload = {
-//   user: User;
-// };
-type CreateWiggleInput = {
-  schedule: string;
-  userName: string;
-  contact: Contact;
-};
-
-// type CreateWigglePayload = {
-//   wiggle: Wiggle;
-// };
 
 type FindWiggleInput = {
   userName: string;

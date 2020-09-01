@@ -6,6 +6,4 @@ const resolvers = {
   Mutation
 };
 
-console.log(resolvers);
-
 export default resolvers;
