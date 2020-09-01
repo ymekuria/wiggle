@@ -51,10 +51,10 @@ type FindWiggleResponse = Wiggle | null;
 
 const resolvers = {
   Query: {
-    randomDogPic: (_parent: any, _args: any, { dataSources }: any) => {
+    dogPic: (_parent: any, _args: any, { dataSources }: any) => {
       return dataSources.dogAPI.getRandomDogPic();
     },
-    threeRandomDogPics: (_parent: any, _args: any, { dataSources }: any) => {
+    dogPics: (_parent: any, _args: any, { dataSources }: any) => {
       return dataSources.dogAPI.getThreeRandomDogPics();
     },
     searchJokes: (
@@ -64,10 +64,10 @@ const resolvers = {
     ) => {
       return dataSources.jokeAPI.searchJokes(term);
     },
-    randomJoke: (_parent: any, _args: any, { dataSources }: any) => {
+    joke: (_parent: any, _args: any, { dataSources }: any) => {
       return dataSources.jokeAPI.getRandomJoke();
     },
-    multipleRandomJokes: (_parent: any, _args: any, { dataSources }: any) => {
+    jokes: (_parent: any, _args: any, { dataSources }: any) => {
       return dataSources.jokeAPI.getMultipleRandomJokes();
     },
     wiggle: async (

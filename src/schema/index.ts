@@ -2,11 +2,11 @@ import { gql } from 'apollo-server-express';
 
 const mainSchema = gql`
   type Query {
-    randomDogPic: DogPic
-    threeRandomDogPics: ThreeDogPics
-    randomJoke: Joke
+    dogPic: DogPic
+    dogPics: DogPics
+    joke: Joke
     searchJokes(term: String): [Joke]
-    multipleRandomJokes: [Joke]
+    jokes: [Joke]
     wiggle(input: FindWiggleInput!): FindWiggleResponse
   }
 
@@ -75,7 +75,7 @@ const mainSchema = gql`
   type DogPic {
     picture: String
   }
-  type ThreeDogPics {
+  type DogPics {
     pictures: [String]
   }
 `;
