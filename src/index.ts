@@ -1,5 +1,5 @@
 require('dotenv').config();
-import express from 'express';
+import express, { Request } from 'express';
 import bodyParser from 'body-parser';
 // import { connect, connection } from 'mongoose';
 import { ApolloServer } from 'apollo-server-express';
@@ -8,7 +8,8 @@ import DogAPI from './dataSources/DogAPI';
 import JokeAPI from './dataSources/JokeAPI';
 import mainSchema from './schema';
 import resolvers from './resolvers';
-// import passport from 'passport';
+import passport from 'passport';
+import passportJWT from 'passport-jwt';
 
 // import './services/passport';
 
@@ -18,13 +19,24 @@ import resolvers from './resolvers';
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(passport.initialize());
+app.use(passport.initialize());
 
 // app.use(homeRouter);
 // app.use(authRouter);
 
 const PORT = process.env.PORT || 3000;
 const prisma = new PrismaClient();
+// const { Strategy, ExtractJwt } = passportJWT;
+// const params = {
+//   secretOrKey: process.env.JWT_SECRET,
+//   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
+// };
+
+// const strategy = new Strategy(params, (payload, done) => {
+//   const user =  prisma.user.findOne()
+
+//   return done(null, user);
+// });
 
 const server = new ApolloServer({
   typeDefs: mainSchema,
