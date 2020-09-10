@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, BackHandler, Button } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import * as Facebook from 'expo-facebook';
+import { FACEBOOK_APP_ID } from '../utils/config';
+import axios from 'axios';
 import * as SMS from 'expo-sms';
 
 import { Text, View } from '../components/Themed';
@@ -10,12 +13,30 @@ import useIsSMSAvailable from '../hooks/useIsSMSavailable';
 const TabOneScreen = () => {
   const isSMSavailable = useIsSMSAvailable();
 
+  const handleClick = async () => {
+    await Facebook.initializeAsync(FACEBOOK_APP_ID);
+    let { token, type } = await Facebook.logInWithReadPermissionsAsync({
+      permissions: ['email']
+    });
+    console.log({ token, type });
+    if (type === 'success') {
+      console.log('in type');
+      const response = await axios.get(
+        `https://graph.facebook.com/me?fields=id,name,email&access_token=${token}`
+      );
+      console.log({ response });
+    }
+  };
+
   return (
     <LinearGradient
       colors={['rgba(163,175,243,1)', 'rgba(220,182,232,1)']}
       style={styles.container}
     >
       <Text style={styles.title}>Tab One</Text>
+      <Button title="fbLogin" onPress={handleClick}>
+        FBLogin
+      </Button>
       <Text style={styles.title}>Can Send SMS {isSMSavailable.toString()}</Text>
     </LinearGradient>
   );
