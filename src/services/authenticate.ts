@@ -8,6 +8,8 @@ const authConfig = {
   algorithm: ['RS256']
 };
 
+// Usw jwkSRsa to handle public key rotation and load it at runtime from auth server
+// the key is cached for some time
 const secret = jwksRsa.expressJwtSecret({
   cache: true,
   rateLimit: true,
