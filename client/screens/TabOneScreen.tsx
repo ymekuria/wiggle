@@ -1,40 +1,86 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, BackHandler, Button } from 'react-native';
+import { StyleSheet, Platform, Button } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Facebook from 'expo-facebook';
-import { FACEBOOK_APP_ID } from '../utils/config';
+
+import {
+  FACEBOOK_APP_ID,
+  AUTH0_CLIENT_ID,
+  AUTHORIZATION_ENDPOINT
+} from '../utils/config';
 import axios from 'axios';
 import * as SMS from 'expo-sms';
-
+import * as AuthSession from 'expo-auth-session';
+import jwtDecode from 'jwt-decode';
 import { Text, View } from '../components/Themed';
 import _default from '@react-navigation/bottom-tabs/lib/typescript/src/navigators/createBottomTabNavigator';
 import useIsSMSAvailable from '../hooks/useIsSMSavailable';
 
+const useProxy = Platform.select({ web: false, default: true });
+const redirectUri = AuthSession.makeRedirectUri({ useProxy });
+console.log(`Redirect URL: ${redirectUri}`); //https://auth.expo.io/@ymekuria/wiggle
 const TabOneScreen = () => {
   const isSMSavailable = useIsSMSAvailable();
+  const [name, setName] = useState(null);
 
-  const handleClick = async () => {
-    await Facebook.initializeAsync(FACEBOOK_APP_ID);
-    let { token, type } = await Facebook.logInWithReadPermissionsAsync({
-      permissions: ['email']
-    });
-    console.log({ token, type });
-    if (type === 'success') {
-      console.log('in type');
-      const response = await axios.get(
-        `https://graph.facebook.com/me?fields=id,name,email&access_token=${token}`
-      );
-      console.log({ response });
+  const [request, result, promptAsync] = AuthSession.useAuthRequest(
+    {
+      redirectUri,
+      clientId: AUTH0_CLIENT_ID,
+      // id_token will return a JWT token
+      responseType: 'id_token',
+      // retrieve the user's profile
+      scopes: ['openid', 'profile', 'email'],
+      extraParams: {
+        // ideally, this will be a random value
+        nonce: 'nonce'
+      }
+    },
+    { authorizationEndpoint: AUTHORIZATION_ENDPOINT }
+  );
+
+  // Retrieve the redirect URL, add this to the callback URL list
+  // of your Auth0 application.
+  console.log(`Redirect URL: ${redirectUri}`);
+
+  useEffect(() => {
+    if (result) {
+      if (result.error) {
+        Alert.alert(
+          'Authentication error',
+          result.params.error_description || 'something went wrong'
+        );
+        return;
+      }
+      if (result.type === 'success') {
+        // Retrieve the JWT token and decode it
+        const jwtToken = result.params.id_token;
+        const decoded = jwtDecode(jwtToken);
+        console.log({ decoded });
+        const { name } = decoded;
+        setName(name);
+      }
     }
-  };
+  }, [result]);
+
+  const handleClick = async () => {};
 
   return (
     <LinearGradient
       colors={['rgba(163,175,243,1)', 'rgba(220,182,232,1)']}
       style={styles.container}
     >
+      {name ? (
+        <Text style={styles.title}>You are logged in, {name}!</Text>
+      ) : (
+        <Button
+          disabled={!request}
+          title="Log in with Auth0"
+          onPress={() => promptAsync({ useProxy })}
+        />
+      )}
       <Text style={styles.title}>Tab One</Text>
-      <Button title="fbLogin" onPress={handleClick}>
+      <Button title="fbLogin" onPress={() => console.log('hi')}>
         FBLogin
       </Button>
       <Text style={styles.title}>Can Send SMS {isSMSavailable.toString()}</Text>
