@@ -56,6 +56,7 @@ const TabOneScreen = () => {
         // Retrieve the JWT token and decode it
         const jwtToken = result.params.id_token;
         const decoded = jwtDecode(jwtToken);
+
         console.log({ decoded });
         const { name } = decoded;
         setName(name);
@@ -63,7 +64,20 @@ const TabOneScreen = () => {
     }
   }, [result]);
 
-  const handleClick = async () => {};
+  const handleClick = async () => {
+    console.log('click');
+    const jwtToken = result?.params?.id_token;
+    const headerConfig = {
+      headers: {
+        Authorization: `Bearer ${jwtToken}`
+      }
+    };
+    let testResponse = await axios.get(
+      'http://localhost:3000/authtest',
+      headerConfig
+    );
+    console.log('Testresponse', testResponse.data);
+  };
 
   return (
     <LinearGradient
@@ -79,10 +93,9 @@ const TabOneScreen = () => {
           onPress={() => promptAsync({ useProxy })}
         />
       )}
+
       <Text style={styles.title}>Tab One</Text>
-      <Button title="fbLogin" onPress={() => console.log('hi')}>
-        FBLogin
-      </Button>
+      <Button title="Test Auth " onPress={handleClick}></Button>
       <Text style={styles.title}>Can Send SMS {isSMSavailable.toString()}</Text>
     </LinearGradient>
   );
