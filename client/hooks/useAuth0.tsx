@@ -142,3 +142,66 @@ type RefreshTokenData = {
   redirect_uri: string;
   code_verifier: string;
 };
+
+const fetchAccessToken = async (
+  data: TokenData | RefreshTokenData,
+  domain: string,
+  setAccessToken: (accessToken: string) => void,
+  setUser: (user: User) => void,
+  onTokenRequestFailure?: () => void
+) => {
+  // URLSearchParams doesn't work in RN.
+  // `new URLSearchParams(Object.entries({ a: "b", c: "d" })).toString()` gives "0=a,b&1=c,d"
+  // So manually do the encoding
+  const formBody = Object.entries(data)
+    .map(
+      ([key, value]) =>
+        `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+    )
+    .join('&');
+  // Fetch the access token and possibly the refresh token (if rotation is
+  // enabled) following
+  // https://auth0.com/docs/tokens/refresh-tokens/get-refresh-tokens
+  const tokenResponse = await fetch(`https://${domain}/oauth/token`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+    },
+    body: formBody
+  });
+
+  if (tokenResponse.ok) {
+    const token = (await tokenResponse.json()) as Token;
+
+    // Refetch the access token before it expires
+    setTimeout(() => {
+      let refreshTokenData: TokenData | RefreshTokenData = data;
+      if (token.refresh_token) {
+        refreshTokenData = {
+          ...data,
+          refresh_token: token.refresh_token,
+          grant_type: 'refresh_token'
+        };
+      }
+      fetchAccessToken(
+        refreshTokenData,
+        domain,
+        setAccessToken,
+        setUser,
+        onTokenRequestFailure
+      );
+    }, token.expires_in * 1000 - requestNewAccessTokenBuffer);
+
+    const userInfoResponse = await fetch(`https://${domain}/userinfo`, {
+      headers: { Authorization: `Bearer ${token.access_token}` }
+    });
+    const userInfo = await userInfoResponse.json();
+
+    // Set state at the same time to trigger a single update on the context
+    // otherwise components are sent two separate updates
+    setAccessToken(token.access_token);
+    setUser(userInfo);
+  } else {
+    onTokenRequestFailure?.();
+  }
+};
