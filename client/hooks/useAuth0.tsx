@@ -58,13 +58,14 @@ type Auth0Context = {
    */
   accessToken?: string;
 };
+
 type Auth0ProviderOptions = {
   /**
-   * The child nodes your provider has wrapped.
+   * The child nodes the provider has wrapped.
    */
   children: React.ReactElement;
   /**
-   * The client ID found on your application settings page.
+   * The client ID found on the application settings page.
    */
   clientId: string;
   /**
@@ -72,7 +73,7 @@ type Auth0ProviderOptions = {
    */
   audience: string;
   /**
-   * Your Auth0 account domain such as `'example.auth0.com'`,
+   * The Auth0 account domain such as `'example.auth0.com'`,
    * `'example.eu.auth0.com'` or , `'example.mycompany.com'`
    * (when using [custom domains](https://auth0.com/docs/custom-domains))
    */
@@ -86,3 +87,33 @@ type Auth0ProviderOptions = {
    */
   onTokenRequestFailure: () => void | undefined;
 };
+
+const useProxy = Platform.select({ web: false, default: true });
+const redirectUri = AuthSession.makeRedirectUri({ useProxy });
+
+export const Auth0Context = React.createContext<Auth0Context>({
+  request: undefined,
+  result: undefined,
+  login: undefined,
+  user: undefined,
+  accessToken: undefined
+});
+
+/**
+ * use the `useAuth0` hook in the components to access the auth state and methods.
+ * ie
+ *
+ * const {
+ *   // Auth state:
+ *   request,
+ *   result,
+ *   user,
+ *   accessToken,
+ *   // Auth methods:
+ *   login,
+ * } = useAuth0();
+ * ```
+ *
+ *
+ */
+export const useAuth0 = () => useContext(Auth0Context);
