@@ -205,3 +205,109 @@ const fetchAccessToken = async (
     onTokenRequestFailure?.();
   }
 };
+
+/**
+ * ```jsx
+ * <Auth0Provider
+ *   domain={domain}
+ *   clientId={clientId}
+ *   audience={audience}>
+ *   <MyApp />
+ * </Auth0Provider>
+ * ```
+ *
+ * Provides the Auth0Context to its child components. It's recommended offline
+ * access is enabled for the mobile client on the Auth0 dashboard to keep the
+ * user signed in after token expiration.
+ *
+ * For native applications, refresh tokens (offline access) improve the
+ * authentication experience significantly. The user has to authenticate only
+ * once, through the web authentication process. Subsequent re-authentication
+ * can take place without user interaction, using the refresh token.
+ */
+export const Auth0Provider = ({
+  children,
+  clientId,
+  audience,
+  domain,
+  onLogin,
+  onTokenRequestFailure
+}: Auth0ProviderOptions) => {
+  const [accessToken, setAccessToken] = useState<string | undefined>();
+  const [user, setUser] = useState<User | undefined>();
+
+  const authSessionParams = {
+    redirectUri,
+    clientId,
+    responseType: AuthSession.ResponseType.Code,
+    scopes: ['offline_access', 'openid', 'profile'],
+    extraParams: {
+      audience
+    }
+  };
+  const authorizationEndpoint = `https://${domain}/authorize`;
+  const [auth0request, auth0Result, promptAsync] = AuthSession.useAuthRequest(
+    {
+      ...authSessionParams,
+      // Server should prompt the user to re-authenticate.
+      prompt: AuthSession.Prompt.Login
+    },
+    {
+      authorizationEndpoint
+    } as AuthSession.DiscoveryDocument
+  );
+  const result = auth0Result as Result;
+
+  useEffect(() => {
+    async function getToken() {
+      if (
+        result.type === 'success' &&
+        result?.params?.code &&
+        auth0request?.redirectUri &&
+        auth0request?.codeVerifier
+      ) {
+        fetchAccessToken(
+          {
+            grant_type: 'authorization_code',
+            client_id: clientId,
+            code: result.params.code,
+            redirect_uri: auth0request.redirectUri,
+            // Expo AuthSession uses Authorization Code Flow with PKCE
+            // Code verifier is required with PKCE
+            // https://auth0.com/docs/flows/call-your-api-using-the-authorization-code-flow-with-pkce
+            code_verifier: auth0request.codeVerifier
+          },
+          domain,
+          setAccessToken,
+          setUser,
+          onTokenRequestFailure
+        );
+        onLogin?.();
+      } else {
+        Alert.alert(
+          'Authentication error',
+          result?.params?.error_description || 'something went wrong'
+        );
+        onTokenRequestFailure?.();
+      }
+    }
+    if (result) {
+      getToken();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [onLogin, result, clientId]);
+
+  return (
+    <Auth0Context.Provider
+      value={{
+        request: auth0request,
+        result,
+        login: () => promptAsync?.({ useProxy }),
+        user,
+        accessToken
+      }}
+    >
+      {children}
+    </Auth0Context.Provider>
+  );
+};
