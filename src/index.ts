@@ -2,6 +2,7 @@ require('dotenv').config();
 import express, { Request } from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import jwtDecode from 'jwt-decode';
 // import { connect, connection } from 'mongoose';
 import { ApolloServer } from 'apollo-server-express';
 import { PrismaClient } from '@prisma/client';
@@ -27,11 +28,20 @@ app.use(cors());
 // app.use(homeRouter);
 // app.use(authRouter);
 app.get('/authtest', authenticate, (req, res) => {
-  console.log('on server. req', req.header);
+  console.log('on server. request.user', req.user);
 
   res.send('hi');
 });
+
+app.use((err, req, res, next) => {
+  console.log(err);
+  if (err.name === 'UnauthorizedError') {
+    console.error('Request without valid token');
+    res.status(401).send({ msg: 'Invalid token' });
+  } else next();
+});
 const PORT = process.env.PORT || 3000;
+console.log('port', PORT);
 const prisma = new PrismaClient();
 // const { Strategy, ExtractJwt } = passportJWT;
 // const params = {

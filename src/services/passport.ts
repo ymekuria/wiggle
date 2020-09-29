@@ -1,11 +1,12 @@
-import passport from 'passport';
-import passportJWT from 'passport-jwt';
-import import {
-  PrismaClient,
-  Contact,
-  WiggleGetPayload,
-  UserGetPayload
-} from '@prisma/client';
+// import passport from 'passport';
+// import passportJWT from 'passport-jwt';
+// import passpotFaceook from 'passport-facebook';
+// import import {
+//   PrismaClient,
+//   Contact,
+//   WiggleGetPayload,
+//   UserGetPayload
+// } from '@prisma/client';
 // import { model } from 'mongoose';
 // import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 // import { Strategy as FacebookStrategy } from 'passport-facebook';
@@ -18,14 +19,7 @@ import import {
 // passport.serializeUser((user, done) => {
 //   done(undefined, user.id);
 // });
-const prisma = new PrismaClient;
-passport.deserializeUser(async (id, done) => {
-  try {
-    const user = await primsa.user.findOne({ where: { linkedinId: id } });
-    done(null, user);
-  } catch (err) {
-    done(err);
-  }
+
 // });
 
 // passport.use(
