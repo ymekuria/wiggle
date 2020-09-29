@@ -117,3 +117,28 @@ export const Auth0Context = React.createContext<Auth0Context>({
  *
  */
 export const useAuth0 = () => useContext(Auth0Context);
+
+type Token = {
+  access_token: string;
+  expires_in: number;
+  // Only sends back a refresh token if rotation is enabled
+  // https://auth0.com/docs/tokens/refresh-tokens/refresh-token-rotation
+  refresh_token?: string;
+  token_type: string;
+};
+
+type TokenData = {
+  grant_type: 'authorization_code';
+  client_id: string;
+  code: string;
+  redirect_uri: string;
+  code_verifier: string;
+};
+
+type RefreshTokenData = {
+  grant_type: 'refresh_token';
+  client_id: string;
+  refresh_token: string;
+  redirect_uri: string;
+  code_verifier: string;
+};
