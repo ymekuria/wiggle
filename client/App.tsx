@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
+import { NavigationContainerRef } from '@react-navigation/native';
 
 import { Provider } from 'react-redux';
 import { Auth0Provider } from './hooks/useAuth0';
@@ -8,11 +9,19 @@ import store from './store';
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
+export const navigationRef = React.createRef<NavigationContainerRef>();
 
 export default (): JSX.Element | null => {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
+  //   onLogin={() => {
 
+  //   }}
+  //   onTokenRequestFailure={() => {
+  //     navigationRef.current?.navigate("SignIn");
+  //   }}
+  // >
+  //   <Navigator navigationRef={navigationRef} />
   if (!isLoadingComplete) {
     return null;
   } else {
@@ -25,7 +34,7 @@ export default (): JSX.Element | null => {
         onTokenRequestFailure={() => {}}
       >
         <React.Fragment>
-          <Navigation colorScheme={colorScheme} />
+          <Navigation navigationRef={navigationRef} colorScheme={colorScheme} />
           <StatusBar />
         </React.Fragment>
       </Auth0Provider>

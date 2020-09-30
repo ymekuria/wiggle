@@ -162,6 +162,7 @@ const fetchAccessToken = async (
   // Fetch the access token and possibly the refresh token (if rotation is
   // enabled) following
   // https://auth0.com/docs/tokens/refresh-tokens/get-refresh-tokens
+
   const tokenResponse = await fetch(`https://${domain}/oauth/token`, {
     method: 'POST',
     headers: {
@@ -173,6 +174,7 @@ const fetchAccessToken = async (
   if (tokenResponse.ok) {
     const token = (await tokenResponse.json()) as Token;
 
+    console.log('token', token);
     // Refetch the access token before it expires
     setTimeout(() => {
       let refreshTokenData: TokenData | RefreshTokenData = data;

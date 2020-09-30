@@ -21,7 +21,7 @@ const TabOneScreen = () => {
   const isSMSavailable = useIsSMSAvailable();
   const { request, login } = useAuth0();
 
-  const handleClick = async () => {};
+  const handleClick = () => {};
 
   return (
     <LinearGradient
@@ -31,7 +31,7 @@ const TabOneScreen = () => {
       <Button title="Log in with Auth0" disabled={!request} onPress={login} />
 
       <Text style={styles.title}>Tab One</Text>
-      <Button title="Test Auth " onPress={handleClick}></Button>
+      <Button title="Test Auth " onPress={() => console.log('click')}></Button>
       <Text style={styles.title}>Can Send SMS {isSMSavailable.toString()}</Text>
     </LinearGradient>
   );

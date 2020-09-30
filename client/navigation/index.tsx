@@ -1,5 +1,6 @@
 import {
   NavigationContainer,
+  NavigationContainerRef,
   getFocusedRouteNameFromRoute,
   RouteProp,
   DefaultTheme,
@@ -10,6 +11,7 @@ import * as React from 'react';
 import { ColorSchemeName } from 'react-native';
 
 import NotFoundScreen from '../screens/NotFoundScreen';
+import SignInScreen from '../screens/SignInScreen';
 // import { RootStackParamList } from '../types';
 import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
@@ -17,6 +19,7 @@ import LinkingConfiguration from './LinkingConfiguration';
 type RootStackParamList = {
   Root: undefined;
   NotFound: undefined;
+  SignIn: undefined;
 };
 
 type BottomTabParamList = {
@@ -30,6 +33,11 @@ type TabOneParamList = {
 
 type TabTwoParamList = {
   TabTwoScreen: undefined;
+};
+
+type NavigationProps = {
+  navigationRef: React.RefObject<NavigationContainerRef>;
+  colorScheme: ColorSchemeName;
 };
 
 const getHeaderTitle = (route: RouteProp<RootStackParamList, 'Root'>) => {
@@ -47,6 +55,8 @@ const getHeaderTitle = (route: RouteProp<RootStackParamList, 'Root'>) => {
       return 'Tab Three';
     case 'TabFour':
       return 'Tab Four';
+    case 'Signin':
+      return 'Signin';
   }
 };
 
@@ -70,13 +80,19 @@ const RootNavigator = () => {
         component={NotFoundScreen}
         options={{ title: 'Oops!' }}
       />
+      <Stack.Screen
+        name="SignIn"
+        component={SignInScreen}
+        options={{ title: 'Oops!' }}
+      />
     </Stack.Navigator>
   );
 };
 
-const Navigation = ({ colorScheme }: { colorScheme: ColorSchemeName }) => {
+const Navigation = ({ colorScheme, navigationRef }: NavigationProps) => {
   return (
     <NavigationContainer
+      ref={navigationRef}
       linking={LinkingConfiguration}
       theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
     >
