@@ -14,14 +14,7 @@ export const navigationRef = React.createRef<NavigationContainerRef>();
 export default (): JSX.Element | null => {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
-  //   onLogin={() => {
 
-  //   }}
-  //   onTokenRequestFailure={() => {
-  //     navigationRef.current?.navigate("SignIn");
-  //   }}
-  // >
-  //   <Navigator navigationRef={navigationRef} />
   if (!isLoadingComplete) {
     return null;
   } else {
@@ -30,8 +23,12 @@ export default (): JSX.Element | null => {
         clientId={AUTH0_CLIENT_ID}
         audience={AUTH0_AUDIENCE}
         domain={AUTH0_DOMAIN}
-        onLogin={() => {}}
-        onTokenRequestFailure={() => {}}
+        onLogin={() => {
+          navigationRef.current?.navigate('TabThreeScreen');
+        }}
+        onTokenRequestFailure={() => {
+          navigationRef.current?.navigate('SignInScreen');
+        }}
       >
         <React.Fragment>
           <Navigation navigationRef={navigationRef} colorScheme={colorScheme} />
