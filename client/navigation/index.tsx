@@ -43,7 +43,7 @@ type NavigationProps = {
 const getHeaderTitle = (route: RouteProp<RootStackParamList, 'Root'>) => {
   // If the focused route is not found, we need to assume it's the initial screen
   // This can happen if there hasn't been any navigation inside the screen
-  const routeName = getFocusedRouteNameFromRoute(route) ?? 'TabOne';
+  const routeName = getFocusedRouteNameFromRoute(route) ?? 'SignIn';
   console.log('routName', routeName);
   // add routeName and title here for each new tab screen
   switch (routeName) {
@@ -55,8 +55,8 @@ const getHeaderTitle = (route: RouteProp<RootStackParamList, 'Root'>) => {
       return 'Tab Three';
     case 'TabFour':
       return 'Tab Four';
-    case 'Signin':
-      return 'Signin';
+    case 'SignIn':
+      return 'SignIn';
   }
 };
 
@@ -64,7 +64,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 // rgba(163,175,243,1) 0%, rgba(220,182,232,1)
 const RootNavigator = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName="SignIn">
       <Stack.Screen
         name="Root"
         component={BottomTabNavigator}
@@ -83,7 +83,7 @@ const RootNavigator = () => {
       <Stack.Screen
         name="SignIn"
         component={SignInScreen}
-        options={{ title: 'Oops!' }}
+        options={{ title: 'SignIn!' }}
       />
     </Stack.Navigator>
   );

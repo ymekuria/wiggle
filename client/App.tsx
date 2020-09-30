@@ -24,7 +24,7 @@ export default (): JSX.Element | null => {
         audience={AUTH0_AUDIENCE}
         domain={AUTH0_DOMAIN}
         onLogin={() => {
-          navigationRef.current?.navigate('TabThreeScreen');
+          navigationRef.current?.navigate('Root', { screen: 'TabThree' });
         }}
         onTokenRequestFailure={() => {
           navigationRef.current?.navigate('SignInScreen');
