@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { StyleSheet, Button } from 'react-native';
+import { StyleSheet, StatusBar } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Button } from 'react-native-elements';
 import { useAuth0 } from '../hooks/useAuth0';
 import { Text, View } from '../components/Themed';
 
@@ -11,13 +12,22 @@ const SignInScreen: React.FC = (props) => {
       colors={['rgba(163,175,243,1)', 'rgba(220,182,232,1)']}
       style={styles.container}
     >
-      <Button title="SignIn" onPress={login} />
-      <Text style={styles.title}>SignIn</Text>
+      <StatusBar barStyle="dark-content" />
+
+      <Button
+        buttonStyle={{ backgroundColor: 'rgba(247,236,250,.3)' }}
+        // raised
+        title="SIGN IN"
+        onPress={login}
+      />
     </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
+  root: {
+    flex: 1
+  },
   container: {
     flex: 1,
     alignItems: 'center',

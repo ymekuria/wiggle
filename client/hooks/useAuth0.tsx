@@ -28,8 +28,8 @@ export type User = {
   // FB user fields
 };
 
-// user type to fix AuthSession.AuthSessionResult
-// https://github.com/expo/expo/issues/10104
+// custom type to fix AuthSession.AuthSessionResult type
+// https://github.com/microsoft/TypeScript/issues/12815
 type Result = {
   type: 'cancel' | 'dismiss' | 'locked' | 'error' | 'success';
   errorCode?: string | null;
@@ -209,12 +209,12 @@ const fetchAccessToken = async (
 };
 
 /**
- * ```jsx
+ * example use
  * <Auth0Provider
  *   domain={domain}
  *   clientId={clientId}
  *   audience={audience}>
- *   <MyApp />
+ *   <App />
  * </Auth0Provider>
  * ```
  *
@@ -222,9 +222,8 @@ const fetchAccessToken = async (
  * access is enabled for the mobile client on the Auth0 dashboard to keep the
  * user signed in after token expiration.
  *
- * For native applications, refresh tokens (offline access) improve the
- * authentication experience significantly. The user has to authenticate only
- * once, through the web authentication process. Subsequent re-authentication
+ * The user has to authenticate only
+ * once  through the web authentication process. Subsequent re-authentication
  * can take place without user interaction, using the refresh token.
  */
 export const Auth0Provider = ({
@@ -248,6 +247,8 @@ export const Auth0Provider = ({
     }
   };
   const authorizationEndpoint = `https://${domain}/authorize`;
+  // using Expo AuthSession
+  // https://docs.expo.io/versions/latest/sdk/auth-session/
   const [auth0request, auth0Result, promptAsync] = AuthSession.useAuthRequest(
     {
       ...authSessionParams,
@@ -287,7 +288,7 @@ export const Auth0Provider = ({
         onLogin?.();
       } else {
         Alert.alert(
-          'Authentication error',
+          'Authentication Error',
           result?.params?.error_description || 'something went wrong'
         );
         onTokenRequestFailure?.();

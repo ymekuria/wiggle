@@ -27,7 +27,7 @@ export default (): JSX.Element | null => {
           navigationRef.current?.navigate('Root', { screen: 'TabThree' });
         }}
         onTokenRequestFailure={() => {
-          navigationRef.current?.navigate('SignInScreen');
+          navigationRef.current?.navigate('SignIn');
         }}
       >
         <React.Fragment>

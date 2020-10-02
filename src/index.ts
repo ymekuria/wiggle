@@ -6,11 +6,12 @@ import jwtDecode from 'jwt-decode';
 // import { connect, connection } from 'mongoose';
 import { ApolloServer } from 'apollo-server-express';
 import { PrismaClient } from '@prisma/client';
-import authenticate from './services/authenticate';
+import authenticate from './middleware/checkJwt';
 import DogAPI from './dataSources/DogAPI';
 import JokeAPI from './dataSources/JokeAPI';
 import mainSchema from './schema';
 import resolvers from './resolvers';
+import checkJwt from './middleware/checkJwt';
 // import passport from 'passport';
 // import passportJWT from 'passport-jwt';
 
@@ -27,11 +28,7 @@ app.use(cors());
 
 // app.use(homeRouter);
 // app.use(authRouter);
-app.get('/authtest', authenticate, (req, res) => {
-  console.log('on server. request.user', req.user);
-
-  res.send('hi');
-});
+app.use(checkJwt);
 
 app.use((err, req, res, next) => {
   console.log(err);
@@ -43,17 +40,6 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 3000;
 console.log('port', PORT);
 const prisma = new PrismaClient();
-// const { Strategy, ExtractJwt } = passportJWT;
-// const params = {
-//   secretOrKey: process.env.JWT_SECRET,
-//   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
-// };
-
-// const strategy = new Strategy(params, (payload, done) => {
-//   const user =  prisma.user.findOne()
-
-//   return done(null, user);
-// });
 
 const server = new ApolloServer({
   typeDefs: mainSchema,

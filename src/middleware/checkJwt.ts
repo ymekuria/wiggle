@@ -17,11 +17,11 @@ const secret = jwksRsa.expressJwtSecret({
   jwksUri: `${authConfig.issuer}.well-known/jwks.json`
 });
 
-const authenticate = jwt({
+const checkJwt = jwt({
   secret,
   issuer: process.env.AUTH0_ISSUER,
   audience: process.env.AUTH0_AUDIENCE,
   algorithms: ['RS256']
 });
 
-export default authenticate;
+export default checkJwt;
