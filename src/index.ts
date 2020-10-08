@@ -29,7 +29,7 @@ app.use(cors());
 
 // app.use(homeRouter);
 // app.use(authRouter);
-app.use(checkJwt);
+// app.use(checkJwt);
 
 app.use((err, req, res, next) => {
   console.log(err);
@@ -38,7 +38,7 @@ app.use((err, req, res, next) => {
     res.status(401).send({ msg: 'Invalid token' });
   } else next();
 });
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8088;
 console.log('port', PORT);
 const prisma = new PrismaClient();
 
