@@ -68,7 +68,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 // rgba(163,175,243,1) 0%, rgba(220,182,232,1)
 const RootNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName="Root">
+    <Stack.Navigator initialRouteName="SignIn">
       <Stack.Screen
         name="Root"
         component={BottomTabNavigator}

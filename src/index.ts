@@ -29,7 +29,7 @@ app.use(cors());
 
 // app.use(homeRouter);
 // app.use(authRouter);
-// app.use(checkJwt);
+app.use(checkJwt);
 
 app.use((err, req, res, next) => {
   console.log(err);
@@ -50,6 +50,7 @@ const server = new ApolloServer({
   },
   context: ({ req }) => {
     const user = req.user || undefined;
+    console.log({ user });
     return { user, prisma };
   },
   dataSources: () => {
