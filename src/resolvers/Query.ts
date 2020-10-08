@@ -18,6 +18,7 @@ type FindWiggleInput = {
   phoneNumber: string;
 };
 type FindWiggleResponse = Wiggle | null;
+
 const Query = {
   dogPic: (_parent: any, _args: any, { dataSources }: any) => {
     return dataSources.dogAPI.getRandomDogPic();
@@ -33,7 +34,6 @@ const Query = {
     return dataSources.jokeAPI.searchJokes(term);
   },
   joke: (_parent: any, _args: any, context: any) => {
-    console.log('context', context);
     return context.dataSources.jokeAPI.getRandomJoke();
   },
   jokes: (_parent: any, _args: any, { dataSources }: any) => {
