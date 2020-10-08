@@ -18,7 +18,7 @@ import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
 
 import { useAuth0 } from '../hooks/useAuth0';
-import { apolloClient } from '../utils/createApolloClient';
+import createApolloClient from '../utils/createApolloClient';
 
 type RootStackParamList = {
   Root: undefined;
@@ -94,6 +94,8 @@ const RootNavigator = () => {
 };
 
 const Navigation = ({ colorScheme, navigationRef }: NavigationProps) => {
+  const { accessToken } = useAuth0();
+  const apolloClient = createApolloClient(accessToken);
   return (
     <ApolloProvider client={apolloClient}>
       <NavigationContainer
