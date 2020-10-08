@@ -9,12 +9,16 @@ import {
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 import { ColorSchemeName } from 'react-native';
+import { ApolloProvider } from '@apollo/client';
 
 import NotFoundScreen from '../screens/NotFoundScreen';
 import SignInScreen from '../screens/SignInScreen';
 // import { RootStackParamList } from '../types';
 import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
+
+import { useAuth0 } from '../hooks/useAuth0';
+import { apolloClient } from '../utils/createApolloClient';
 
 type RootStackParamList = {
   Root: undefined;
@@ -91,13 +95,15 @@ const RootNavigator = () => {
 
 const Navigation = ({ colorScheme, navigationRef }: NavigationProps) => {
   return (
-    <NavigationContainer
-      ref={navigationRef}
-      linking={LinkingConfiguration}
-      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
-    >
-      <RootNavigator />
-    </NavigationContainer>
+    <ApolloProvider client={apolloClient}>
+      <NavigationContainer
+        ref={navigationRef}
+        linking={LinkingConfiguration}
+        theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
+      >
+        <RootNavigator />
+      </NavigationContainer>
+    </ApolloProvider>
   );
 };
 export default Navigation;
