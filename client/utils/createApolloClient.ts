@@ -8,14 +8,9 @@ import {
 import { useAuth0 } from '../hooks/useAuth0';
 const httpLink = new HttpLink({ uri: 'http://localhost:8088/graphql' });
 const { accessToken } = useAuth0();
-const checkAuth = new ApolloLink((operation, forward) => {
-  operation.setContext({
-    headers: {
-      authorization: 'Bearer ' + accessToken
-    }
-  });
-  return forward(operation);
-});
+
+const getApolloClient = (accessToken: string | undefined) => {};
+
 // add dynamic url for testing and production environments
 export const apolloClient = new ApolloClient({
   cache: new InMemoryCache(),
