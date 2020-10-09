@@ -241,7 +241,7 @@ export const Auth0Provider = ({
     redirectUri,
     clientId,
     responseType: AuthSession.ResponseType.Code,
-    scopes: ['offline_access', 'openid', 'profile'],
+    scopes: ['offline_access', 'openid', 'profile', 'email', 'name'],
     extraParams: {
       audience
     }
