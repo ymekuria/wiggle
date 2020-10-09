@@ -7,7 +7,7 @@ const authConfig = {
   audience: process.env.AUTH0_AUDIENCE,
   algorithms: ['RS256']
 };
-console.log({ authConfig });
+
 // Usw jwkSRsa to handle public key rotation and load it at runtime from auth server
 // the key is cached for some time
 const secret = jwksRsa.expressJwtSecret({
@@ -21,7 +21,8 @@ const checkJwt = jwt({
   secret,
   issuer: process.env.AUTH0_ISSUER,
   audience: process.env.AUTH0_AUDIENCE,
-  algorithms: ['RS256']
+  algorithms: ['RS256'],
+  credentialsRequired: false // for testing with GraphQL playground
 });
 
 export default checkJwt;

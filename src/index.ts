@@ -31,13 +31,13 @@ app.use(cors());
 // app.use(authRouter);
 app.use(checkJwt);
 
-app.use((err, req, res, next) => {
-  console.log(err);
-  if (err.name === 'UnauthorizedError') {
-    console.error('Request without valid token');
-    res.status(401).send({ msg: 'Invalid token' });
-  } else next();
-});
+// app.use((err, req, res, next) => {
+//   console.log(err);
+//   if (err.name === 'UnauthorizedError') {
+//     console.error('Request without valid token');
+//     res.status(401).send({ msg: 'Invalid token' });
+//   } else next();
+// });
 const PORT = process.env.PORT || 8088;
 console.log('port', PORT);
 const prisma = new PrismaClient();
@@ -49,6 +49,7 @@ const server = new ApolloServer({
     reportSchema: true
   },
   context: ({ req }) => {
+    console.log('headers', req.headers);
     const user = req.user || undefined;
     console.log({ user });
     return { user, prisma };
