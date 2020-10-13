@@ -1,6 +1,6 @@
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 generator client {
@@ -10,8 +10,8 @@ generator client {
 
 model User {
   id       Int      @id @default(autoincrement())
-  auth0id  String   @unique
-  userName String?
+  auth0id  String   @unique @default("sub")
+  userName String
   wiggles  Wiggle[]
 
 }
