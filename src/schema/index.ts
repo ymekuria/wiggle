@@ -18,7 +18,7 @@ const mainSchema = gql`
   input CreateUserInput {
     userName: String
   }
-  type CreateUserResponse {
+  type CreateUserResponse {git
     id: ID
     userName: String
     wiggles: [Wiggle]
