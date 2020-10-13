@@ -14,7 +14,7 @@ type PrismaContext = {
 };
 
 type FindWiggleInput = {
-  userName: string;
+  auth0id: string;
   phoneNumber: string;
 };
 type FindWiggleResponse = Wiggle | null;
@@ -44,11 +44,11 @@ const Query = {
     { input }: { input: FindWiggleInput },
     { prisma }: PrismaContext
   ): Promise<FindWiggleResponse> => {
-    const { userName, phoneNumber } = input;
+    const { auth0id, phoneNumber } = input;
 
     let result = await prisma.wiggle.findMany({
       where: {
-        AND: [{ user: { userName } }, { contact: { phoneNumber } }]
+        AND: [{ user: { auth0id } }, { contact: { phoneNumber } }]
       },
       select: {
         id: true,
