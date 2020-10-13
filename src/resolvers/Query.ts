@@ -34,6 +34,7 @@ const Query = {
     return dataSources.jokeAPI.searchJokes(term);
   },
   joke: (_parent: any, _args: any, context: any) => {
+    console.log('context.user', context.user);
     return context.dataSources.jokeAPI.getRandomJoke();
   },
   jokes: (_parent: any, _args: any, { dataSources }: any) => {

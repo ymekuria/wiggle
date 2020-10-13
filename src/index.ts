@@ -49,9 +49,8 @@ const server = new ApolloServer({
     reportSchema: true
   },
   context: ({ req }) => {
-    console.log('headers', req.headers);
     const user = req.user || undefined;
-    console.log({ user });
+
     return { user, prisma };
   },
   dataSources: () => {

@@ -16,6 +16,7 @@ const mainSchema = gql`
   }
   input CreateUserInput {
     userName: String
+    auth0id: String!
   }
   type CreateUserResponse {
     id: ID
@@ -36,6 +37,7 @@ const mainSchema = gql`
     userName: String
     schedule: String
     contact: ContactInput
+    auth0id: String
   }
   type CreateWiggleResponse {
     id: ID

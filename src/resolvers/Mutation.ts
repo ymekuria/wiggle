@@ -23,8 +23,19 @@ type Wiggle = WiggleGetPayload<{
   };
 }>;
 
-type PrismaContext = {
+type DecodedJwt = {
+  iss: string;
+  sub: string;
+  aud: string[];
+  iat: number;
+  exp: number;
+  azp: string;
+  scope: string;
+};
+
+type Context = {
   prisma: PrismaClient;
+  user: DecodedJwt;
 };
 
 type CreateUserInput = {
@@ -43,7 +54,7 @@ const Mutation = {
   createUser: async (
     _parent: any,
     { input }: { input: CreateUserInput },
-    { prisma }: PrismaContext
+    { prisma }: Context
   ): Promise<User> => {
     let newUser = await prisma.user.create({
       data: {
@@ -57,7 +68,7 @@ const Mutation = {
   createWiggle: async (
     _parent: any,
     { input }: { input: CreateWiggleInput },
-    { prisma }: PrismaContext
+    { prisma }: Context
   ): Promise<Wiggle> => {
     const { schedule, auth0id, contact } = input;
 
