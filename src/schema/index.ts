@@ -8,6 +8,7 @@ const mainSchema = gql`
     searchJokes(term: String): [Joke]
     jokes: [Joke]
     wiggle(input: FindWiggleInput!): FindWiggleResponse
+    wiggles: [Wiggle]
   }
 
   type Mutation {
