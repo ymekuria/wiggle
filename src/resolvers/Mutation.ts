@@ -40,13 +40,11 @@ type Context = {
 
 type CreateUserInput = {
   userName: string | undefined;
-  auth0id: string;
 };
 
 type CreateWiggleInput = {
   schedule: string;
   userName: string | undefined;
-  auth0id: string;
   contact: Contact;
 };
 
@@ -54,11 +52,11 @@ const Mutation = {
   createUser: async (
     _parent: any,
     { input }: { input: CreateUserInput },
-    { prisma }: Context
+    { prisma, user }: Context
   ): Promise<User> => {
     let newUser = await prisma.user.create({
       data: {
-        auth0id: input.auth0id,
+        auth0id: user.sub,
         userName: input?.userName
       }
     });
@@ -68,14 +66,14 @@ const Mutation = {
   createWiggle: async (
     _parent: any,
     { input }: { input: CreateWiggleInput },
-    { prisma }: Context
+    { prisma, user }: Context
   ): Promise<Wiggle> => {
-    const { schedule, auth0id, contact } = input;
+    const { schedule, contact } = input;
 
     let newWiggle = await prisma.wiggle.create({
       data: {
         user: {
-          connect: { auth0id }
+          connect: { auth0id: user.sub }
         },
         schedule,
         contact: {
