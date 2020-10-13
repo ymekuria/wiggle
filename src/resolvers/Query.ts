@@ -1,5 +1,20 @@
 import { PrismaClient, WiggleGetPayload } from '@prisma/client';
 
+type DecodedJwt = {
+  iss: string;
+  sub: string;
+  aud: string[];
+  iat: number;
+  exp: number;
+  azp: string;
+  scope: string;
+};
+
+type Context = {
+  prisma: PrismaClient;
+  user: DecodedJwt;
+  dataSources: any;
+};
 type Wiggle = WiggleGetPayload<{
   select: {
     id: true;
@@ -9,10 +24,6 @@ type Wiggle = WiggleGetPayload<{
   };
 }>;
 
-type PrismaContext = {
-  prisma: PrismaClient;
-};
-
 type FindWiggleInput = {
   auth0id: string;
   phoneNumber: string;
@@ -20,10 +31,10 @@ type FindWiggleInput = {
 type FindWiggleResponse = Wiggle | null;
 
 const Query = {
-  dogPic: (_parent: any, _args: any, { dataSources }: any) => {
+  dogPic: (_parent: any, _args: any, { dataSources }: Context) => {
     return dataSources.dogAPI.getRandomDogPic();
   },
-  dogPics: (_parent: any, _args: any, { dataSources }: any) => {
+  dogPics: (_parent: any, _args: any, { dataSources }: Context) => {
     return dataSources.dogAPI.getThreeRandomDogPics();
   },
   searchJokes: (
@@ -33,7 +44,7 @@ const Query = {
   ) => {
     return dataSources.jokeAPI.searchJokes(term);
   },
-  joke: (_parent: any, _args: any, context: any) => {
+  joke: (_parent: any, _args: any, context: Context) => {
     console.log('context.user', context.user);
     return context.dataSources.jokeAPI.getRandomJoke();
   },
@@ -43,7 +54,7 @@ const Query = {
   wiggle: async (
     _parent: any,
     { input }: { input: FindWiggleInput },
-    { prisma }: PrismaContext
+    { prisma, user }: Context
   ): Promise<FindWiggleResponse> => {
     const { auth0id, phoneNumber } = input;
 
