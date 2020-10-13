@@ -8,6 +8,7 @@ import {
 type User = UserGetPayload<{
   select: {
     id: true;
+    auth0id: true;
     userName: true;
     wiggles?: true;
   };
@@ -27,12 +28,14 @@ type PrismaContext = {
 };
 
 type CreateUserInput = {
-  userName: string;
+  userName: string | undefined;
+  auth0id: string;
 };
 
 type CreateWiggleInput = {
   schedule: string;
-  userName: string;
+  userName: string | undefined;
+  auth0id: string;
   contact: Contact;
 };
 
@@ -44,7 +47,8 @@ const Mutation = {
   ): Promise<User> => {
     let newUser = await prisma.user.create({
       data: {
-        userName: input.userName
+        auth0id: input.auth0id,
+        userName: input?.userName
       }
     });
 
