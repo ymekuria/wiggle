@@ -8,8 +8,7 @@ import {
 type User = UserGetPayload<{
   select: {
     id: true;
-
-    userName: true;
+    userName?: true;
     email?: true;
     wiggles?: true;
   };
