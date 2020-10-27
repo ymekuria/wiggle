@@ -59,7 +59,7 @@ const Query = {
     let result = await prisma.wiggle.findMany({
       where: {
         AND: [
-          { user: { auth0id: user.sub } },
+          { user: { id: user.sub } },
           { contact: { phoneNumber: input.phoneNumber } }
         ]
       },
