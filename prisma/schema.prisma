@@ -9,19 +9,21 @@ generator client {
 }
 
 model User {
-  auth0Id  String   @id
+  id       String   @id
   userName String?
+  email    String?
   wiggles  Wiggle[]
 
 }
 
 model Wiggle {
   id   Int  @id @default(autoincrement())
-  user User @relation(fields: [userId], references: [auth0Id])
+  user User @relation(fields: [userId], references: [id])
 
-  schedule  String // change to enum once all permutations are determined
+  schedule String // change to enum once all permutations are determined
   // add message type
-  contact   Contact @relation(fields: [contactId], references: [id])
+  contact  Contact @relation(fields: [contactId], references: [id])
+
   userId    String
   contactId Int
 }
