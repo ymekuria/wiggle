@@ -80,7 +80,7 @@ const Query = {
   ): Promise<FindWigglesResponse> => {
     let result = await prisma.wiggle.findMany({
       where: {
-        user: { auth0id: user.sub }
+        user: { id: user.sub }
       },
       select: {
         id: true,
