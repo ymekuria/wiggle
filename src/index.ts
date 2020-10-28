@@ -12,7 +12,7 @@ import JokeAPI from './dataSources/JokeAPI';
 import mainSchema from './schema';
 import resolvers from './resolvers';
 import checkJwt from './middleware/checkJwt';
-import createContext from './utils/createContext';
+// import createContext from './utils/createContext';
 
 // import passport from 'passport';
 // import passportJWT from 'passport-jwt';
@@ -49,12 +49,12 @@ const server = new ApolloServer({
   engine: {
     reportSchema: true
   },
-  context: createContext,
-  // context: ({ req }) => {
-  //   const user = req.user || undefined;
+  // context: createContext,
+  context: ({ req }) => {
+    const user = req.user || undefined;
 
-  //   return { user, prisma };
-  // },
+    return { user, prisma };
+  },
   dataSources: () => {
     return { dogAPI: new DogAPI(), jokeAPI: new JokeAPI() };
   }

@@ -1,10 +1,10 @@
-import { PrismaClient } from '@prisma/client';
+// import { PrismaClient } from '@prisma/client';
 
-// const prisma = new PrismaClient();
-const createContext = ({ req }) => {
-  const user = req.user || undefined;
+// // const prisma = new PrismaClient();
+// const createContext = ({ req }) => {
+//   const user = req.user || undefined;
 
-  return { user, prisma };
-};
+//   return { user, prisma };
+// };
 
-export default createContext;
+// export default createContext;

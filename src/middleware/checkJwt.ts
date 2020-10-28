@@ -25,4 +25,5 @@ const checkJwt = jwt({
   credentialsRequired: false // for testing with GraphQL playground
 });
 
+console.log('checkJwt,', checkJwt);
 export default checkJwt;
