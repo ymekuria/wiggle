@@ -31,7 +31,9 @@ app.use(cors());
 
 // app.use(homeRouter);
 // app.use(authRouter);
-app.use(checkJwt, async (req, res, next) => {
+app.use(checkJwt);
+
+app.use(async (req, res, next) => {
   console.log('testing middleware req.use', req.user);
   if (req.user?.sub) {
     console.log('JWT token valid and is req.user');
