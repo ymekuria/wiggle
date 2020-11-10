@@ -71,7 +71,6 @@ const Mutation = {
     { prisma, user }: Context
   ): Promise<Wiggle> => {
     const { schedule, contact } = input;
-
     let newWiggle = await prisma.wiggle.create({
       data: {
         user: {

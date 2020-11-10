@@ -174,7 +174,7 @@ const fetchAccessToken = async (
   if (tokenResponse.ok) {
     const token = (await tokenResponse.json()) as Token;
 
-    console.log('token', token);
+    console.log('token in tokenResponse.ok', token);
     // Refetch the access token before it expires
     setTimeout(() => {
       let refreshTokenData: TokenData | RefreshTokenData = data;
@@ -204,6 +204,7 @@ const fetchAccessToken = async (
     setAccessToken(token.access_token);
     setUser(userInfo);
   } else {
+    console.log('Token Request Failure');
     onTokenRequestFailure?.();
   }
 };
