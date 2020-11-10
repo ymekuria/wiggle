@@ -12,36 +12,19 @@ import JokeAPI from './dataSources/JokeAPI';
 import mainSchema from './schema';
 import resolvers from './resolvers';
 import checkJwt from './middleware/checkJwt';
-// import createContext from './utils/createContext';
-
-// import passport from 'passport';
-// import passportJWT from 'passport-jwt';
-
-// import './services/passport';
-
-// import authRouter from './routes/authRoutes';
-// import homeRouter from './routes/routes';
+import validateUser from './middleware/validateUser';
 
 const app = express();
 const prisma = new PrismaClient();
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
-// app.use(passport.initialize());
-
-// app.use(homeRouter);
-// app.use(authRouter);
+// checks auth token and adds user to req.user
 app.use(checkJwt);
+// checks if if user is in the db and adds it if not
+app.use(validateUser(prisma));
 
-app.use(validateUser);
-
-// app.use((err, req, res, next) => {
-//   console.log(err);
-//   if (err.name === 'UnauthorizedError') {
-//     console.error('Request without valid token');
-//     res.status(401).send({ msg: 'Invalid token' });
-//   } else next();
-// });
 const PORT = process.env.PORT || 8088;
 console.log('port', PORT);
 
@@ -51,7 +34,6 @@ const server = new ApolloServer({
   engine: {
     reportSchema: true
   },
-  // context: createContext,
   context: ({ req }) => {
     const user = req.user || undefined;
 
@@ -61,7 +43,7 @@ const server = new ApolloServer({
     return { dogAPI: new DogAPI(), jokeAPI: new JokeAPI() };
   }
 });
-// app.use('/', homeRouter);
+
 server.applyMiddleware({
   app
 });
