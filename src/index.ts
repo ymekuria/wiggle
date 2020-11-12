@@ -22,7 +22,7 @@ type DecodedJwt = {
   scope: string;
 };
 
-type Context = {
+export type Context = {
   prisma: PrismaClient;
   userToken?: DecodedJwt;
 };

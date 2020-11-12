@@ -4,7 +4,7 @@ import {
   WiggleGetPayload,
   UserGetPayload
 } from '@prisma/client';
-
+import { Context } from '../';
 type User = UserGetPayload<{
   select: {
     id: true;
@@ -22,21 +22,6 @@ type Wiggle = WiggleGetPayload<{
     contact: true;
   };
 }>;
-
-type DecodedJwt = {
-  iss: string;
-  sub: string;
-  aud: string[];
-  iat: number;
-  exp: number;
-  azp: string;
-  scope: string;
-};
-
-type Context = {
-  prisma: PrismaClient;
-  userToken: DecodedJwt;
-};
 
 type CreateUserInput = {
   userName: string | undefined;
