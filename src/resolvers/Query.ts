@@ -1,26 +1,41 @@
-import { PrismaClient, WiggleGetPayload } from '@prisma/client';
+import {
+  PrismaClient,
+  WiggleGetPayload,
+  UserGetPayload,
+  prismaVersion
+} from '@prisma/client';
+import { Context } from '../';
 
-type DecodedJwt = {
-  iss: string;
-  sub: string;
-  aud: string[];
-  iat: number;
-  exp: number;
-  azp: string;
-  scope: string;
-};
+// type DecodedJwt = {
+//   iss: string;
+//   sub: string;
+//   aud: string[];
+//   iat: number;
+//   exp: number;
+//   azp: string;
+//   scope: string;
+// };
 
-type Context = {
-  prisma: PrismaClient;
-  user: DecodedJwt;
-  dataSources: any;
-};
+// type Context = {
+//   prisma: PrismaClient;
+//   user: DecodedJwt;
+//   dataSources: any;
+// };
 type Wiggle = WiggleGetPayload<{
   select: {
     id: true;
     schedule: true;
     user: true;
     contact: true;
+  };
+}>;
+
+type User = UserGetPayload<{
+  select: {
+    id: true;
+    userName?: true;
+    email?: true;
+    wiggles?: true;
   };
 }>;
 
@@ -31,7 +46,20 @@ type FindWiggleResponse = Wiggle | null;
 
 type FindWigglesResponse = Wiggle[] | null;
 
+type MeResponse = User | null;
+
 const Query = {
+  me: async (
+    _parent: any,
+    _args: any,
+    { prisma, userToken }: Context
+  ): Promise<MeResponse> => {
+    const currentUser = await prisma.user.findOne({
+      where: { id: userToken?.sub }
+    });
+
+    return currentUser;
+  },
   dogPic: (_parent: any, _args: any, { dataSources }: Context) => {
     return dataSources.dogAPI.getRandomDogPic();
   },

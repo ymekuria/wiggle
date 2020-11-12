@@ -25,6 +25,7 @@ type DecodedJwt = {
 export type Context = {
   prisma: PrismaClient;
   userToken?: DecodedJwt;
+  dataSources?: any;
 };
 
 export interface RequestWithToken extends Request {

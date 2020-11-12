@@ -5,6 +5,7 @@ import {
   UserGetPayload
 } from '@prisma/client';
 import { Context } from '../';
+
 type User = UserGetPayload<{
   select: {
     id: true;
@@ -56,6 +57,8 @@ const Mutation = {
     { prisma, userToken }: Context
   ): Promise<Wiggle> => {
     const { schedule, contact } = input;
+    if (!userToken) {
+    }
     let newWiggle = await prisma.wiggle.create({
       data: {
         user: {
