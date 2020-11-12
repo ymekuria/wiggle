@@ -12,6 +12,25 @@ import resolvers from './resolvers';
 import checkJwt from './middleware/checkJwt';
 import validateUser from './middleware/validateUser';
 
+type DecodedJwt = {
+  iss: string;
+  sub: string;
+  aud: string[];
+  iat: number;
+  exp: number;
+  azp: string;
+  scope: string;
+};
+
+type Context = {
+  prisma: PrismaClient;
+  userToken?: DecodedJwt;
+};
+
+export interface RequestWithToken extends Request {
+  userToken?: DecodedJwt;
+}
+
 const app = express();
 const prisma = new PrismaClient();
 
@@ -32,8 +51,8 @@ const server = new ApolloServer({
   engine: {
     reportSchema: true
   },
-  context: ({ req }: { req: Request }) => {
-    const userToken = req.userToken || undefined;
+  context: ({ req }: { req: RequestWithToken }): Context => {
+    const userToken = req.userToken;
 
     return { userToken, prisma };
   },
