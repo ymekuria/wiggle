@@ -2,6 +2,7 @@ import { gql } from 'apollo-server-express';
 
 const mainSchema = gql`
   type Query {
+    me: MeResponse
     dogPic: DogPic
     dogPics: DogPics
     joke: Joke
@@ -18,6 +19,14 @@ const mainSchema = gql`
   input CreateUserInput {
     userName: String
   }
+
+  type MeResponse {
+    id: ID
+    userName: String
+    email: String
+    wiggles: [Wiggle]
+  }
+
   type CreateUserResponse {
     id: ID
     userName: String

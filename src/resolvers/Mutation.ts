@@ -1,9 +1,4 @@
-import {
-  PrismaClient,
-  Contact,
-  WiggleGetPayload,
-  UserGetPayload
-} from '@prisma/client';
+import { Contact, WiggleGetPayload, UserGetPayload } from '@prisma/client';
 import { Context } from '../';
 
 type User = UserGetPayload<{
