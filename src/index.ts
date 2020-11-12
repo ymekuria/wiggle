@@ -2,11 +2,9 @@ require('dotenv').config();
 import express, { Request } from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import jwtDecode from 'jwt-decode';
-// import { connect, connection } from 'mongoose';
 import { ApolloServer } from 'apollo-server-express';
 import { PrismaClient } from '@prisma/client';
-import authenticate from './middleware/checkJwt';
+
 import DogAPI from './dataSources/DogAPI';
 import JokeAPI from './dataSources/JokeAPI';
 import mainSchema from './schema';
@@ -34,10 +32,10 @@ const server = new ApolloServer({
   engine: {
     reportSchema: true
   },
-  context: ({ req }) => {
-    const user = req.user || undefined;
+  context: ({ req }: { req: Request }) => {
+    const userToken = req.userToken || undefined;
 
-    return { user, prisma };
+    return { userToken, prisma };
   },
   dataSources: () => {
     return { dogAPI: new DogAPI(), jokeAPI: new JokeAPI() };

@@ -1,11 +1,18 @@
-const validateUser = (prisma) => {
-  return async (req, res, next) => {
-    console.log('testing middleware req.use', req.user);
+import { PrismaClient } from '@prisma/client';
+import { Request, Response, NextFunction } from 'express';
+
+interface RequestWithToken extends Request {
+  userToken?: any;
+}
+const validateUser = (prisma: PrismaClient) => {
+  return async (req: RequestWithToken, res: Response, next: NextFunction) => {
+    console.log('testing middleware req.use', req.userToken);
     try {
-      if (req.user?.sub) {
+      if (req.userToken?.sub) {
         console.log('JWT token valid and is req.user');
+        // check if user is in the db
         const dbUser = await prisma.user.findOne({
-          where: { id: req.user.sub }
+          where: { id: req.userToken.sub }
         });
 
         if (!dbUser) {
@@ -13,7 +20,7 @@ const validateUser = (prisma) => {
           // add user to db if not there already
           const newUser = await prisma.user.create({
             data: {
-              id: req.user.sub
+              id: req.userToken.sub
             }
           });
 
@@ -24,7 +31,7 @@ const validateUser = (prisma) => {
           next();
         }
       } else {
-        console.log('no token sent. req.user', req.user);
+        console.log('no token sent. req.userToken', req.userToken);
         next();
       }
     } catch (err) {

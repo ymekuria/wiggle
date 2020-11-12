@@ -22,7 +22,8 @@ const checkJwt = jwt({
   issuer: process.env.AUTH0_ISSUER,
   audience: process.env.AUTH0_AUDIENCE,
   algorithms: ['RS256'],
-  credentialsRequired: false // for testing with GraphQL playground
+  credentialsRequired: false, // for testing with GraphQL playground
+  requestProperty: 'userToken'
 });
 
 export default checkJwt;
