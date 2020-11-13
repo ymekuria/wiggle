@@ -82,12 +82,12 @@ const Query = {
   wiggle: async (
     _parent: any,
     { input }: { input: FindWiggleInput },
-    { prisma, user }: Context
+    { prisma, userToken }: Context
   ): Promise<FindWiggleResponse> => {
     let result = await prisma.wiggle.findMany({
       where: {
         AND: [
-          { user: { id: user.sub } },
+          { user: { id: userToken.sub } },
           { contact: { phoneNumber: input.phoneNumber } }
         ]
       },
@@ -104,11 +104,11 @@ const Query = {
   wiggles: async (
     _parent: any,
     _args: any,
-    { prisma, user }: Context
+    { prisma, userToken }: Context
   ): Promise<FindWigglesResponse> => {
     let result = await prisma.wiggle.findMany({
       where: {
-        user: { id: user.sub }
+        user: { id: userToken.sub }
       },
       select: {
         id: true,

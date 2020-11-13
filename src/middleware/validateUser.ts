@@ -1,9 +1,9 @@
 import { PrismaClient } from '@prisma/client';
 import { Response, NextFunction } from 'express';
-import { RequestWithToken } from '../';
+import { AuthRequest } from '../';
 
 const validateUser = (prisma: PrismaClient) => {
-  return async (req: RequestWithToken, res: Response, next: NextFunction) => {
+  return async (req: AuthRequest, res: Response, next: NextFunction) => {
     console.log('testing middleware req.use', req.userToken);
     try {
       if (req.userToken?.sub) {

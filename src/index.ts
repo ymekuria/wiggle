@@ -28,7 +28,7 @@ export type Context = {
   dataSources?: any;
 };
 
-export interface RequestWithToken extends Request {
+export interface AuthRequest extends Request {
   userToken?: DecodedJwt;
 }
 
@@ -52,7 +52,7 @@ const server = new ApolloServer({
   engine: {
     reportSchema: true
   },
-  context: ({ req }: { req: RequestWithToken }): Context => {
+  context: ({ req }: { req: AuthRequest }): Context => {
     const userToken = req.userToken;
 
     return { userToken, prisma };
