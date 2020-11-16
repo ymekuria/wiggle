@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native';
 import { useQuery, gql } from '@apollo/client';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Text, View } from '../components/Themed';
+
 const JOKE = gql`
   query GetJoke {
     joke {
