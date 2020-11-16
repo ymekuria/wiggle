@@ -1,34 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { StyleSheet, FlatList, SafeAreaView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Text, View } from '../components/Themed';
 import * as Contacts from 'expo-contacts';
 import { TouchableOpacity, TextInput } from 'react-native-gesture-handler';
+import useContacts from '../hooks/useContacts';
 
 const TabTwoScreen: React.FC = (props) => {
-  const [contacts, setContacts] = useState<Contacts.Contact[] | undefined>();
-
-  React.useEffect(() => {
-    (async () => {
-      try {
-        const { status } = await Contacts.requestPermissionsAsync();
-        if (status === 'granted') {
-          const { data } = await Contacts.getContactsAsync({
-            fields: [Contacts.Fields.PhoneNumbers],
-            sort: Contacts.SortTypes.FirstName,
-            pageSize: 0
-          });
-
-          setContacts(data);
-          console.log('data', data[0]);
-        }
-      } catch (err) {
-        console.log('error::', err);
-      }
-    })();
-  }, []);
-  // const Contact = ()
-
+  const [contacts] = useContacts();
   console.log('Contacts', contacts);
   return (
     <LinearGradient
