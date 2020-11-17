@@ -8,9 +8,23 @@ import {
 import { Contact } from 'expo-contacts';
 import { Text, View } from '../components/Themed';
 import useContacts from '../hooks/useContacts';
+import { SearchBar } from 'react-native-elements';
 
 const ContactsDisplay = () => {
-  const [contacts] = useContacts();
+  const [searchInputValue, onChangeSearchText] = useState<string>('');
+  const [contacts, setContacts, inMemoryContacts] = useContacts();
+
+  const searchContacts = (value) => {
+    onChangeSearchText(value);
+    const filteredContacts = inMemoryContacts?.filter((contact) => {
+      let contactLowerCase = `${contact.firstName} ${contact.lastName}`.toLowerCase();
+
+      let searchTermLowerCase = value.toLowerCase();
+
+      return contactLowerCase.includes(searchTermLowerCase);
+    });
+    setContacts(filteredContacts);
+  };
 
   const renderContacts = ({ item }) => {
     return (
@@ -25,7 +39,12 @@ const ContactsDisplay = () => {
   };
   return (
     <SafeAreaView>
-      <TextInput style={styles.searchBarStyle} placeholder="Search" />
+      <TextInput
+        style={styles.searchBarStyle}
+        onChangeText={searchContacts}
+        value={searchInputValue}
+        placeholder="Search"
+      />
       <FlatList
         data={contacts}
         renderItem={renderContacts}

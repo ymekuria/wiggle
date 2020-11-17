@@ -3,6 +3,9 @@ import * as Contacts from 'expo-contacts';
 
 export default () => {
   const [contacts, setContacts] = useState<Contacts.Contact[] | undefined>();
+  const [inMemoryContacts, setInMemoryContacts] = useState<
+    Contacts.Contact[] | undefined
+  >();
 
   useEffect(() => {
     async function getContacts() {
@@ -16,6 +19,7 @@ export default () => {
           });
 
           setContacts(data);
+          setInMemoryContacts(data);
         }
       } catch (err) {
         console.log('error::', err);
@@ -25,5 +29,5 @@ export default () => {
     getContacts();
   }, []);
 
-  return [contacts];
+  return [contacts, setContacts, inMemoryContacts];
 };
