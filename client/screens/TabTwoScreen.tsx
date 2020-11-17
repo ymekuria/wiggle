@@ -3,7 +3,7 @@ import { StyleSheet, FlatList, SafeAreaView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Text, View } from '../components/Themed';
 import * as Contacts from 'expo-contacts';
-import { TouchableOpacity, TextInput } from 'react-native-gesture-handler';
+import ContactsDisplay from '../components/ContactsDisplay';
 import useContacts from '../hooks/useContacts';
 
 const TabTwoScreen: React.FC = (props) => {
@@ -24,16 +24,17 @@ const TabTwoScreen: React.FC = (props) => {
       style={styles.container}
     >
       <Text style={styles.title}>Tab Two</Text>
+      <ContactsDisplay />
       {/* <Text>First Name{contacts?.firstName}</Text>
       <Text>Last Name{contacts?.lastName}</Text> */}
-      <SafeAreaView>
+      {/* <SafeAreaView>
         <FlatList
           data={contacts}
           renderItem={renderContact}
           keyExtractor={(item) => item.id}
         ></FlatList>
       </SafeAreaView>
-      <TextInput style={styles.searchBarStyle} placeholder="Search" />
+      <TextInput style={styles.searchBarStyle} placeholder="Search" /> */}
     </LinearGradient>
   );
 };
