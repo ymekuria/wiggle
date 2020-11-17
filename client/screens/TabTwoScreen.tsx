@@ -4,20 +4,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Text, View } from '../components/Themed';
 import * as Contacts from 'expo-contacts';
 import ContactsDisplay from '../components/ContactsDisplay';
-import useContacts from '../hooks/useContacts';
 
 const TabTwoScreen: React.FC = (props) => {
-  const [contacts] = useContacts();
-  console.log('Contacts', contacts);
-  const renderContact = ({ item }) => {
-    return (
-      <View style={styles.contactContainer}>
-        <Text>
-          {item.firstName} {item.lastName}
-        </Text>
-      </View>
-    );
-  };
   return (
     <LinearGradient
       colors={['rgba(163,175,243,1)', 'rgba(220,182,232,1)']}
@@ -27,14 +15,6 @@ const TabTwoScreen: React.FC = (props) => {
       <ContactsDisplay />
       {/* <Text>First Name{contacts?.firstName}</Text>
       <Text>Last Name{contacts?.lastName}</Text> */}
-      {/* <SafeAreaView>
-        <FlatList
-          data={contacts}
-          renderItem={renderContact}
-          keyExtractor={(item) => item.id}
-        ></FlatList>
-      </SafeAreaView>
-      <TextInput style={styles.searchBarStyle} placeholder="Search" /> */}
     </LinearGradient>
   );
 };
