@@ -5,12 +5,14 @@ import { Contact } from 'expo-contacts';
 import { Text, View } from '../components/Themed';
 import useContacts from '../hooks/useContacts';
 import { SearchBar } from 'react-native-elements';
+import { useNavigation } from '@react-navigation/native';
 
-const ContactsDisplay = () => {
+const ContactsDisplay = (props) => {
   const [searchInputValue, onChangeSearchText] = useState<string>('');
   const [isContactSelected, setIsContactSelected] = useState(false);
   const [selectedContact, setSelectedContact] = useState();
   const [contacts, setContacts, inMemoryContacts] = useContacts();
+  const navigation = useNavigation();
 
   const searchContacts = (value: string) => {
     onChangeSearchText(value);
@@ -28,6 +30,8 @@ const ContactsDisplay = () => {
     console.log('item', item.phoneNumbers);
     setSelectedContact(item);
     setIsContactSelected(true);
+    navigation.navigate('ContactDisplayScreen');
+    console.log({ props });
   };
 
   const renderContacts = ({ item }) => {

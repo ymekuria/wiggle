@@ -13,6 +13,7 @@ import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import TabThreeScreen from '../screens/TabThreeScreen';
 import TabFourScreen from '../screens/TabFourScreen';
+import ContactDisplayScreen from '../screens/ContactDisplayScreen';
 
 type BottomTabParamList = {
   TabOne: undefined;
@@ -27,6 +28,7 @@ type TabOneParamList = {
 
 type TabTwoParamList = {
   TabTwoScreen: undefined;
+  ContactDisplayScreen: undefined;
 };
 
 type TabThreeParamList = {
@@ -52,8 +54,13 @@ const TabTwoStack = createStackNavigator<TabTwoParamList>();
 
 const TabTwoNavigator = () => {
   return (
-    <TabTwoStack.Navigator>
+    <TabTwoStack.Navigator initialRouteName="TabTwoScreen">
       <TabTwoStack.Screen name="TabTwoScreen" component={TabTwoScreen} />
+      <TabTwoStack.Screen
+        name="ContactDisplayScreen"
+        component={ContactDisplayScreen}
+        options={{ title: 'Contact' }}
+      />
     </TabTwoStack.Navigator>
   );
 };
