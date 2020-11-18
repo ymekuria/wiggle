@@ -8,6 +8,8 @@ import { SearchBar } from 'react-native-elements';
 
 const ContactsDisplay = () => {
   const [searchInputValue, onChangeSearchText] = useState<string>('');
+  const [isContactSelected, setIsContactSelected] = useState(false);
+  const [selectedContact, setSelectedContact] = useState();
   const [contacts, setContacts, inMemoryContacts] = useContacts();
 
   const searchContacts = (value: string) => {
@@ -22,9 +24,15 @@ const ContactsDisplay = () => {
     setContacts(filteredContacts);
   };
 
+  const onContactPress = (item) => {
+    console.log('item', item.phoneNumbers);
+    setSelectedContact(item);
+    setIsContactSelected(true);
+  };
+
   const renderContacts = ({ item }) => {
     return (
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => onContactPress(item)}>
         <View style={styles.contactContainer}>
           <Text style={{ fontSize: 22 }}>
             {item.firstName} {item.lastName}
@@ -38,17 +46,24 @@ const ContactsDisplay = () => {
       <SearchBar
         onChangeText={searchContacts}
         value={searchInputValue}
-        containerStyle={styles.searchBarContainerStyle}
-        inputContainerStyle={styles.searchBarInputStyle}
-        inputStyle={{ fontSize: 22 }}
+        containerStyle={styles.searchBarContainer}
+        inputContainerStyle={styles.searchBarInputContainer}
+        inputStyle={styles.searchBarInput}
         placeholder="Search"
       />
-      <TextInput
-        style={styles.searchBarStyle}
-        onChangeText={searchContacts}
-        value={searchInputValue}
-        placeholder="Search"
-      />
+      {isContactSelected ? (
+        <FlatList
+          data={selectedContact.phoneNumbers}
+          renderItem={({ item }) => {
+            return (
+              <View>
+                <Text>{item.digits}</Text>
+              </View>
+            );
+          }}
+          keyExtractor={(item) => item.id}
+        />
+      ) : null}
       <FlatList
         data={contacts}
         renderItem={renderContacts}
@@ -73,21 +88,21 @@ const styles = StyleSheet.create({
     padding: 10,
     flex: 1,
     backgroundColor: 'rgba(247,236,250,.3)',
-
-    // alignItems: 'center',
     justifyContent: 'space-evenly'
   },
-  searchBarStyle: {
+  searchBar: {
     fontSize: 25,
     padding: 10
   },
-  searchBarContainerStyle: {
+  searchBarContainer: {
     backgroundColor: 'rgba(247,236,250,.3)',
     borderTopWidth: 0,
-    borderBottomWidth: 0,
-    fontSize: 25
+    borderBottomWidth: 0
   },
-  searchBarInputStyle: { backgroundColor: 'rgba(247,236,250,.3)', fontSize: 40 }
+  searchBarInputContainer: {
+    backgroundColor: 'rgba(247,236,250,.3)'
+  },
+  searchBarInput: { fontSize: 22 }
 });
 
 export default ContactsDisplay;

@@ -13,8 +13,6 @@ const TabTwoScreen: React.FC = (props) => {
     >
       <Text style={styles.title}>Tab Two</Text>
       <ContactsDisplay />
-      {/* <Text>First Name{contacts?.firstName}</Text>
-      <Text>Last Name{contacts?.lastName}</Text> */}
     </LinearGradient>
   );
 };
@@ -22,23 +20,10 @@ const TabTwoScreen: React.FC = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1
-    // alignItems: 'center',
-    // justifyContent: 'center'
   },
   title: {
     fontSize: 20,
     fontWeight: 'bold'
-  },
-  contactContainer: {
-    margin: 10,
-    padding: 10,
-    flex: 1,
-    backgroundColor: 'rgba(247,236,250,.3)',
-    // alignItems: 'center',
-    justifyContent: 'space-evenly'
-  },
-  searchBarStyle: {
-    fontSize: 25
   }
 });
 
