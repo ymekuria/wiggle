@@ -6,7 +6,10 @@ import {
   DefaultTheme,
   DarkTheme
 } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import {
+  createStackNavigator,
+  HeaderBackButton
+} from '@react-navigation/stack';
 import * as React from 'react';
 import { ColorSchemeName } from 'react-native';
 import { ApolloProvider } from '@apollo/client';
@@ -68,12 +71,13 @@ const Stack = createStackNavigator<RootStackParamList>();
 // rgba(163,175,243,1) 0%, rgba(220,182,232,1)
 const RootNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName="TabTwo">
+    <Stack.Navigator initialRouteName="Root" headerMode="none">
       <Stack.Screen
         name="Root"
         component={BottomTabNavigator}
         options={({ route }) => ({
           headerTitle: getHeaderTitle(route),
+
           headerStyle: {
             backgroundColor: 'rgba(163,175,243,1)'
           }

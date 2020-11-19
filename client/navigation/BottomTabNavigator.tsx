@@ -3,7 +3,10 @@ import {
   createBottomTabNavigator,
   BottomTabBar
 } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
+import {
+  createStackNavigator,
+  HeaderBackButton
+} from '@react-navigation/stack';
 
 import * as React from 'react';
 
@@ -54,12 +57,27 @@ const TabTwoStack = createStackNavigator<TabTwoParamList>();
 
 const TabTwoNavigator = () => {
   return (
-    <TabTwoStack.Navigator initialRouteName="TabTwoScreen">
+    <TabTwoStack.Navigator initialRouteName="TabTwoScreen" headerMode="screen">
       <TabTwoStack.Screen name="TabTwoScreen" component={TabTwoScreen} />
       <TabTwoStack.Screen
         name="ContactDisplayScreen"
         component={ContactDisplayScreen}
-        options={{ title: 'Contact' }}
+        // options={{
+        //   headerLeft: (props) => (
+        //     <HeaderBackButton
+        //       onPress={() => {
+        //         console.log('props on back button', props);
+        //         // alert('This is a button!');
+        //       }}
+        //       label="Back"
+        //     />
+        //   )
+        // }}
+        options={() => ({
+          headerStyle: {
+            backgroundColor: 'rgba(163,175,243,1)'
+          }
+        })}
       />
     </TabTwoStack.Navigator>
   );
@@ -96,7 +114,7 @@ const BottomTabNavigator: React.FC = () => {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
+      initialRouteName="TabTwo"
       tabBarOptions={{
         activeTintColor: Colors['dark'].tint,
         activeBackgroundColor: 'rgba(247,236,250,.3)',

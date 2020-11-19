@@ -31,12 +31,12 @@ const ContactsDisplay = (props) => {
     setSelectedContact(item);
     setIsContactSelected(true);
     navigation.navigate('ContactDisplayScreen');
-    console.log({ props });
+    console.log('props contacts', props);
   };
 
   const renderContacts = ({ item }) => {
     return (
-      <TouchableOpacity onPress={() => onContactPress(item)}>
+      <TouchableOpacity onPress={() => onContactPress(item, props)}>
         <View style={styles.contactContainer}>
           <Text style={{ fontSize: 22 }}>
             {item.firstName} {item.lastName}
