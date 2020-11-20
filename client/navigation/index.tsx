@@ -71,17 +71,27 @@ const Stack = createStackNavigator<RootStackParamList>();
 // rgba(163,175,243,1) 0%, rgba(220,182,232,1)
 const RootNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName="Root" headerMode="none">
+    <Stack.Navigator
+      initialRouteName="Root"
+      headerMode="none"
+      screenOptions={({ route }) => ({
+        headerTitle: getHeaderTitle(route),
+
+        headerStyle: {
+          backgroundColor: 'rgba(163,175,243,1)'
+        }
+      })}
+    >
       <Stack.Screen
         name="Root"
         component={BottomTabNavigator}
-        options={({ route }) => ({
-          headerTitle: getHeaderTitle(route),
+        // options={({ route }) => ({
+        //   headerTitle: getHeaderTitle(route),
 
-          headerStyle: {
-            backgroundColor: 'rgba(163,175,243,1)'
-          }
-        })}
+        //   headerStyle: {
+        //     backgroundColor: 'rgba(163,175,243,1)'
+        //   }
+        // })}
       />
       <Stack.Screen
         name="NotFound"

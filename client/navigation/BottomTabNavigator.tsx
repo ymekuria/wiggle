@@ -17,6 +17,7 @@ import TabTwoScreen from '../screens/TabTwoScreen';
 import TabThreeScreen from '../screens/TabThreeScreen';
 import TabFourScreen from '../screens/TabFourScreen';
 import ContactDisplayScreen from '../screens/ContactDisplayScreen';
+import { useThemeColor } from '../components/Themed';
 
 type BottomTabParamList = {
   TabOne: undefined;
@@ -56,33 +57,47 @@ const TabOneNavigator = () => {
 const TabTwoStack = createStackNavigator<TabTwoParamList>();
 
 const TabTwoNavigator = () => {
+  const headerTintColor = useThemeColor(
+    { light: undefined, dark: undefined },
+    'text'
+  );
+  console.log('headerTintColor', headerTintColor);
   return (
-    <TabTwoStack.Navigator initialRouteName="TabTwoScreen" headerMode="screen">
+    <TabTwoStack.Navigator
+      initialRouteName="TabTwoScreen"
+      headerMode="screen"
+      screenOptions={() => ({
+        headerStyle: {
+          backgroundColor: 'rgba(163,175,243,1)'
+        },
+
+        headerTintColor: headerTintColor
+      })}
+    >
       <TabTwoStack.Screen name="TabTwoScreen" component={TabTwoScreen} />
       <TabTwoStack.Screen
         name="ContactDisplayScreen"
         component={ContactDisplayScreen}
-        // options={{
-        //   headerLeft: (props) => (
-        //     <HeaderBackButton
-        //       onPress={() => {
-        //         console.log('props on back button', props);
-        //         // alert('This is a button!');
-        //       }}
-        //       label="Back"
-        //     />
-        //   )
-        // }}
-        options={() => ({
-          headerStyle: {
-            backgroundColor: 'rgba(163,175,243,1)'
-          }
-        })}
+        // options={() => ({
+        //   headerStyle: {
+        //     backgroundColor: 'rgba(163,175,243,1)'
+        //   }
+        // })}
       />
     </TabTwoStack.Navigator>
   );
 };
-
+// options={{
+//   headerLeft: (props) => (
+//     <HeaderBackButton
+//       onPress={() => {
+//         console.log('props on back button', props);
+//         // alert('This is a button!');
+//       }}
+//       label="Back"
+//     />
+//   )
+// }}
 const TabThreeStack = createStackNavigator<TabThreeParamList>();
 
 const TabThreeNavigator = () => {
