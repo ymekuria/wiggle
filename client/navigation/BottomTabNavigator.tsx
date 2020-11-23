@@ -47,8 +47,20 @@ type TabFourParamList = {
 const TabOneStack = createStackNavigator<TabOneParamList>();
 
 const TabOneNavigator = () => {
+  const headerTintColor = useThemeColor(
+    { light: undefined, dark: undefined },
+    'tint'
+  );
   return (
-    <TabOneStack.Navigator>
+    <TabOneStack.Navigator
+      screenOptions={() => ({
+        headerStyle: {
+          backgroundColor: 'rgba(163,175,243,1)'
+        },
+
+        headerTintColor: headerTintColor
+      })}
+    >
       <TabOneStack.Screen name="TabOneScreen" component={TabOneScreen} />
     </TabOneStack.Navigator>
   );
@@ -59,9 +71,9 @@ const TabTwoStack = createStackNavigator<TabTwoParamList>();
 const TabTwoNavigator = () => {
   const headerTintColor = useThemeColor(
     { light: undefined, dark: undefined },
-    'text'
+    'tint'
   );
-  console.log('headerTintColor', headerTintColor);
+
   return (
     <TabTwoStack.Navigator
       initialRouteName="TabTwoScreen"
@@ -101,8 +113,21 @@ const TabTwoNavigator = () => {
 const TabThreeStack = createStackNavigator<TabThreeParamList>();
 
 const TabThreeNavigator = () => {
+  const headerTintColor = useThemeColor(
+    { light: undefined, dark: undefined },
+    'tint'
+  );
   return (
-    <TabThreeStack.Navigator>
+    <TabThreeStack.Navigator
+      headerMode="screen"
+      screenOptions={() => ({
+        headerStyle: {
+          backgroundColor: 'rgba(163,175,243,1)'
+        },
+
+        headerTintColor: headerTintColor
+      })}
+    >
       <TabThreeStack.Screen name="TabThreeScreen" component={TabThreeScreen} />
     </TabThreeStack.Navigator>
   );
@@ -111,8 +136,21 @@ const TabThreeNavigator = () => {
 const TabFourStack = createStackNavigator<TabFourParamList>();
 
 const TabFourNavigator = () => {
+  const headerTintColor = useThemeColor(
+    { light: undefined, dark: undefined },
+    'tint'
+  );
   return (
-    <TabFourStack.Navigator>
+    <TabFourStack.Navigator
+      headerMode="screen"
+      screenOptions={() => ({
+        headerStyle: {
+          backgroundColor: 'rgba(163,175,243,1)'
+        },
+
+        headerTintColor: headerTintColor
+      })}
+    >
       <TabFourStack.Screen name="TabFourScreen" component={TabFourScreen} />
     </TabFourStack.Navigator>
   );
@@ -125,13 +163,18 @@ const TabBarIcon = (props: { name: string; color: string }): JSX.Element => {
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 // 'rgba(163,175,243,1)', 'rgba(220,182,232,1)';
 const BottomTabNavigator: React.FC = () => {
-  const colorScheme = useColorScheme();
+  const bottomNavTintColor = useThemeColor(
+    { light: undefined, dark: undefined },
+    'tint'
+  );
 
   return (
     <BottomTab.Navigator
       initialRouteName="TabTwo"
       tabBarOptions={{
-        activeTintColor: Colors['dark'].tint,
+        // activeTintColor: Colors['dark'].tint,
+        activeTintColor: '#fff',
+        inactiveTintColor: bottomNavTintColor,
         activeBackgroundColor: 'rgba(247,236,250,.3)',
         showLabel: false
       }}
@@ -175,9 +218,9 @@ const BottomTabNavigator: React.FC = () => {
         name="TabFour"
         component={TabFourNavigator}
         options={{
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="ios-settings" color={color} />
-          )
+          tabBarIcon: ({ color }) => {
+            return <TabBarIcon name="ios-settings" color={color} />;
+          }
         }}
       />
     </BottomTab.Navigator>
