@@ -6,7 +6,7 @@ const currentContactReducer = (state, action) => {
   switch (action.type) {
     case 'ADD_CURRENT_CONTACT':
       console.log('inside Add reducer');
-      return { currentContact: action.payload };
+      return action.payload;
     case 'DELETE_CURRENT_CONTACT':
       return { currentContact: {} };
     default:

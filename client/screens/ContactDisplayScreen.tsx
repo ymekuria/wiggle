@@ -16,8 +16,7 @@ const ContactDisplayScreen: React.FC = () => {
     >
       <Text style={styles.title}>ContactDisplayScreen</Text>
       <Text>
-        {currentContact?.currentContact?.firstName}{' '}
-        {currentContact?.currentContact?.lastName}
+        {currentContact?.firstName} {currentContact?.lastName}
       </Text>
     </LinearGradient>
   );
