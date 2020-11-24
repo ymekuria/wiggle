@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { StyleSheet, FlatList, SafeAreaView } from 'react-native';
 import { TouchableOpacity, TextInput } from 'react-native-gesture-handler';
 import { Contact } from 'expo-contacts';
@@ -6,12 +6,12 @@ import { Text, View } from '../components/Themed';
 import useContacts from '../hooks/useContacts';
 import { SearchBar } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
+import ContactContext from '../context/ContactContext';
 
 const ContactsDisplay = (props) => {
   const [searchInputValue, onChangeSearchText] = useState<string>('');
-  const [isContactSelected, setIsContactSelected] = useState(false);
-  const [selectedContact, setSelectedContact] = useState();
   const [contacts, setContacts, inMemoryContacts] = useContacts();
+  const { setCurrentContact } = useContext(ContactContext);
   const navigation = useNavigation();
 
   const searchContacts = (value: string) => {
@@ -27,11 +27,8 @@ const ContactsDisplay = (props) => {
   };
 
   const onContactPress = (item) => {
-    console.log('item', item.phoneNumbers);
-    setSelectedContact(item);
-    setIsContactSelected(true);
+    setCurrentContact(item);
     navigation.navigate('ContactDisplayScreen');
-    console.log('props contacts', props);
   };
 
   const renderContacts = ({ item }) => {
@@ -55,19 +52,7 @@ const ContactsDisplay = (props) => {
         inputStyle={styles.searchBarInput}
         placeholder="Search"
       />
-      {isContactSelected ? (
-        <FlatList
-          data={selectedContact.phoneNumbers}
-          renderItem={({ item }) => {
-            return (
-              <View>
-                <Text>{item.digits}</Text>
-              </View>
-            );
-          }}
-          keyExtractor={(item) => item.id}
-        />
-      ) : null}
+
       <FlatList
         data={contacts}
         renderItem={renderContacts}
