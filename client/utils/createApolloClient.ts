@@ -11,7 +11,6 @@ import { setContext } from '@apollo/client/link/context';
 const httpLink = new HttpLink({ uri: 'http://localhost:8088/graphql' });
 
 const createApolloClient = (accessToken: string | undefined) => {
-  console.log('accessToken', accessToken);
   const authLink = setContext(async (_, { headers }) => {
     if (!accessToken) {
       return { headers };

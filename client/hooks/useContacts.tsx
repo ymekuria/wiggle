@@ -13,7 +13,6 @@ export default () => {
         let { status } = await Contacts.requestPermissionsAsync();
         if (status === 'granted') {
           let { data } = await Contacts.getContactsAsync({
-            fields: [Contacts.Fields.PhoneNumbers],
             sort: Contacts.SortTypes.FirstName,
             pageSize: 0
           });
