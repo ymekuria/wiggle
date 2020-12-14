@@ -5,6 +5,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Card, Avatar } from 'react-native-elements';
 import ContactContext from '../context/ContactContext';
 import { Text, View } from '../components/Themed';
+import AvatarDisplay from '../components/AvatarDisplay';
 
 const ContactDisplayScreen: React.FC = () => {
   const { currentContact } = React.useContext(ContactContext);
@@ -66,7 +67,7 @@ const ContactDisplayScreen: React.FC = () => {
       style={styles.container}
     >
       <Card containerStyle={styles.cardContainer}>
-        {renderAvatar(currentContact)}
+        <AvatarDisplay currentContact={currentContact} />
         {/* <Text style={styles.title}>ContactDisplayScreen</Text> */}
         <Text>{currentContact?.name}</Text>
 
