@@ -6,60 +6,12 @@ import { Card, Avatar } from 'react-native-elements';
 import ContactContext from '../context/ContactContext';
 import { Text, View } from '../components/Themed';
 import AvatarDisplay from '../components/AvatarDisplay';
+import PhoneNumbersDisplay from '../components/PhoneNumbersDisplay';
 
 const ContactDisplayScreen: React.FC = () => {
   const { currentContact } = React.useContext(ContactContext);
   // const navigation = useNavigation();
   console.log('contact current', currentContact);
-  const renderAvatar = (currentContact) => {
-    return currentContact?.imageAvailable ? (
-      <Avatar
-        rounded
-        size="xlarge"
-        source={{ uri: currentContact?.image.uri }}
-        containerStyle={{
-          flex: 1,
-          flexDirection: 'row',
-          justifyContent: 'center'
-        }}
-        avatarStyle={{ justifyContent: 'center' }}
-      />
-    ) : (
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'center',
-          backgroundColor: 'rgba(247,236,250,.3)'
-        }}
-      >
-        <Avatar
-          rounded
-          size="xlarge"
-          title={`${currentContact?.firstName[0]}${currentContact?.lastName[0]}`}
-          overlayContainerStyle={{
-            backgroundColor: 'gray',
-            justifyContent: 'center'
-          }}
-          containerStyle={{
-            flexDirection: 'row',
-            justifyContent: 'center'
-          }}
-          avatarStyle={{ justifyContent: 'center' }}
-        />
-      </View>
-    );
-  };
-
-  const renderContacts = ({ item }) => {
-    return (
-      <TouchableOpacity>
-        <View style={styles.contactContainer}>
-          <Text>{item.label}</Text>
-          <Text>{item.digits}</Text>
-        </View>
-      </TouchableOpacity>
-    );
-  };
 
   return (
     <LinearGradient
@@ -67,17 +19,11 @@ const ContactDisplayScreen: React.FC = () => {
       style={styles.container}
     >
       <Card containerStyle={styles.cardContainer}>
-        <AvatarDisplay currentContact={currentContact} />
-        {/* <Text style={styles.title}>ContactDisplayScreen</Text> */}
+        <AvatarDisplay contact={currentContact} />
         <Text>{currentContact?.name}</Text>
-
-        {/* <Text>{currentContact?.phoneNumbers[0].number}</Text> */}
         <Card.Divider />
-        <FlatList
-          data={currentContact?.phoneNumbers}
-          renderItem={renderContacts}
-          keyExtractor={(contact) => contact.id.toString()}
-        />
+
+        <PhoneNumbersDisplay phoneNumbers={currentContact?.phoneNumbers} />
       </Card>
     </LinearGradient>
   );

@@ -4,14 +4,14 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Avatar } from 'react-native-elements';
 import { Text, View } from '../components/Themed';
 
-type AvatarDisplayProps = { currentContact: any };
+type AvatarDisplayProps = { contact: any };
 
-const AvatarDisplay: React.FC<AvatarDisplayProps> = ({ currentContact }) => {
-  return currentContact?.imageAvailable ? (
+const AvatarDisplay: React.FC<AvatarDisplayProps> = ({ contact }) => {
+  return contact?.imageAvailable ? (
     <Avatar
       rounded
       size="xlarge"
-      source={{ uri: currentContact?.image.uri }}
+      source={{ uri: contact?.image.uri }}
       containerStyle={{
         flex: 1,
         flexDirection: 'row',
@@ -30,7 +30,7 @@ const AvatarDisplay: React.FC<AvatarDisplayProps> = ({ currentContact }) => {
       <Avatar
         rounded
         size="xlarge"
-        title={`${currentContact?.firstName[0]}${currentContact?.lastName[0]}`}
+        title={`${contact?.firstName[0]}${contact?.lastName[0]}`}
         overlayContainerStyle={{
           backgroundColor: 'gray',
           justifyContent: 'center'
