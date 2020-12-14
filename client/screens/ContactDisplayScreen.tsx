@@ -7,6 +7,7 @@ import ContactContext from '../context/ContactContext';
 import { Text, View } from '../components/Themed';
 import AvatarDisplay from '../components/AvatarDisplay';
 import PhoneNumbersDisplay from '../components/PhoneNumbersDisplay';
+import { rowDependencies } from 'mathjs';
 
 const ContactDisplayScreen: React.FC = () => {
   const { currentContact } = React.useContext(ContactContext);
@@ -20,9 +21,7 @@ const ContactDisplayScreen: React.FC = () => {
     >
       <Card containerStyle={styles.cardContainer}>
         <AvatarDisplay contact={currentContact} />
-        <Text>{currentContact?.name}</Text>
         <Card.Divider />
-
         <PhoneNumbersDisplay phoneNumbers={currentContact?.phoneNumbers} />
       </Card>
     </LinearGradient>
