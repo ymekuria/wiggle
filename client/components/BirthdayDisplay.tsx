@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { StyleSheet, FlatList } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+
 import { Text, View } from '../components/Themed';
-import { null } from 'mathjs';
 
 type BirthdayDisplayProps = {
   birthday: {
@@ -14,18 +14,31 @@ type BirthdayDisplayProps = {
 };
 
 const BirthdayDisplay: React.FC<BirthdayDisplayProps> = ({ birthday }) => {
-  return ( 
-    birthday ? (
+  const months = {
+    0: 'January',
+    1: 'February',
+    2: 'March',
+    3: 'April',
+    4: 'May',
+    5: 'June',
+    6: 'July',
+    7: 'August',
+    8: 'September',
+    9: 'October',
+    10: 'November',
+    11: 'December'
+  };
+
+  return birthday ? (
     <TouchableOpacity>
       <View style={styles.birthdayContainer}>
         <Text>birthday</Text>
-        <Text
-          style={styles.birthdayText}
-        >{`${birthday?.month}/${birthday?.day}`}</Text>
+        <Text style={styles.birthdayText}>{`${months[birthday?.month]} ${
+          birthday?.day
+        }`}</Text>
       </View>
     </TouchableOpacity>
-    ) : null
-  );
+  ) : null;
 };
 
 const styles = StyleSheet.create({
