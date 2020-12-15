@@ -3,6 +3,8 @@ import { StyleSheet, FlatList } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Text, View } from '../components/Themed';
 
+type PhoneNumber = {};
+
 type PhoneNumbersDisplayProps = {
   phoneNumbers: any;
 };
@@ -12,7 +14,7 @@ const renderPhoneNumbers = ({ item }) => {
     <TouchableOpacity>
       <View style={styles.phoneNumberContainer}>
         <Text>{item.label}</Text>
-        <Text>{item.digits}</Text>
+        <Text style={styles.phoneNumberText}>{item.digits}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -36,6 +38,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'rgba(247,236,250,.3)',
     justifyContent: 'space-evenly'
+  },
+  phoneNumberText: {
+    fontSize: 20
   }
 });
 

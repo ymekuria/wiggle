@@ -35,9 +35,7 @@ const ContactsDisplay = (props) => {
     return (
       <TouchableOpacity onPress={() => onContactPress(item, props)}>
         <View style={styles.contactContainer}>
-          <Text style={{ fontSize: 22 }}>
-            {item.firstName} {item.lastName}
-          </Text>
+          <Text style={{ fontSize: 22 }}>{item?.name}</Text>
         </View>
       </TouchableOpacity>
     );

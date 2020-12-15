@@ -23,6 +23,10 @@ const ContactDisplayScreen: React.FC = () => {
         <AvatarDisplay contact={currentContact} />
         <Card.Divider />
         <PhoneNumbersDisplay phoneNumbers={currentContact?.phoneNumbers} />
+        <Card.Divider />
+        <Text>
+          {`${currentContact?.birthday?.month}/${currentContact?.birthday?.day}`}
+        </Text>
       </Card>
     </LinearGradient>
   );
