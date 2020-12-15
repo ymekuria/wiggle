@@ -8,6 +8,7 @@ import { Text, View } from '../components/Themed';
 import AvatarDisplay from '../components/AvatarDisplay';
 import PhoneNumbersDisplay from '../components/PhoneNumbersDisplay';
 import { rowDependencies } from 'mathjs';
+import BirthdayDisplay from '../components/BirthdayDisplay';
 
 const ContactDisplayScreen: React.FC = () => {
   const { currentContact } = React.useContext(ContactContext);
@@ -23,10 +24,8 @@ const ContactDisplayScreen: React.FC = () => {
         <AvatarDisplay contact={currentContact} />
         <Card.Divider />
         <PhoneNumbersDisplay phoneNumbers={currentContact?.phoneNumbers} />
-        <Card.Divider />
-        <Text>
-          {`${currentContact?.birthday?.month}/${currentContact?.birthday?.day}`}
-        </Text>
+        {/* <Card.Divider /> */}
+        <BirthdayDisplay birthday={currentContact?.birthday} />
       </Card>
     </LinearGradient>
   );
