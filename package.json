@@ -10,7 +10,8 @@
     "client": "npm run start --prefix client",
     "server:debug": "nodemon --inspect src/index.ts",
     "dev": "concurrently \"npm start\" \"npm run client\"",
-    "devserver:debug": "nodemon --inspect src/index.ts"
+    "devserver:debug": "nodemon --inspect src/index.ts",
+    "codgen generate": "graphql-codegen --config codegen.yml"
   },
   "author": "Yoni Mekuria",
   "license": "ISC",
@@ -54,6 +55,11 @@
     "typescript": "^3.9.7"
   },
   "devDependencies": {
-    "@prisma/cli": "^2.11.0"
+    "@graphql-codegen/cli": "1.19.4",
+    "@prisma/cli": "^2.11.0",
+    "@graphql-codegen/typescript-operations": "1.17.12",
+    "@graphql-codegen/typescript": "1.19.0",
+    "@graphql-codegen/typescript-react-apollo": "2.2.1",
+    "@graphql-codegen/introspection": "1.18.1"
   }
 }
