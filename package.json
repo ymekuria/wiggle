@@ -8,9 +8,9 @@
     "start:run": "nodemon --trace-warnings --inspect build/index.js",
     "start": "concurrently npm:start:* ",
     "client": "npm run start --prefix client",
-    "server:debug": "nodemon --inspect src/index.ts",
+    "server:debug": "nodemon --inspect server/index.ts",
     "dev": "concurrently \"npm start\" \"npm run client\"",
-    "devserver:debug": "nodemon --inspect src/index.ts",
+    "devserver:debug": "nodemon --inspect server/index.ts",
     "generate": "graphql-codegen --config codegen.yml"
   },
   "author": "Yoni Mekuria",

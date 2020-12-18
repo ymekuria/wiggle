@@ -1,15 +1,12 @@
-hooks:
-  afterOneFileWrite:
-    - prettier --write
 overwrite: true
 schema: "http://localhost:8088/graphql"
 # documents: "./client/**/*.graphql"
 generates:
-  ./server/generated/types.ts:
+  ./server/__generated__/graphql_api_types.ts:
     plugins:
       - typescript
       - typescript-resolvers
-  ./client/generated/types.tsx:
+  ./client/__generated__/ui_types.tsx:
     plugins:
       - "typescript"
       - "typescript-operations"

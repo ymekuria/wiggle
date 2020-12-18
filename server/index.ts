@@ -22,8 +22,8 @@ type DecodedJwt = {
   scope: string;
 };
 
-export type Context = {
-  prisma: PrismaClient;
+export type ApolloServerContext = {
+  prisma?: PrismaClient;
   userToken?: DecodedJwt;
   dataSources?: any;
 };
@@ -52,7 +52,8 @@ const server = new ApolloServer({
   engine: {
     reportSchema: true
   },
-  context: ({ req }: { req: AuthRequest }): Context => {
+  // context: ({ req }: { req: AuthRequest }): ApolloServerContext => {
+  context: ({ req }) => {
     const userToken = req.userToken;
 
     return { userToken, prisma };

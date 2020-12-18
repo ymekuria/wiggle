@@ -1,89 +1,29 @@
-import {
-  PrismaClient,
-  WiggleGetPayload,
-  UserGetPayload,
-  prismaVersion
-} from '@prisma/client';
-import { Context } from '../';
+import { QueryResolvers } from '../__generated__/graphql_api_types';
 
-// type DecodedJwt = {
-//   iss: string;
-//   sub: string;
-//   aud: string[];
-//   iat: number;
-//   exp: number;
-//   azp: string;
-//   scope: string;
-// };
-
-// type Context = {
-//   prisma: PrismaClient;
-//   user: DecodedJwt;
-//   dataSources: any;
-// };
-type Wiggle = WiggleGetPayload<{
-  select: {
-    id: true;
-    schedule: true;
-    user: true;
-    contact: true;
-  };
-}>;
-
-type User = UserGetPayload<{
-  select: {
-    id: true;
-    userName?: true;
-    email?: true;
-    wiggles?: true;
-  };
-}>;
-
-type FindWiggleInput = {
-  phoneNumber: string;
-};
-type FindWiggleResponse = Wiggle | null;
-
-type FindWigglesResponse = Wiggle[] | null;
-
-type MeResponse = User | null;
-
-const Query = {
-  me: async (
-    _parent: any,
-    _args: any,
-    { prisma, userToken }: Context
-  ): Promise<MeResponse> => {
+const Query: QueryResolvers = {
+  me: async (_parent, _args, { prisma, userToken }) => {
     const currentUser = await prisma.user.findOne({
       where: { id: userToken?.sub }
     });
 
     return currentUser;
   },
-  dogPic: (_parent: any, _args: any, { dataSources }: Context) => {
+  dogPic: (_parent, _args, { dataSources }) => {
     return dataSources.dogAPI.getRandomDogPic();
   },
-  dogPics: (_parent: any, _args: any, { dataSources }: Context) => {
+  dogPics: (_parent, _args, { dataSources }) => {
     return dataSources.dogAPI.getThreeRandomDogPics();
   },
-  searchJokes: (
-    _parent: any,
-    { term }: { term: string },
-    { dataSources }: any
-  ) => {
+  searchJokes: (_parent, { term }, { dataSources }) => {
     return dataSources.jokeAPI.searchJokes(term);
   },
-  joke: (_parent: any, _args: any, context: Context) => {
+  joke: (_parent, _args, context) => {
     return context.dataSources.jokeAPI.getRandomJoke();
   },
-  jokes: (_parent: any, _args: any, { dataSources }: Context) => {
+  jokes: (_parent, _args, { dataSources }) => {
     return dataSources.jokeAPI.getMultipleRandomJokes();
   },
-  wiggle: async (
-    _parent: any,
-    { input }: { input: FindWiggleInput },
-    { prisma, userToken }: Context
-  ): Promise<FindWiggleResponse> => {
+  wiggle: async (_parent, { input }, { prisma, userToken }) => {
     let result = await prisma.wiggle.findMany({
       where: {
         AND: [
@@ -101,11 +41,7 @@ const Query = {
 
     return result.length ? result[0] : null;
   },
-  wiggles: async (
-    _parent: any,
-    _args: any,
-    { prisma, userToken }: Context
-  ): Promise<FindWigglesResponse> => {
+  wiggles: async (_parent, _args, { prisma, userToken }) => {
     let result = await prisma.wiggle.findMany({
       where: {
         user: { id: userToken.sub }

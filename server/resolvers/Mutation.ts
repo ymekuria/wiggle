@@ -1,41 +1,8 @@
 import { Contact, WiggleGetPayload, UserGetPayload } from '@prisma/client';
-import { Context } from '../';
+import { MutationResolvers } from '../__generated__/types';
 
-type User = UserGetPayload<{
-  select: {
-    id: true;
-    userName?: true;
-    email?: true;
-    wiggles?: true;
-  };
-}>;
-
-type Wiggle = WiggleGetPayload<{
-  select: {
-    id: true;
-    schedule: true;
-    user: true;
-    contact: true;
-  };
-}>;
-
-type CreateUserInput = {
-  userName: string | undefined;
-  email: string | undefined;
-};
-
-type CreateWiggleInput = {
-  schedule: string;
-  userName: string | undefined;
-  contact: Contact;
-};
-
-const Mutation = {
-  createUser: async (
-    _parent: any,
-    { input }: { input: CreateUserInput },
-    { prisma, userToken }: Context
-  ): Promise<User> => {
+const Mutation: MutationResolvers = {
+  createUser: async (_parent, { input }, { prisma, userToken }) => {
     let newUser = await prisma.user.create({
       data: {
         id: userToken.sub,
@@ -46,11 +13,7 @@ const Mutation = {
 
     return newUser;
   },
-  createWiggle: async (
-    _parent: any,
-    { input }: { input: CreateWiggleInput },
-    { prisma, userToken }: Context
-  ): Promise<Wiggle> => {
+  createWiggle: async (_parent, { input }, { prisma, userToken }) => {
     const { schedule, contact } = input;
     if (!userToken) {
     }
