@@ -1,3 +1,6 @@
+hooks:
+  afterOneFileWrite:
+    - prettier --write
 overwrite: true
 schema: "http://localhost:8088/graphql"
 # documents: "./client/**/*.graphql"
