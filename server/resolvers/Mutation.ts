@@ -1,5 +1,4 @@
-import { Contact, WiggleGetPayload, UserGetPayload } from '@prisma/client';
-import { MutationResolvers } from '../__generated__/types';
+import { MutationResolvers } from '../__generated__/graphql_api_types';
 
 const Mutation: MutationResolvers = {
   createUser: async (_parent, { input }, { prisma, userToken }) => {
@@ -24,7 +23,7 @@ const Mutation: MutationResolvers = {
         },
         schedule,
         contact: {
-          create: { phoneNumber: contact.phoneNumber, name: contact.name }
+          create: { phoneNumber: contact?.phoneNumber, name: contact?.name }
         }
       },
       select: {

@@ -55,6 +55,7 @@ export type MutationCreateWiggleArgs = {
 
 export type CreateUserInput = {
   userName?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
 };
 
 export type MeResponse = {
@@ -88,7 +89,7 @@ export type FindWiggleResponse = {
 export type CreateWiggleInput = {
   userName?: Maybe<Scalars['String']>;
   schedule?: Maybe<Scalars['String']>;
-  contact?: Maybe<ContactInput>;
+  contact: ContactInput;
 };
 
 export type CreateWiggleResponse = {
@@ -101,7 +102,7 @@ export type CreateWiggleResponse = {
 
 export type ContactInput = {
   id?: Maybe<Scalars['ID']>;
-  phoneNumber?: Maybe<Scalars['String']>;
+  phoneNumber: Scalars['String'];
   name?: Maybe<Scalars['String']>;
 };
 
@@ -124,7 +125,7 @@ export type Contact = {
   __typename?: 'Contact';
   id?: Maybe<Scalars['ID']>;
   name?: Maybe<Scalars['String']>;
-  phoneNumber?: Maybe<Scalars['String']>;
+  phoneNumber: Scalars['String'];
 };
 
 export type Joke = {
@@ -339,7 +340,7 @@ export type WiggleResolvers<ContextType = any, ParentType extends ResolversParen
 export type ContactResolvers<ContextType = any, ParentType extends ResolversParentTypes['Contact'] = ResolversParentTypes['Contact']> = {
   id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  phoneNumber?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  phoneNumber?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

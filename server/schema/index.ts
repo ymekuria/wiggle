@@ -18,6 +18,7 @@ const mainSchema = gql`
   }
   input CreateUserInput {
     userName: String
+    email: String
   }
 
   type MeResponse {
@@ -45,7 +46,7 @@ const mainSchema = gql`
   input CreateWiggleInput {
     userName: String
     schedule: String
-    contact: ContactInput
+    contact: ContactInput!
   }
   type CreateWiggleResponse {
     id: ID
@@ -55,7 +56,7 @@ const mainSchema = gql`
   }
   input ContactInput {
     id: ID
-    phoneNumber: String
+    phoneNumber: String!
     name: String
   }
 
@@ -75,7 +76,7 @@ const mainSchema = gql`
   type Contact {
     id: ID
     name: String
-    phoneNumber: String
+    phoneNumber: String!
   }
 
   type Joke {
