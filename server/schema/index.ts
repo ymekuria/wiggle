@@ -22,14 +22,12 @@ const mainSchema = gql`
   }
 
   type MeResponse {
-    id: ID
     userName: String
     email: String
     wiggles: [Wiggle]
   }
 
   type CreateUserResponse {
-    id: ID
     userName: String
     wiggles: [Wiggle]
   }
@@ -61,16 +59,16 @@ const mainSchema = gql`
   }
 
   type User {
-    id: ID
     userName: String
+    email: String
     wiggles: [Wiggle]
   }
 
   type Wiggle {
     id: ID
-    user: User
+    user: User!
     schedule: String
-    contact: Contact
+    contact: Contact!
   }
 
   type Contact {

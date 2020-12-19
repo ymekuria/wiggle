@@ -1,6 +1,7 @@
-import { QueryResolvers } from '../__generated__/graphql_api_types';
+import { QueryResolvers, MeResponse } from '../__generated__/graphql_api_types';
+import { ApolloServerContext } from '../';
 
-const Query: QueryResolvers = {
+const Query: QueryResolvers<ApolloServerContext> = {
   me: async (_parent, _args, { prisma, userToken }) => {
     const currentUser = await prisma.user.findOne({
       where: { id: userToken?.sub }
@@ -11,7 +12,7 @@ const Query: QueryResolvers = {
   dogPic: (_parent, _args, { dataSources }) => {
     return dataSources.dogAPI.getRandomDogPic();
   },
-  dogPics: (_parent, _args, { dataSources }) => {
+  dogPics: (_parent, _args, { dataSources }: ApolloServerContext) => {
     return dataSources.dogAPI.getThreeRandomDogPics();
   },
   searchJokes: (_parent, { term }, { dataSources }) => {
@@ -27,7 +28,7 @@ const Query: QueryResolvers = {
     let result = await prisma.wiggle.findMany({
       where: {
         AND: [
-          { user: { id: userToken.sub } },
+          { user: { id: userToken?.sub } },
           { contact: { phoneNumber: input.phoneNumber } }
         ]
       },

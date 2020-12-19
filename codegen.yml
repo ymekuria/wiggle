@@ -6,6 +6,8 @@ generates:
     plugins:
       - typescript
       - typescript-resolvers
+    config:
+      useIndexSignature: true
   ./client/__generated__/ui_types.tsx:
     plugins:
       - "typescript"

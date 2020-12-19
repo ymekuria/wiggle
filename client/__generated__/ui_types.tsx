@@ -59,7 +59,6 @@ export type CreateUserInput = {
 
 export type MeResponse = {
   __typename?: 'MeResponse';
-  id?: Maybe<Scalars['ID']>;
   userName?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   wiggles?: Maybe<Array<Maybe<Wiggle>>>;
@@ -67,7 +66,6 @@ export type MeResponse = {
 
 export type CreateUserResponse = {
   __typename?: 'CreateUserResponse';
-  id?: Maybe<Scalars['ID']>;
   userName?: Maybe<Scalars['String']>;
   wiggles?: Maybe<Array<Maybe<Wiggle>>>;
 };
@@ -107,17 +105,17 @@ export type ContactInput = {
 
 export type User = {
   __typename?: 'User';
-  id?: Maybe<Scalars['ID']>;
   userName?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
   wiggles?: Maybe<Array<Maybe<Wiggle>>>;
 };
 
 export type Wiggle = {
   __typename?: 'Wiggle';
   id?: Maybe<Scalars['ID']>;
-  user?: Maybe<User>;
+  user: User;
   schedule?: Maybe<Scalars['String']>;
-  contact?: Maybe<Contact>;
+  contact: Contact;
 };
 
 export type Contact = {

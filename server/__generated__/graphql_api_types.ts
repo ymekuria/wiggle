@@ -60,7 +60,6 @@ export type CreateUserInput = {
 
 export type MeResponse = {
   __typename?: 'MeResponse';
-  id?: Maybe<Scalars['ID']>;
   userName?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   wiggles?: Maybe<Array<Maybe<Wiggle>>>;
@@ -68,7 +67,6 @@ export type MeResponse = {
 
 export type CreateUserResponse = {
   __typename?: 'CreateUserResponse';
-  id?: Maybe<Scalars['ID']>;
   userName?: Maybe<Scalars['String']>;
   wiggles?: Maybe<Array<Maybe<Wiggle>>>;
 };
@@ -108,17 +106,17 @@ export type ContactInput = {
 
 export type User = {
   __typename?: 'User';
-  id?: Maybe<Scalars['ID']>;
   userName?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
   wiggles?: Maybe<Array<Maybe<Wiggle>>>;
 };
 
 export type Wiggle = {
   __typename?: 'Wiggle';
   id?: Maybe<Scalars['ID']>;
-  user?: Maybe<User>;
+  user: User;
   schedule?: Maybe<Scalars['String']>;
-  contact?: Maybe<Contact>;
+  contact: Contact;
 };
 
 export type Contact = {
@@ -150,7 +148,8 @@ export enum CacheControlScope {
 }
 
 
-
+export type WithIndex<TObject> = TObject & Record<string, any>;
+export type ResolversObject<TObject> = WithIndex<TObject>;
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
 
@@ -227,16 +226,16 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 ) => TResult | Promise<TResult>;
 
 /** Mapping between all available schema types and the resolvers types */
-export type ResolversTypes = {
+export type ResolversTypes = ResolversObject<{
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
   Mutation: ResolverTypeWrapper<{}>;
   CreateUserInput: CreateUserInput;
   MeResponse: ResolverTypeWrapper<MeResponse>;
-  ID: ResolverTypeWrapper<Scalars['ID']>;
   CreateUserResponse: ResolverTypeWrapper<CreateUserResponse>;
   FindWiggleInput: FindWiggleInput;
   FindWiggleResponse: ResolverTypeWrapper<FindWiggleResponse>;
+  ID: ResolverTypeWrapper<Scalars['ID']>;
   CreateWiggleInput: CreateWiggleInput;
   CreateWiggleResponse: ResolverTypeWrapper<CreateWiggleResponse>;
   ContactInput: ContactInput;
@@ -249,19 +248,19 @@ export type ResolversTypes = {
   CacheControlScope: CacheControlScope;
   Upload: ResolverTypeWrapper<Scalars['Upload']>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
-};
+}>;
 
 /** Mapping between all available schema types and the resolvers parents */
-export type ResolversParentTypes = {
+export type ResolversParentTypes = ResolversObject<{
   Query: {};
   String: Scalars['String'];
   Mutation: {};
   CreateUserInput: CreateUserInput;
   MeResponse: MeResponse;
-  ID: Scalars['ID'];
   CreateUserResponse: CreateUserResponse;
   FindWiggleInput: FindWiggleInput;
   FindWiggleResponse: FindWiggleResponse;
+  ID: Scalars['ID'];
   CreateWiggleInput: CreateWiggleInput;
   CreateWiggleResponse: CreateWiggleResponse;
   ContactInput: ContactInput;
@@ -273,9 +272,9 @@ export type ResolversParentTypes = {
   DogPics: DogPics;
   Upload: Scalars['Upload'];
   Boolean: Scalars['Boolean'];
-};
+}>;
 
-export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   me?: Resolver<Maybe<ResolversTypes['MeResponse']>, ParentType, ContextType>;
   dogPic?: Resolver<Maybe<ResolversTypes['DogPic']>, ParentType, ContextType>;
   dogPics?: Resolver<Maybe<ResolversTypes['DogPics']>, ParentType, ContextType>;
@@ -284,87 +283,85 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   jokes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Joke']>>>, ParentType, ContextType>;
   wiggle?: Resolver<Maybe<ResolversTypes['FindWiggleResponse']>, ParentType, ContextType, RequireFields<QueryWiggleArgs, 'input'>>;
   wiggles?: Resolver<Maybe<Array<Maybe<ResolversTypes['Wiggle']>>>, ParentType, ContextType>;
-};
+}>;
 
-export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
   createUser?: Resolver<Maybe<ResolversTypes['CreateUserResponse']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>;
   createWiggle?: Resolver<Maybe<ResolversTypes['CreateWiggleResponse']>, ParentType, ContextType, RequireFields<MutationCreateWiggleArgs, 'input'>>;
-};
+}>;
 
-export type MeResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['MeResponse'] = ResolversParentTypes['MeResponse']> = {
-  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+export type MeResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['MeResponse'] = ResolversParentTypes['MeResponse']> = ResolversObject<{
   userName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   wiggles?: Resolver<Maybe<Array<Maybe<ResolversTypes['Wiggle']>>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
+}>;
 
-export type CreateUserResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateUserResponse'] = ResolversParentTypes['CreateUserResponse']> = {
-  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+export type CreateUserResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateUserResponse'] = ResolversParentTypes['CreateUserResponse']> = ResolversObject<{
   userName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   wiggles?: Resolver<Maybe<Array<Maybe<ResolversTypes['Wiggle']>>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
+}>;
 
-export type FindWiggleResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['FindWiggleResponse'] = ResolversParentTypes['FindWiggleResponse']> = {
+export type FindWiggleResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['FindWiggleResponse'] = ResolversParentTypes['FindWiggleResponse']> = ResolversObject<{
   id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   schedule?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   contact?: Resolver<Maybe<ResolversTypes['Contact']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
+}>;
 
-export type CreateWiggleResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateWiggleResponse'] = ResolversParentTypes['CreateWiggleResponse']> = {
+export type CreateWiggleResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateWiggleResponse'] = ResolversParentTypes['CreateWiggleResponse']> = ResolversObject<{
   id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   schedule?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   contact?: Resolver<Maybe<ResolversTypes['Contact']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
+}>;
 
-export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
-  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = ResolversObject<{
   userName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   wiggles?: Resolver<Maybe<Array<Maybe<ResolversTypes['Wiggle']>>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
+}>;
 
-export type WiggleResolvers<ContextType = any, ParentType extends ResolversParentTypes['Wiggle'] = ResolversParentTypes['Wiggle']> = {
+export type WiggleResolvers<ContextType = any, ParentType extends ResolversParentTypes['Wiggle'] = ResolversParentTypes['Wiggle']> = ResolversObject<{
   id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
-  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   schedule?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  contact?: Resolver<Maybe<ResolversTypes['Contact']>, ParentType, ContextType>;
+  contact?: Resolver<ResolversTypes['Contact'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
+}>;
 
-export type ContactResolvers<ContextType = any, ParentType extends ResolversParentTypes['Contact'] = ResolversParentTypes['Contact']> = {
+export type ContactResolvers<ContextType = any, ParentType extends ResolversParentTypes['Contact'] = ResolversParentTypes['Contact']> = ResolversObject<{
   id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   phoneNumber?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
+}>;
 
-export type JokeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Joke'] = ResolversParentTypes['Joke']> = {
+export type JokeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Joke'] = ResolversParentTypes['Joke']> = ResolversObject<{
   id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   joke?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
+}>;
 
-export type DogPicResolvers<ContextType = any, ParentType extends ResolversParentTypes['DogPic'] = ResolversParentTypes['DogPic']> = {
+export type DogPicResolvers<ContextType = any, ParentType extends ResolversParentTypes['DogPic'] = ResolversParentTypes['DogPic']> = ResolversObject<{
   picture?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
+}>;
 
-export type DogPicsResolvers<ContextType = any, ParentType extends ResolversParentTypes['DogPics'] = ResolversParentTypes['DogPics']> = {
+export type DogPicsResolvers<ContextType = any, ParentType extends ResolversParentTypes['DogPics'] = ResolversParentTypes['DogPics']> = ResolversObject<{
   pictures?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
+}>;
 
 export interface UploadScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Upload'], any> {
   name: 'Upload';
 }
 
-export type Resolvers<ContextType = any> = {
+export type Resolvers<ContextType = any> = ResolversObject<{
   Query?: QueryResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   MeResponse?: MeResponseResolvers<ContextType>;
@@ -378,7 +375,7 @@ export type Resolvers<ContextType = any> = {
   DogPic?: DogPicResolvers<ContextType>;
   DogPics?: DogPicsResolvers<ContextType>;
   Upload?: GraphQLScalarType;
-};
+}>;
 
 
 /**

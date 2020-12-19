@@ -1,10 +1,11 @@
 import { MutationResolvers } from '../__generated__/graphql_api_types';
+import { ApolloServerContext } from '../';
 
-const Mutation: MutationResolvers = {
+const Mutation: MutationResolvers<ApolloServerContext> = {
   createUser: async (_parent, { input }, { prisma, userToken }) => {
     let newUser = await prisma.user.create({
       data: {
-        id: userToken.sub,
+        id: userToken?.sub,
         userName: input?.userName,
         email: input?.email
       }
