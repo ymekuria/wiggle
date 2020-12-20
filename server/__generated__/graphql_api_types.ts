@@ -1,3 +1,4 @@
+import { ApolloServerContext } from '../index.ts';
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -23,7 +24,7 @@ export type Query = {
   joke?: Maybe<Joke>;
   searchJokes?: Maybe<Array<Maybe<Joke>>>;
   jokes?: Maybe<Array<Maybe<Joke>>>;
-  wiggle?: Maybe<FindWiggleResponse>;
+  wiggle?: Maybe<Wiggle>;
   wiggles?: Maybe<Array<Maybe<Wiggle>>>;
 };
 
@@ -40,7 +41,7 @@ export type QueryWiggleArgs = {
 export type Mutation = {
   __typename?: 'Mutation';
   createUser?: Maybe<CreateUserResponse>;
-  createWiggle?: Maybe<CreateWiggleResponse>;
+  createWiggle?: Maybe<Wiggle>;
 };
 
 
@@ -78,7 +79,7 @@ export type FindWiggleInput = {
 
 export type FindWiggleResponse = {
   __typename?: 'FindWiggleResponse';
-  id?: Maybe<Scalars['ID']>;
+  id?: Maybe<Scalars['Int']>;
   user?: Maybe<User>;
   schedule?: Maybe<Scalars['String']>;
   contact?: Maybe<Contact>;
@@ -92,14 +93,14 @@ export type CreateWiggleInput = {
 
 export type CreateWiggleResponse = {
   __typename?: 'CreateWiggleResponse';
-  id?: Maybe<Scalars['ID']>;
+  id?: Maybe<Scalars['Int']>;
   user?: Maybe<User>;
   schedule?: Maybe<Scalars['String']>;
   contact?: Maybe<Contact>;
 };
 
 export type ContactInput = {
-  id?: Maybe<Scalars['ID']>;
+  id?: Maybe<Scalars['Int']>;
   phoneNumber: Scalars['String'];
   name?: Maybe<Scalars['String']>;
 };
@@ -113,7 +114,7 @@ export type User = {
 
 export type Wiggle = {
   __typename?: 'Wiggle';
-  id?: Maybe<Scalars['ID']>;
+  id?: Maybe<Scalars['Int']>;
   user: User;
   schedule?: Maybe<Scalars['String']>;
   contact: Contact;
@@ -235,13 +236,14 @@ export type ResolversTypes = ResolversObject<{
   CreateUserResponse: ResolverTypeWrapper<CreateUserResponse>;
   FindWiggleInput: FindWiggleInput;
   FindWiggleResponse: ResolverTypeWrapper<FindWiggleResponse>;
-  ID: ResolverTypeWrapper<Scalars['ID']>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
   CreateWiggleInput: CreateWiggleInput;
   CreateWiggleResponse: ResolverTypeWrapper<CreateWiggleResponse>;
   ContactInput: ContactInput;
   User: ResolverTypeWrapper<User>;
   Wiggle: ResolverTypeWrapper<Wiggle>;
   Contact: ResolverTypeWrapper<Contact>;
+  ID: ResolverTypeWrapper<Scalars['ID']>;
   Joke: ResolverTypeWrapper<Joke>;
   DogPic: ResolverTypeWrapper<DogPic>;
   DogPics: ResolverTypeWrapper<DogPics>;
@@ -260,13 +262,14 @@ export type ResolversParentTypes = ResolversObject<{
   CreateUserResponse: CreateUserResponse;
   FindWiggleInput: FindWiggleInput;
   FindWiggleResponse: FindWiggleResponse;
-  ID: Scalars['ID'];
+  Int: Scalars['Int'];
   CreateWiggleInput: CreateWiggleInput;
   CreateWiggleResponse: CreateWiggleResponse;
   ContactInput: ContactInput;
   User: User;
   Wiggle: Wiggle;
   Contact: Contact;
+  ID: Scalars['ID'];
   Joke: Joke;
   DogPic: DogPic;
   DogPics: DogPics;
@@ -274,85 +277,85 @@ export type ResolversParentTypes = ResolversObject<{
   Boolean: Scalars['Boolean'];
 }>;
 
-export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
+export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   me?: Resolver<Maybe<ResolversTypes['MeResponse']>, ParentType, ContextType>;
   dogPic?: Resolver<Maybe<ResolversTypes['DogPic']>, ParentType, ContextType>;
   dogPics?: Resolver<Maybe<ResolversTypes['DogPics']>, ParentType, ContextType>;
   joke?: Resolver<Maybe<ResolversTypes['Joke']>, ParentType, ContextType>;
   searchJokes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Joke']>>>, ParentType, ContextType, RequireFields<QuerySearchJokesArgs, never>>;
   jokes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Joke']>>>, ParentType, ContextType>;
-  wiggle?: Resolver<Maybe<ResolversTypes['FindWiggleResponse']>, ParentType, ContextType, RequireFields<QueryWiggleArgs, 'input'>>;
+  wiggle?: Resolver<Maybe<ResolversTypes['Wiggle']>, ParentType, ContextType, RequireFields<QueryWiggleArgs, 'input'>>;
   wiggles?: Resolver<Maybe<Array<Maybe<ResolversTypes['Wiggle']>>>, ParentType, ContextType>;
 }>;
 
-export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
+export type MutationResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
   createUser?: Resolver<Maybe<ResolversTypes['CreateUserResponse']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>;
-  createWiggle?: Resolver<Maybe<ResolversTypes['CreateWiggleResponse']>, ParentType, ContextType, RequireFields<MutationCreateWiggleArgs, 'input'>>;
+  createWiggle?: Resolver<Maybe<ResolversTypes['Wiggle']>, ParentType, ContextType, RequireFields<MutationCreateWiggleArgs, 'input'>>;
 }>;
 
-export type MeResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['MeResponse'] = ResolversParentTypes['MeResponse']> = ResolversObject<{
+export type MeResponseResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['MeResponse'] = ResolversParentTypes['MeResponse']> = ResolversObject<{
   userName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   wiggles?: Resolver<Maybe<Array<Maybe<ResolversTypes['Wiggle']>>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type CreateUserResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateUserResponse'] = ResolversParentTypes['CreateUserResponse']> = ResolversObject<{
+export type CreateUserResponseResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['CreateUserResponse'] = ResolversParentTypes['CreateUserResponse']> = ResolversObject<{
   userName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   wiggles?: Resolver<Maybe<Array<Maybe<ResolversTypes['Wiggle']>>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type FindWiggleResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['FindWiggleResponse'] = ResolversParentTypes['FindWiggleResponse']> = ResolversObject<{
-  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+export type FindWiggleResponseResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['FindWiggleResponse'] = ResolversParentTypes['FindWiggleResponse']> = ResolversObject<{
+  id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   schedule?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   contact?: Resolver<Maybe<ResolversTypes['Contact']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type CreateWiggleResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateWiggleResponse'] = ResolversParentTypes['CreateWiggleResponse']> = ResolversObject<{
-  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+export type CreateWiggleResponseResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['CreateWiggleResponse'] = ResolversParentTypes['CreateWiggleResponse']> = ResolversObject<{
+  id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   schedule?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   contact?: Resolver<Maybe<ResolversTypes['Contact']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = ResolversObject<{
+export type UserResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = ResolversObject<{
   userName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   wiggles?: Resolver<Maybe<Array<Maybe<ResolversTypes['Wiggle']>>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type WiggleResolvers<ContextType = any, ParentType extends ResolversParentTypes['Wiggle'] = ResolversParentTypes['Wiggle']> = ResolversObject<{
-  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+export type WiggleResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Wiggle'] = ResolversParentTypes['Wiggle']> = ResolversObject<{
+  id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   schedule?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   contact?: Resolver<ResolversTypes['Contact'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type ContactResolvers<ContextType = any, ParentType extends ResolversParentTypes['Contact'] = ResolversParentTypes['Contact']> = ResolversObject<{
+export type ContactResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Contact'] = ResolversParentTypes['Contact']> = ResolversObject<{
   id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   phoneNumber?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type JokeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Joke'] = ResolversParentTypes['Joke']> = ResolversObject<{
+export type JokeResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Joke'] = ResolversParentTypes['Joke']> = ResolversObject<{
   id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   joke?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type DogPicResolvers<ContextType = any, ParentType extends ResolversParentTypes['DogPic'] = ResolversParentTypes['DogPic']> = ResolversObject<{
+export type DogPicResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['DogPic'] = ResolversParentTypes['DogPic']> = ResolversObject<{
   picture?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type DogPicsResolvers<ContextType = any, ParentType extends ResolversParentTypes['DogPics'] = ResolversParentTypes['DogPics']> = ResolversObject<{
+export type DogPicsResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['DogPics'] = ResolversParentTypes['DogPics']> = ResolversObject<{
   pictures?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
@@ -361,7 +364,7 @@ export interface UploadScalarConfig extends GraphQLScalarTypeConfig<ResolversTyp
   name: 'Upload';
 }
 
-export type Resolvers<ContextType = any> = ResolversObject<{
+export type Resolvers<ContextType = ApolloServerContext> = ResolversObject<{
   Query?: QueryResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   MeResponse?: MeResponseResolvers<ContextType>;
@@ -382,4 +385,4 @@ export type Resolvers<ContextType = any> = ResolversObject<{
  * @deprecated
  * Use "Resolvers" root object instead. If you wish to get "IResolvers", add "typesPrefix: I" to your config.
  */
-export type IResolvers<ContextType = any> = Resolvers<ContextType>;
+export type IResolvers<ContextType = ApolloServerContext> = Resolvers<ContextType>;

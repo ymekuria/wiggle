@@ -8,13 +8,13 @@ const mainSchema = gql`
     joke: Joke
     searchJokes(term: String): [Joke]
     jokes: [Joke]
-    wiggle(input: FindWiggleInput!): FindWiggleResponse
+    wiggle(input: FindWiggleInput!): Wiggle
     wiggles: [Wiggle]
   }
 
   type Mutation {
     createUser(input: CreateUserInput!): CreateUserResponse
-    createWiggle(input: CreateWiggleInput!): CreateWiggleResponse
+    createWiggle(input: CreateWiggleInput!): Wiggle
   }
   input CreateUserInput {
     userName: String
@@ -36,7 +36,7 @@ const mainSchema = gql`
     phoneNumber: String
   }
   type FindWiggleResponse {
-    id: ID
+    id: Int
     user: User
     schedule: String
     contact: Contact
@@ -47,13 +47,13 @@ const mainSchema = gql`
     contact: ContactInput!
   }
   type CreateWiggleResponse {
-    id: ID
+    id: Int
     user: User
     schedule: String
     contact: Contact
   }
   input ContactInput {
-    id: ID
+    id: Int
     phoneNumber: String!
     name: String
   }
@@ -65,7 +65,7 @@ const mainSchema = gql`
   }
 
   type Wiggle {
-    id: ID
+    id: Int
     user: User!
     schedule: String
     contact: Contact!

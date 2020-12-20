@@ -4,9 +4,12 @@ schema: "http://localhost:8088/graphql"
 generates:
   ./server/__generated__/graphql_api_types.ts:
     plugins:
+      - add: 
+          content: "import { ApolloServerContext } from '../index.ts';"
       - typescript
       - typescript-resolvers
     config:
+      contextType: ApolloServerContext
       useIndexSignature: true
   ./client/__generated__/ui_types.tsx:
     plugins:
@@ -15,7 +18,6 @@ generates:
       - "typescript-react-apollo"
     config:
       withHooks: true
-  
   ./graphql.schema.json:
     plugins:
       - "introspection"

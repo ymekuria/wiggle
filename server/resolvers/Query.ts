@@ -12,7 +12,7 @@ const Query: QueryResolvers<ApolloServerContext> = {
   dogPic: (_parent, _args, { dataSources }) => {
     return dataSources.dogAPI.getRandomDogPic();
   },
-  dogPics: (_parent, _args, { dataSources }: ApolloServerContext) => {
+  dogPics: (_parent, _args, { dataSources }) => {
     return dataSources.dogAPI.getThreeRandomDogPics();
   },
   searchJokes: (_parent, { term }, { dataSources }) => {

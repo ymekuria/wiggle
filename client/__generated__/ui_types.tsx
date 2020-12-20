@@ -22,7 +22,7 @@ export type Query = {
   joke?: Maybe<Joke>;
   searchJokes?: Maybe<Array<Maybe<Joke>>>;
   jokes?: Maybe<Array<Maybe<Joke>>>;
-  wiggle?: Maybe<FindWiggleResponse>;
+  wiggle?: Maybe<Wiggle>;
   wiggles?: Maybe<Array<Maybe<Wiggle>>>;
 };
 
@@ -39,7 +39,7 @@ export type QueryWiggleArgs = {
 export type Mutation = {
   __typename?: 'Mutation';
   createUser?: Maybe<CreateUserResponse>;
-  createWiggle?: Maybe<CreateWiggleResponse>;
+  createWiggle?: Maybe<Wiggle>;
 };
 
 
@@ -77,7 +77,7 @@ export type FindWiggleInput = {
 
 export type FindWiggleResponse = {
   __typename?: 'FindWiggleResponse';
-  id?: Maybe<Scalars['ID']>;
+  id?: Maybe<Scalars['Int']>;
   user?: Maybe<User>;
   schedule?: Maybe<Scalars['String']>;
   contact?: Maybe<Contact>;
@@ -91,14 +91,14 @@ export type CreateWiggleInput = {
 
 export type CreateWiggleResponse = {
   __typename?: 'CreateWiggleResponse';
-  id?: Maybe<Scalars['ID']>;
+  id?: Maybe<Scalars['Int']>;
   user?: Maybe<User>;
   schedule?: Maybe<Scalars['String']>;
   contact?: Maybe<Contact>;
 };
 
 export type ContactInput = {
-  id?: Maybe<Scalars['ID']>;
+  id?: Maybe<Scalars['Int']>;
   phoneNumber: Scalars['String'];
   name?: Maybe<Scalars['String']>;
 };
@@ -112,7 +112,7 @@ export type User = {
 
 export type Wiggle = {
   __typename?: 'Wiggle';
-  id?: Maybe<Scalars['ID']>;
+  id?: Maybe<Scalars['Int']>;
   user: User;
   schedule?: Maybe<Scalars['String']>;
   contact: Contact;

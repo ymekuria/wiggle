@@ -1,4 +1,4 @@
-import { MutationResolvers } from '../__generated__/graphql_api_types';
+import { MutationResolvers, Wiggle } from '../__generated__/graphql_api_types';
 import { ApolloServerContext } from '../';
 
 const Mutation: MutationResolvers<ApolloServerContext> = {
@@ -13,7 +13,11 @@ const Mutation: MutationResolvers<ApolloServerContext> = {
 
     return newUser;
   },
-  createWiggle: async (_parent, { input }, { prisma, userToken }) => {
+  createWiggle: async (
+    _parent,
+    { input },
+    { prisma, userToken }
+  ): Promise<Wiggle> => {
     const { schedule, contact } = input;
     if (!userToken) {
     }

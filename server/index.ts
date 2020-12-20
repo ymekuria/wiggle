@@ -25,7 +25,7 @@ type DecodedJwt = {
 export type ApolloServerContext = {
   prisma: PrismaClient;
   userToken?: DecodedJwt;
-  dataSources: any;
+  dataSources?: any;
 };
 
 export interface AuthRequest extends Request {
