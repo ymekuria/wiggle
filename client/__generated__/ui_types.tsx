@@ -91,10 +91,7 @@ export type CreateWiggleInput = {
 
 export type CreateWiggleResponse = {
   __typename?: 'CreateWiggleResponse';
-  id?: Maybe<Scalars['Int']>;
-  user?: Maybe<User>;
-  schedule?: Maybe<Scalars['String']>;
-  contact?: Maybe<Contact>;
+  wiggle?: Maybe<Wiggle>;
 };
 
 export type ContactInput = {

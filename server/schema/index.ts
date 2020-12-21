@@ -47,10 +47,7 @@ const mainSchema = gql`
     contact: ContactInput!
   }
   type CreateWiggleResponse {
-    id: Int
-    user: User
-    schedule: String
-    contact: Contact
+    wiggle: Wiggle
   }
   input ContactInput {
     id: Int

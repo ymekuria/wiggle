@@ -500,48 +500,12 @@
         "description": null,
         "fields": [
           {
-            "name": "id",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Int",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "user",
+            "name": "wiggle",
             "description": null,
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "User",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "schedule",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "contact",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "Contact",
+              "name": "Wiggle",
               "ofType": null
             },
             "isDeprecated": false,

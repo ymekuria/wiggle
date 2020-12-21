@@ -5,11 +5,16 @@ generates:
   ./server/__generated__/graphql_api_types.ts:
     plugins:
       - add: 
-          content: "import { ApolloServerContext } from '../index.ts';"
+          content: "import { ApolloServerContext } from '../';"
       - typescript
       - typescript-resolvers
     config:
       contextType: ApolloServerContext
+      mapperTypeSuffix: Model
+      mappers:
+        User: ‘@prisma/client/index.d#User’run 
+        Wiggle: ‘@prisma/client/index.d#Wiggle’
+        Contact: ‘@prisma/client/index.d#Contact’
       useIndexSignature: true
   ./client/__generated__/ui_types.tsx:
     plugins:

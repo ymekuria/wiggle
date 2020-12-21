@@ -1,7 +1,7 @@
 import { QueryResolvers, MeResponse } from '../__generated__/graphql_api_types';
 import { ApolloServerContext } from '../';
 
-const Query: QueryResolvers<ApolloServerContext> = {
+const Query: QueryResolvers = {
   me: async (_parent, _args, { prisma, userToken }) => {
     const currentUser = await prisma.user.findOne({
       where: { id: userToken?.sub }
