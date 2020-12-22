@@ -2,7 +2,7 @@ import { gql } from 'apollo-server-express';
 
 const mainSchema = gql`
   type Query {
-    me: MeResponse
+    me: User
     dogPic: DogPic
     dogPics: DogPics
     joke: Joke
@@ -43,7 +43,7 @@ const mainSchema = gql`
   }
   input CreateWiggleInput {
     userName: String
-    schedule: String
+    schedule: String!
     contact: ContactInput!
   }
   type CreateWiggleResponse {

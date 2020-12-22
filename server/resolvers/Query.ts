@@ -35,7 +35,12 @@ const Query: QueryResolvers = {
       select: {
         id: true,
         schedule: true,
-        user: true,
+        user: {
+          select: {
+            userName: true,
+            email: true
+          }
+        },
         contact: true
       }
     });
@@ -45,16 +50,21 @@ const Query: QueryResolvers = {
   wiggles: async (_parent, _args, { prisma, userToken }) => {
     let result = await prisma.wiggle.findMany({
       where: {
-        user: { id: userToken.sub }
+        user: { id: userToken?.sub }
       },
       select: {
         id: true,
         schedule: true,
-        user: true,
+        user: {
+          select: {
+            userName: true,
+            email: true
+          }
+        },
         contact: true
       }
     });
-
+    console.log('wiggles from prisma', result);
     return result;
   }
 };

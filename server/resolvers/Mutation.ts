@@ -8,6 +8,11 @@ const Mutation: MutationResolvers = {
         id: userToken?.sub,
         userName: input?.userName,
         email: input?.email
+      },
+      select: {
+        userName: true,
+        email: true,
+        wiggles: true
       }
     });
 
@@ -30,7 +35,12 @@ const Mutation: MutationResolvers = {
       select: {
         id: true,
         schedule: true,
-        user: true,
+        user: {
+          select: {
+            userName: true,
+            email: true
+          }
+        },
         contact: true
       }
     });

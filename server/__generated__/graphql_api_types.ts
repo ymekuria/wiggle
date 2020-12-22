@@ -1,7 +1,8 @@
 import { ApolloServerContext } from '../';
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
-import { User’run as User’runModel, Wiggle’ as Wiggle’Model, Contact’ as Contact’Model } from '‘@prisma/client/index.d';
-export type Maybe<T> = T | null;
+import { User as UserModel, Contact as ContactModel } from '@prisma/client/index.d';
+import { Wiggle as WiggleModel } from './prismaMappings';
+export type Maybe<T> = T | undefined | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
@@ -20,7 +21,7 @@ export type Scalars = {
 
 export type Query = {
   __typename?: 'Query';
-  me?: Maybe<MeResponse>;
+  me?: Maybe<User>;
   dogPic?: Maybe<DogPic>;
   dogPics?: Maybe<DogPics>;
   joke?: Maybe<Joke>;
@@ -239,9 +240,9 @@ export type ResolversTypes = ResolversObject<{
   CreateWiggleInput: CreateWiggleInput;
   CreateWiggleResponse: ResolverTypeWrapper<Omit<CreateWiggleResponse, 'wiggle'> & { wiggle?: Maybe<ResolversTypes['Wiggle']> }>;
   ContactInput: ContactInput;
-  User: ResolverTypeWrapper<User’runModel>;
-  Wiggle: ResolverTypeWrapper<Wiggle’Model>;
-  Contact: ResolverTypeWrapper<Contact’Model>;
+  User: ResolverTypeWrapper<UserModel>;
+  Wiggle: ResolverTypeWrapper<WiggleModel>;
+  Contact: ResolverTypeWrapper<ContactModel>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Joke: ResolverTypeWrapper<Joke>;
   DogPic: ResolverTypeWrapper<DogPic>;
@@ -265,9 +266,9 @@ export type ResolversParentTypes = ResolversObject<{
   CreateWiggleInput: CreateWiggleInput;
   CreateWiggleResponse: Omit<CreateWiggleResponse, 'wiggle'> & { wiggle?: Maybe<ResolversParentTypes['Wiggle']> };
   ContactInput: ContactInput;
-  User: User’runModel;
-  Wiggle: Wiggle’Model;
-  Contact: Contact’Model;
+  User: UserModel;
+  Wiggle: WiggleModel;
+  Contact: ContactModel;
   ID: Scalars['ID'];
   Joke: Joke;
   DogPic: DogPic;
@@ -277,7 +278,7 @@ export type ResolversParentTypes = ResolversObject<{
 }>;
 
 export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
-  me?: Resolver<Maybe<ResolversTypes['MeResponse']>, ParentType, ContextType>;
+  me?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   dogPic?: Resolver<Maybe<ResolversTypes['DogPic']>, ParentType, ContextType>;
   dogPics?: Resolver<Maybe<ResolversTypes['DogPics']>, ParentType, ContextType>;
   joke?: Resolver<Maybe<ResolversTypes['Joke']>, ParentType, ContextType>;

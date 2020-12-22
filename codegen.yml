@@ -12,9 +12,10 @@ generates:
       contextType: ApolloServerContext
       mapperTypeSuffix: Model
       mappers:
-        User: ‘@prisma/client/index.d#User’run 
-        Wiggle: ‘@prisma/client/index.d#Wiggle’
-        Contact: ‘@prisma/client/index.d#Contact’
+        User: '@prisma/client/index.d#User'
+        Wiggle: './prismaMappings#Wiggle'
+        Contact: '@prisma/client/index.d#Contact'
+      maybeValue: "T | undefined | null"
       useIndexSignature: true
   ./client/__generated__/ui_types.tsx:
     plugins:

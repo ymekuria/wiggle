@@ -109,6 +109,7 @@ const RootNavigator = () => {
 
 const Navigation = ({ colorScheme, navigationRef }: NavigationProps) => {
   const { accessToken } = useAuth0();
+  console.log('access token:', accessToken);
   const apolloClient = createApolloClient(accessToken);
   return (
     <ApolloProvider client={apolloClient}>

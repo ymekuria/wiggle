@@ -17,6 +17,7 @@ import TabTwoScreen from '../screens/TabTwoScreen';
 import TabThreeScreen from '../screens/TabThreeScreen';
 import TabFourScreen from '../screens/TabFourScreen';
 import ContactDisplayScreen from '../screens/ContactDisplayScreen';
+import SignInScreen from '../screens/SignInScreen';
 import { useThemeColor } from '../components/Themed';
 
 type BottomTabParamList = {
@@ -151,7 +152,7 @@ const TabFourNavigator = () => {
         headerTintColor: headerTintColor
       })}
     >
-      <TabFourStack.Screen name="TabFourScreen" component={TabFourScreen} />
+      <TabFourStack.Screen name="TabFourScreen" component={SignInScreen} />
     </TabFourStack.Navigator>
   );
 };

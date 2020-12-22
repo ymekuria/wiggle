@@ -19,7 +19,7 @@
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "MeResponse",
+              "name": "User",
               "ofType": null
             },
             "isDeprecated": false,

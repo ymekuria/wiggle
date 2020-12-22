@@ -3,9 +3,12 @@ import { StyleSheet, FlatList, SafeAreaView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Text, View } from '../components/Themed';
 import * as Contacts from 'expo-contacts';
+import { useAuth0 } from '../hooks/useAuth0';
 import ContactsDisplay from '../components/ContactsDisplay';
 
 const TabTwoScreen: React.FC = (props) => {
+  const { accessToken } = useAuth0();
+  console.log('accessToken', accessToken);
   return (
     <LinearGradient
       colors={['rgba(163,175,243,1)', 'rgba(220,182,232,1)']}

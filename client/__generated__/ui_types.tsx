@@ -16,7 +16,7 @@ export type Scalars = {
 
 export type Query = {
   __typename?: 'Query';
-  me?: Maybe<MeResponse>;
+  me?: Maybe<User>;
   dogPic?: Maybe<DogPic>;
   dogPics?: Maybe<DogPics>;
   joke?: Maybe<Joke>;

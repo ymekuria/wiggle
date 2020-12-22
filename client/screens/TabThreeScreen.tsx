@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { StyleSheet } from 'react-native';
 import { useQuery, gql } from '@apollo/client';
 import { LinearGradient } from 'expo-linear-gradient';
