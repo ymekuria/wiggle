@@ -21,33 +21,17 @@ const mainSchema = gql`
     email: String
   }
 
-  type MeResponse {
-    userName: String
-    email: String
-    wiggles: [Wiggle]
-  }
-
-  type CreateUserResponse {
-    user: User
-  }
   input FindWiggleInput {
     userName: String
     phoneNumber: String
   }
-  type FindWiggleResponse {
-    id: Int
-    user: User
-    schedule: String
-    contact: Contact!
-  }
+
   input CreateWiggleInput {
     userName: String
     schedule: String!
     contact: ContactInput!
   }
-  type CreateWiggleResponse {
-    wiggle: Wiggle
-  }
+
   input ContactInput {
     id: Int
     phoneNumber: String!
