@@ -85,7 +85,7 @@ export type FindWiggleResponse = {
 
 export type CreateWiggleInput = {
   userName?: Maybe<Scalars['String']>;
-  schedule?: Maybe<Scalars['String']>;
+  schedule: Scalars['String'];
   contact: ContactInput;
 };
 
