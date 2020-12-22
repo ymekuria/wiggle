@@ -13,7 +13,7 @@ const mainSchema = gql`
   }
 
   type Mutation {
-    createUser(input: CreateUserInput!): CreateUserResponse
+    createUser(input: CreateUserInput!): User
     createWiggle(input: CreateWiggleInput!): Wiggle
   }
   input CreateUserInput {
@@ -28,8 +28,7 @@ const mainSchema = gql`
   }
 
   type CreateUserResponse {
-    userName: String
-    wiggles: [Wiggle]
+    user: User
   }
   input FindWiggleInput {
     userName: String

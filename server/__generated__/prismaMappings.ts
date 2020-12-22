@@ -1,4 +1,4 @@
-import { WiggleGetPayload } from '@prisma/client';
+import { WiggleGetPayload, UserGetPayload } from '@prisma/client';
 
 export type Wiggle = WiggleGetPayload<{
   select: {
@@ -12,6 +12,14 @@ export type Wiggle = WiggleGetPayload<{
       };
     };
     contact: true;
+  };
+}>;
+
+export type User = UserGetPayload<{
+  select: {
+    userName: true;
+    email: true;
+    wiggles: true;
   };
 }>;
 

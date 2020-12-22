@@ -12,7 +12,7 @@ generates:
       contextType: ApolloServerContext
       mapperTypeSuffix: Model
       mappers:
-        User: '@prisma/client/index.d#User'
+        User: './prismaMappings#User'
         Wiggle: './prismaMappings#Wiggle'
         Contact: '@prisma/client/index.d#Contact'
       maybeValue: "T | undefined | null"

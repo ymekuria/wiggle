@@ -38,7 +38,7 @@ export type QueryWiggleArgs = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  createUser?: Maybe<CreateUserResponse>;
+  createUser?: Maybe<User>;
   createWiggle?: Maybe<Wiggle>;
 };
 
@@ -66,8 +66,7 @@ export type MeResponse = {
 
 export type CreateUserResponse = {
   __typename?: 'CreateUserResponse';
-  userName?: Maybe<Scalars['String']>;
-  wiggles?: Maybe<Array<Maybe<Wiggle>>>;
+  user?: Maybe<User>;
 };
 
 export type FindWiggleInput = {

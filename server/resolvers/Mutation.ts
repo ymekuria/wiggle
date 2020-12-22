@@ -3,9 +3,13 @@ import { ApolloServerContext } from '../';
 
 const Mutation: MutationResolvers = {
   createUser: async (_parent, { input }, { prisma, userToken }) => {
+    if (!userToken) {
+      console.log('only authenticated users can create a wiggle');
+      return;
+    }
     let newUser = await prisma.user.create({
       data: {
-        id: userToken?.sub,
+        id: userToken.sub,
         userName: input?.userName,
         email: input?.email
       },
@@ -21,6 +25,8 @@ const Mutation: MutationResolvers = {
   createWiggle: async (_parent, { input }, { prisma, userToken }) => {
     const { schedule, contact } = input;
     if (!userToken) {
+      console.log('only authenticated users can create a wiggle');
+      return null;
     }
     let newWiggle = await prisma.wiggle.create({
       data: {
@@ -29,7 +35,7 @@ const Mutation: MutationResolvers = {
         },
         schedule,
         contact: {
-          create: { phoneNumber: contact?.phoneNumber, name: contact?.name }
+          create: { phoneNumber: contact.phoneNumber, name: contact?.name }
         }
       },
       select: {
