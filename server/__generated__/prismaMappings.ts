@@ -8,6 +8,7 @@ export type Wiggle = WiggleGetPayload<{
       select: {
         userName: true;
         email: true;
+        wiggles: true;
       };
     };
     contact: true;

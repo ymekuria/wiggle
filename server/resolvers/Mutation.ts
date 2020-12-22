@@ -38,7 +38,8 @@ const Mutation: MutationResolvers = {
         user: {
           select: {
             userName: true,
-            email: true
+            email: true,
+            wiggles: true
           }
         },
         contact: true

@@ -39,7 +39,7 @@ const mainSchema = gql`
     id: Int
     user: User
     schedule: String
-    contact: Contact
+    contact: Contact!
   }
   input CreateWiggleInput {
     userName: String
