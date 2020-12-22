@@ -3,8 +3,17 @@ import { ApolloServerContext } from '../';
 
 const Query: QueryResolvers = {
   me: async (_parent, _args, { prisma, userToken }) => {
+    if (!userToken) {
+      console.log('User is not Authenticated');
+      return null;
+    }
     const currentUser = await prisma.user.findOne({
-      where: { id: userToken?.sub }
+      where: { id: userToken.sub },
+      select: {
+        userName: true,
+        email: true,
+        wiggles: true
+      }
     });
 
     return currentUser;
