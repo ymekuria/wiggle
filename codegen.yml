@@ -10,6 +10,7 @@ generates:
       - typescript-resolvers
     config:
       contextType: ApolloServerContext
+      defaultMapper: any
       mapperTypeSuffix: Model
       mappers:
         User: './prismaMappings#User'

@@ -57,40 +57,15 @@ export type CreateUserInput = {
   email?: Maybe<Scalars['String']>;
 };
 
-export type MeResponse = {
-  __typename?: 'MeResponse';
-  userName?: Maybe<Scalars['String']>;
-  email?: Maybe<Scalars['String']>;
-  wiggles?: Maybe<Array<Maybe<Wiggle>>>;
-};
-
-export type CreateUserResponse = {
-  __typename?: 'CreateUserResponse';
-  user?: Maybe<User>;
-};
-
 export type FindWiggleInput = {
   userName?: Maybe<Scalars['String']>;
   phoneNumber?: Maybe<Scalars['String']>;
-};
-
-export type FindWiggleResponse = {
-  __typename?: 'FindWiggleResponse';
-  id?: Maybe<Scalars['Int']>;
-  user?: Maybe<User>;
-  schedule?: Maybe<Scalars['String']>;
-  contact: Contact;
 };
 
 export type CreateWiggleInput = {
   userName?: Maybe<Scalars['String']>;
   schedule: Scalars['String'];
   contact: ContactInput;
-};
-
-export type CreateWiggleResponse = {
-  __typename?: 'CreateWiggleResponse';
-  wiggle?: Maybe<Wiggle>;
 };
 
 export type ContactInput = {

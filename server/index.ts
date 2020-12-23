@@ -1,5 +1,5 @@
 require('dotenv').config();
-import express, { Request } from 'express';
+import express, { Request, Server } from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import { ApolloServer } from 'apollo-server-express';

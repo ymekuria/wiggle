@@ -1,4 +1,4 @@
-import { QueryResolvers, MeResponse } from '../__generated__/graphql_api_types';
+import { QueryResolvers } from '../__generated__/graphql_api_types';
 import { ApolloServerContext } from '../';
 
 const Query: QueryResolvers = {
@@ -34,10 +34,14 @@ const Query: QueryResolvers = {
     return dataSources.jokeAPI.getMultipleRandomJokes();
   },
   wiggle: async (_parent, { input }, { prisma, userToken }) => {
+    if (!userToken) {
+      console.log('user is not authenticated');
+      return;
+    }
     let result = await prisma.wiggle.findMany({
       where: {
         AND: [
-          { user: { id: userToken?.sub } },
+          { user: { id: userToken.sub } },
           { contact: { phoneNumber: input.phoneNumber } }
         ]
       },
@@ -58,9 +62,14 @@ const Query: QueryResolvers = {
     return result.length ? result[0] : null;
   },
   wiggles: async (_parent, _args, { prisma, userToken }) => {
+    if (!userToken) {
+      console.log('user is not authenticated');
+      return;
+    }
+
     let result = await prisma.wiggle.findMany({
       where: {
-        user: { id: userToken?.sub }
+        user: { id: userToken.sub }
       },
       select: {
         id: true,

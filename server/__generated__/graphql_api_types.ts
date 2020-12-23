@@ -6,7 +6,6 @@ export type Maybe<T> = T | undefined | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -62,40 +61,15 @@ export type CreateUserInput = {
   email?: Maybe<Scalars['String']>;
 };
 
-export type MeResponse = {
-  __typename?: 'MeResponse';
-  userName?: Maybe<Scalars['String']>;
-  email?: Maybe<Scalars['String']>;
-  wiggles?: Maybe<Array<Maybe<Wiggle>>>;
-};
-
-export type CreateUserResponse = {
-  __typename?: 'CreateUserResponse';
-  user?: Maybe<User>;
-};
-
 export type FindWiggleInput = {
   userName?: Maybe<Scalars['String']>;
   phoneNumber?: Maybe<Scalars['String']>;
-};
-
-export type FindWiggleResponse = {
-  __typename?: 'FindWiggleResponse';
-  id?: Maybe<Scalars['Int']>;
-  user?: Maybe<User>;
-  schedule?: Maybe<Scalars['String']>;
-  contact: Contact;
 };
 
 export type CreateWiggleInput = {
   userName?: Maybe<Scalars['String']>;
   schedule: Scalars['String'];
   contact: ContactInput;
-};
-
-export type CreateWiggleResponse = {
-  __typename?: 'CreateWiggleResponse';
-  wiggle?: Maybe<Wiggle>;
 };
 
 export type ContactInput = {
@@ -228,52 +202,44 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
   Query: ResolverTypeWrapper<{}>;
-  String: ResolverTypeWrapper<Scalars['String']>;
+  String: ResolverTypeWrapper<any>;
   Mutation: ResolverTypeWrapper<{}>;
-  CreateUserInput: CreateUserInput;
-  MeResponse: ResolverTypeWrapper<Omit<MeResponse, 'wiggles'> & { wiggles?: Maybe<Array<Maybe<ResolversTypes['Wiggle']>>> }>;
-  CreateUserResponse: ResolverTypeWrapper<Omit<CreateUserResponse, 'user'> & { user?: Maybe<ResolversTypes['User']> }>;
-  FindWiggleInput: FindWiggleInput;
-  FindWiggleResponse: ResolverTypeWrapper<Omit<FindWiggleResponse, 'user' | 'contact'> & { user?: Maybe<ResolversTypes['User']>, contact: ResolversTypes['Contact'] }>;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
-  CreateWiggleInput: CreateWiggleInput;
-  CreateWiggleResponse: ResolverTypeWrapper<Omit<CreateWiggleResponse, 'wiggle'> & { wiggle?: Maybe<ResolversTypes['Wiggle']> }>;
-  ContactInput: ContactInput;
+  CreateUserInput: ResolverTypeWrapper<any>;
+  FindWiggleInput: ResolverTypeWrapper<any>;
+  CreateWiggleInput: ResolverTypeWrapper<any>;
+  ContactInput: ResolverTypeWrapper<any>;
+  Int: ResolverTypeWrapper<any>;
   User: ResolverTypeWrapper<UserModel>;
   Wiggle: ResolverTypeWrapper<WiggleModel>;
   Contact: ResolverTypeWrapper<ContactModel>;
-  ID: ResolverTypeWrapper<Scalars['ID']>;
-  Joke: ResolverTypeWrapper<Joke>;
-  DogPic: ResolverTypeWrapper<DogPic>;
-  DogPics: ResolverTypeWrapper<DogPics>;
-  CacheControlScope: CacheControlScope;
-  Upload: ResolverTypeWrapper<Scalars['Upload']>;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  ID: ResolverTypeWrapper<any>;
+  Joke: ResolverTypeWrapper<any>;
+  DogPic: ResolverTypeWrapper<any>;
+  DogPics: ResolverTypeWrapper<any>;
+  CacheControlScope: ResolverTypeWrapper<any>;
+  Upload: ResolverTypeWrapper<any>;
+  Boolean: ResolverTypeWrapper<any>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
   Query: {};
-  String: Scalars['String'];
+  String: any;
   Mutation: {};
-  CreateUserInput: CreateUserInput;
-  MeResponse: Omit<MeResponse, 'wiggles'> & { wiggles?: Maybe<Array<Maybe<ResolversParentTypes['Wiggle']>>> };
-  CreateUserResponse: Omit<CreateUserResponse, 'user'> & { user?: Maybe<ResolversParentTypes['User']> };
-  FindWiggleInput: FindWiggleInput;
-  FindWiggleResponse: Omit<FindWiggleResponse, 'user' | 'contact'> & { user?: Maybe<ResolversParentTypes['User']>, contact: ResolversParentTypes['Contact'] };
-  Int: Scalars['Int'];
-  CreateWiggleInput: CreateWiggleInput;
-  CreateWiggleResponse: Omit<CreateWiggleResponse, 'wiggle'> & { wiggle?: Maybe<ResolversParentTypes['Wiggle']> };
-  ContactInput: ContactInput;
+  CreateUserInput: any;
+  FindWiggleInput: any;
+  CreateWiggleInput: any;
+  ContactInput: any;
+  Int: any;
   User: UserModel;
   Wiggle: WiggleModel;
   Contact: ContactModel;
-  ID: Scalars['ID'];
-  Joke: Joke;
-  DogPic: DogPic;
-  DogPics: DogPics;
-  Upload: Scalars['Upload'];
-  Boolean: Scalars['Boolean'];
+  ID: any;
+  Joke: any;
+  DogPic: any;
+  DogPics: any;
+  Upload: any;
+  Boolean: any;
 }>;
 
 export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
@@ -290,31 +256,6 @@ export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends
 export type MutationResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
   createUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>;
   createWiggle?: Resolver<Maybe<ResolversTypes['Wiggle']>, ParentType, ContextType, RequireFields<MutationCreateWiggleArgs, 'input'>>;
-}>;
-
-export type MeResponseResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['MeResponse'] = ResolversParentTypes['MeResponse']> = ResolversObject<{
-  userName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  wiggles?: Resolver<Maybe<Array<Maybe<ResolversTypes['Wiggle']>>>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type CreateUserResponseResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['CreateUserResponse'] = ResolversParentTypes['CreateUserResponse']> = ResolversObject<{
-  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type FindWiggleResponseResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['FindWiggleResponse'] = ResolversParentTypes['FindWiggleResponse']> = ResolversObject<{
-  id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
-  schedule?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  contact?: Resolver<ResolversTypes['Contact'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type CreateWiggleResponseResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['CreateWiggleResponse'] = ResolversParentTypes['CreateWiggleResponse']> = ResolversObject<{
-  wiggle?: Resolver<Maybe<ResolversTypes['Wiggle']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type UserResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = ResolversObject<{
@@ -362,10 +303,6 @@ export interface UploadScalarConfig extends GraphQLScalarTypeConfig<ResolversTyp
 export type Resolvers<ContextType = ApolloServerContext> = ResolversObject<{
   Query?: QueryResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
-  MeResponse?: MeResponseResolvers<ContextType>;
-  CreateUserResponse?: CreateUserResponseResolvers<ContextType>;
-  FindWiggleResponse?: FindWiggleResponseResolvers<ContextType>;
-  CreateWiggleResponse?: CreateWiggleResponseResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
   Wiggle?: WiggleResolvers<ContextType>;
   Contact?: ContactResolvers<ContextType>;
