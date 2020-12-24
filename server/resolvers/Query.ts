@@ -1,5 +1,4 @@
 import { QueryResolvers } from '../__generated__/graphql_api_types';
-import { ApolloServerContext } from '../';
 
 const Query: QueryResolvers = {
   me: async (_parent, _args, { prisma, userToken }) => {

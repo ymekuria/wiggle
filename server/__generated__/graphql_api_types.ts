@@ -202,44 +202,44 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
   Query: ResolverTypeWrapper<{}>;
-  String: ResolverTypeWrapper<any>;
+  String: ResolverTypeWrapper<Partial<Scalars['String']>>;
   Mutation: ResolverTypeWrapper<{}>;
-  CreateUserInput: ResolverTypeWrapper<any>;
-  FindWiggleInput: ResolverTypeWrapper<any>;
-  CreateWiggleInput: ResolverTypeWrapper<any>;
-  ContactInput: ResolverTypeWrapper<any>;
-  Int: ResolverTypeWrapper<any>;
+  CreateUserInput: ResolverTypeWrapper<Partial<CreateUserInput>>;
+  FindWiggleInput: ResolverTypeWrapper<Partial<FindWiggleInput>>;
+  CreateWiggleInput: ResolverTypeWrapper<Partial<CreateWiggleInput>>;
+  ContactInput: ResolverTypeWrapper<Partial<ContactInput>>;
+  Int: ResolverTypeWrapper<Partial<Scalars['Int']>>;
   User: ResolverTypeWrapper<UserModel>;
   Wiggle: ResolverTypeWrapper<WiggleModel>;
   Contact: ResolverTypeWrapper<ContactModel>;
-  ID: ResolverTypeWrapper<any>;
-  Joke: ResolverTypeWrapper<any>;
-  DogPic: ResolverTypeWrapper<any>;
-  DogPics: ResolverTypeWrapper<any>;
-  CacheControlScope: ResolverTypeWrapper<any>;
-  Upload: ResolverTypeWrapper<any>;
-  Boolean: ResolverTypeWrapper<any>;
+  ID: ResolverTypeWrapper<Partial<Scalars['ID']>>;
+  Joke: ResolverTypeWrapper<Partial<Joke>>;
+  DogPic: ResolverTypeWrapper<Partial<DogPic>>;
+  DogPics: ResolverTypeWrapper<Partial<DogPics>>;
+  CacheControlScope: ResolverTypeWrapper<Partial<CacheControlScope>>;
+  Upload: ResolverTypeWrapper<Partial<Scalars['Upload']>>;
+  Boolean: ResolverTypeWrapper<Partial<Scalars['Boolean']>>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
   Query: {};
-  String: any;
+  String: Partial<Scalars['String']>;
   Mutation: {};
-  CreateUserInput: any;
-  FindWiggleInput: any;
-  CreateWiggleInput: any;
-  ContactInput: any;
-  Int: any;
+  CreateUserInput: Partial<CreateUserInput>;
+  FindWiggleInput: Partial<FindWiggleInput>;
+  CreateWiggleInput: Partial<CreateWiggleInput>;
+  ContactInput: Partial<ContactInput>;
+  Int: Partial<Scalars['Int']>;
   User: UserModel;
   Wiggle: WiggleModel;
   Contact: ContactModel;
-  ID: any;
-  Joke: any;
-  DogPic: any;
-  DogPics: any;
-  Upload: any;
-  Boolean: any;
+  ID: Partial<Scalars['ID']>;
+  Joke: Partial<Joke>;
+  DogPic: Partial<DogPic>;
+  DogPics: Partial<DogPics>;
+  Upload: Partial<Scalars['Upload']>;
+  Boolean: Partial<Scalars['Boolean']>;
 }>;
 
 export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{

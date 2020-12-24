@@ -52,7 +52,6 @@ const server = new ApolloServer({
   engine: {
     reportSchema: true
   },
-  // context: ({ req }: { req: AuthRequest }): ApolloServerContext => {
   context: ({ req }: { req: AuthRequest }) => {
     const userToken = req.userToken;
 
