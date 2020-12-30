@@ -6,7 +6,7 @@ import { Text, View } from '../components/Themed';
 import useContacts from '../hooks/useContacts';
 import { SearchBar } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
-import ContactContext from '../context/ContactContext';
+import { Context as ContactContext } from '../context/ContactContext';
 
 const ContactsDisplay = (props) => {
   const [searchInputValue, onChangeSearchText] = useState<string>('');

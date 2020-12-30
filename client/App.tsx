@@ -4,7 +4,7 @@ import { NavigationContainerRef } from '@react-navigation/native';
 
 import { Provider } from 'react-redux';
 import { Auth0Provider } from './hooks/useAuth0';
-import { ContactProvider } from './context/ContactContext';
+import { Provider as ContactProvider } from './context/ContactContext';
 import { AUTH0_CLIENT_ID, AUTH0_AUDIENCE, AUTH0_DOMAIN } from './utils/config';
 import store from './store';
 import useCachedResources from './hooks/useCachedResources';

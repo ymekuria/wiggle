@@ -5,7 +5,7 @@ type ContactContextProps = {
   currentContact: Contact;
   setCurrentContact: (contact: Contact) => void;
 };
-const ContactContext = createContext<Partial<ContactContextProps>>({});
+// const ContactContext = createContext<Partial<ContactContextProps>>({});
 
 const currentContactReducer = (state, action) => {
   console.log('action in reducer', action.payload);
@@ -19,8 +19,10 @@ const currentContactReducer = (state, action) => {
       return state;
   }
 };
-const setCurrentContact = (contact: Contact) => {
-  dispatch({ type: 'ADD_CURRENT_CONTACT', payload: contact });
+const setCurrentContact = (dispatch) => {
+  return (contact: Contact) => {
+    dispatch({ type: 'ADD_CURRENT_CONTACT', payload: contact });
+  };
 };
 
 export const { Context, Provider } = createDataContext(
