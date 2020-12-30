@@ -13,7 +13,7 @@ import BirthdayDisplay from '../components/BirthdayDisplay';
 
 const ContactDisplayScreen: React.FC = () => {
   const { currentContact } = useContext(ContactContext);
-  // const navigation = useNavigation();
+
   console.log('contact current', currentContact);
 
   return (

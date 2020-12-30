@@ -1,13 +1,14 @@
 import React, { createContext } from 'react';
 import { Contact } from 'expo-contacts';
 import createDataContext from './createDataContext';
+
 type ContactContextProps = {
   currentContact: Contact;
   setCurrentContact: (contact: Contact) => void;
 };
 // const ContactContext = createContext<Partial<ContactContextProps>>({});
 
-const currentContactReducer = (state, action) => {
+const currentContactReducer = (state, action): Contact | any => {
   console.log('action in reducer', action.payload);
   switch (action.type) {
     case 'ADD_CURRENT_CONTACT':
@@ -24,9 +25,14 @@ const setCurrentContact = (dispatch) => {
     dispatch({ type: 'ADD_CURRENT_CONTACT', payload: contact });
   };
 };
+const deleteCurrentContact = (dispatch) => {
+  return () => {
+    dispatch({ type: 'ADD_CURRENT_CONTACT' });
+  };
+};
 
 export const { Context, Provider } = createDataContext(
   currentContactReducer,
-  { setCurrentContact },
-  {}
+  { setCurrentContact, deleteCurrentContact },
+  {} as Contact
 );

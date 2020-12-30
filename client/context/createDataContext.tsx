@@ -1,7 +1,7 @@
 import React, { useReducer, createContext } from 'react';
 
 export default (reducer, actions, initialState) => {
-  const Context = createContext({});
+  const Context = createContext(initialState);
 
   const Provider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
@@ -15,6 +15,7 @@ export default (reducer, actions, initialState) => {
       dispatchActions[action] = actions[action](dispatch);
     }
     console.log('dispatchActions, ', dispatchActions);
+
     return (
       <Context.Provider value={{ state, ...dispatchActions }}>
         {children}
