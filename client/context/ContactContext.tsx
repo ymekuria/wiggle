@@ -1,9 +1,10 @@
-import React, { createContext } from 'react';
+import React, { createContext, Dispatch } from 'react';
 import { Contact } from 'expo-contacts';
 import { createDataContext } from './createDataContext';
 import { Action } from 'redux';
 
-const initialState = { currentContact: {} };
+const initialState = { currentContact: {} as Contact };
+
 type ContactContextProps = {
   currentContact: Contact;
   setCurrentContact: (contact: Contact) => void;
@@ -11,21 +12,20 @@ type ContactContextProps = {
 // const ContactContext = createContext<Partial<ContactContextProps>>({});
 type ActionType =
   | { type: 'ADD_CURRENT_CONTACT'; payload: Contact }
-  | { type: 'DELETE_CURRENT_CONTACT'; payload: typeof initialState };
+  | { type: 'DELETE_CURRENT_CONTACT' };
 
-type ReducerReturnType =
-  | {
-      currentContact: Contact;
-    }
-  | typeof initialState;
+type ReducerReturnType = {
+  currentContact: Contact | {};
+};
+
 const currentContactReducer = (
   state: typeof initialState,
   action: ActionType
 ): ReducerReturnType => {
-  console.log('action in reducer', action.payload);
   switch (action.type) {
     case 'ADD_CURRENT_CONTACT':
       console.log('inside Add reducer');
+      console.log('action in reducer', action.payload);
       return { currentContact: action.payload };
     case 'DELETE_CURRENT_CONTACT':
       return { currentContact: {} };
@@ -33,19 +33,19 @@ const currentContactReducer = (
       return state;
   }
 };
-const setCurrentContact = (dispatch) => {
+const setCurrentContact = (dispatch: Dispatch<ActionType>) => {
   return (contact: Contact) => {
     dispatch({ type: 'ADD_CURRENT_CONTACT', payload: contact });
   };
 };
-const deleteCurrentContact = (dispatch) => {
+const deleteCurrentContact = (dispatch: Dispatch<ActionType>) => {
   return () => {
-    dispatch({ type: 'ADD_CURRENT_CONTACT' });
+    dispatch({ type: 'DELETE_CURRENT_CONTACT' });
   };
 };
 
 export const { Context, Provider } = createDataContext(
   currentContactReducer,
   { setCurrentContact, deleteCurrentContact },
-  {}
+  initialState
 );
