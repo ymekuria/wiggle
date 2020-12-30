@@ -8,7 +8,7 @@ import { SearchBar } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import { Context as ContactContext } from '../context/ContactContext';
 
-const ContactsDisplay = (props) => {
+const ContactsDisplay = () => {
   const [searchInputValue, onChangeSearchText] = useState<string>('');
   const [contacts, setContacts, inMemoryContacts] = useContacts();
   const { setCurrentContact } = useContext(ContactContext);
@@ -31,9 +31,9 @@ const ContactsDisplay = (props) => {
     navigation.navigate('ContactDisplayScreen');
   };
 
-  const renderContacts = ({ item }) => {
+  const renderContacts = ({ item }: { item: Contact }) => {
     return (
-      <TouchableOpacity onPress={() => onContactPress(item, props)}>
+      <TouchableOpacity onPress={() => onContactPress(item)}>
         <View style={styles.contactContainer}>
           <Text style={{ fontSize: 22 }}>{item?.name}</Text>
         </View>
