@@ -4,7 +4,9 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Avatar } from 'react-native-elements';
 import { Text } from '../components/Themed';
 
-type AvatarDisplayProps = { contact: any };
+interface AvatarDisplayProps {
+  contact: any;
+}
 
 const AvatarDisplay: React.FC<AvatarDisplayProps> = ({ contact }) => {
   return (

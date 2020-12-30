@@ -4,14 +4,14 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { Text, View } from '../components/Themed';
 
-type BirthdayDisplayProps = {
+interface BirthdayDisplayProps {
   birthday: {
     day: number;
     format: string;
     month: number;
     year: number;
   };
-};
+}
 
 const BirthdayDisplay: React.FC<BirthdayDisplayProps> = ({ birthday }) => {
   const months = {

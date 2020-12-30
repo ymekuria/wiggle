@@ -27,6 +27,7 @@
     "@types/passport-facebook": "^2.1.10",
     "@types/passport-google-oauth20": "^2.0.4",
     "@types/passport-jwt": "^3.0.3",
+    "@types/react-native-orientation": "^5.0.1",
     "apollo-datasource-rest": "^0.9.5",
     "apollo-link-http": "^1.5.17",
     "apollo-server-express": "^2.19.1",

@@ -3,11 +3,9 @@ import { StyleSheet, FlatList } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Text, View } from '../components/Themed';
 
-type PhoneNumber = {};
-
-type PhoneNumbersDisplayProps = {
+interface PhoneNumbersDisplayProps {
   phoneNumbers: any;
-};
+}
 
 const renderPhoneNumbers = ({ item }) => {
   return (

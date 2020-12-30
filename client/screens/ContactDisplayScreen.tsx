@@ -2,16 +2,17 @@ import React, { useContext } from 'react';
 import { StyleSheet, FlatList } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import * as Contacts from 'expo-contacts';
 import { Card, Avatar } from 'react-native-elements';
 import ContactContext from '../context/ContactContext';
 import { Text, View } from '../components/Themed';
 import AvatarDisplay from '../components/AvatarDisplay';
 import PhoneNumbersDisplay from '../components/PhoneNumbersDisplay';
-import { rowDependencies } from 'mathjs';
+import { Contact } from 'expo-contacts';
 import BirthdayDisplay from '../components/BirthdayDisplay';
 
 const ContactDisplayScreen: React.FC = () => {
-  const { currentContact } = React.useContext(ContactContext);
+  const { currentContact } = useContext(ContactContext);
   // const navigation = useNavigation();
   console.log('contact current', currentContact);
 
