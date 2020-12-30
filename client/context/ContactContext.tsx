@@ -1,5 +1,6 @@
 import React, { createContext } from 'react';
 import { Contact } from 'expo-contacts';
+import createDataContext from './createDataContext';
 type ContactContextProps = {
   currentContact: Contact;
   setCurrentContact: (contact: Contact) => void;
@@ -18,20 +19,12 @@ const currentContactReducer = (state, action) => {
       return state;
   }
 };
-
-export const ContactProvider = ({ children }) => {
-  const [currentContact, dispatch] = React.useReducer(
-    currentContactReducer,
-    {}
-  );
-  const setCurrentContact = (contact: Contact) => {
-    dispatch({ type: 'ADD_CURRENT_CONTACT', payload: contact });
-  };
-  return (
-    <ContactContext.Provider value={{ currentContact, setCurrentContact }}>
-      {children}
-    </ContactContext.Provider>
-  );
+const setCurrentContact = (contact: Contact) => {
+  dispatch({ type: 'ADD_CURRENT_CONTACT', payload: contact });
 };
 
-export default ContactContext;
+export const { Context, Provider } = createDataContext(
+  currentContactReducer,
+  { setCurrentContact },
+  {}
+);
