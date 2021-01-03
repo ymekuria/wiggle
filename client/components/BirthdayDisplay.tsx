@@ -1,17 +1,13 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { StyleSheet, FlatList } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Contact } from 'expo-contacts';
 
 import { Text, View } from '../components/Themed';
 
-interface BirthdayDisplayProps {
-  birthday: {
-    day: number;
-    format: string;
-    month: number;
-    year: number;
-  };
-}
+type BirthdayDisplayProps = {
+  birthday: Contact['birthday'];
+};
 
 const BirthdayDisplay: React.FC<BirthdayDisplayProps> = ({ birthday }) => {
   const months = {
@@ -33,7 +29,7 @@ const BirthdayDisplay: React.FC<BirthdayDisplayProps> = ({ birthday }) => {
     <TouchableOpacity>
       <View style={styles.birthdayContainer}>
         <Text>birthday</Text>
-        <Text style={styles.birthdayText}>{`${months[birthday?.month]} ${
+        <Text style={styles.birthdayText}>{`${months[birthday.month]} ${
           birthday?.day
         }`}</Text>
       </View>

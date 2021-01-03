@@ -26,7 +26,7 @@ const ContactsDisplay = () => {
     setContacts(filteredContacts);
   };
 
-  const onContactPress = (item) => {
+  const onContactPress = (item: Contact) => {
     setCurrentContact(item);
     navigation.navigate('ContactDisplayScreen');
   };

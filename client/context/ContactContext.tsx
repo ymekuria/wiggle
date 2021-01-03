@@ -1,31 +1,28 @@
-import React, { createContext, Dispatch } from 'react';
+import React, { createContext, Dispatch, Reducer } from 'react';
 import { Contact } from 'expo-contacts';
 import { createDataContext } from './createDataContext';
-import { Action } from 'redux';
 
-const initialState = { currentContact: {} as Contact };
-
-type ContactContextProps = {
-  currentContact: Contact;
-  setCurrentContact: (contact: Contact) => void;
+type StateType = {
+  currentContact: Partial<Contact>;
 };
-// const ContactContext = createContext<Partial<ContactContextProps>>({});
+
+type ActionCreatorsType = {
+  setCurrentContact: (contact: Contact, cb: () => void) => void;
+  deleteCurrentContact: () => void;
+};
+
 type ActionType =
   | { type: 'ADD_CURRENT_CONTACT'; payload: Contact }
   | { type: 'DELETE_CURRENT_CONTACT' };
 
-type ReducerReturnType = {
-  currentContact: Contact | {};
-};
+const initialState: StateType = { currentContact: {} };
 
-const currentContactReducer = (
-  state: typeof initialState,
-  action: ActionType
-): ReducerReturnType => {
+const currentContactReducer: Reducer<StateType, ActionType> = (
+  state,
+  action
+): StateType => {
   switch (action.type) {
     case 'ADD_CURRENT_CONTACT':
-      console.log('inside Add reducer');
-      console.log('action in reducer', action.payload);
       return { currentContact: action.payload };
     case 'DELETE_CURRENT_CONTACT':
       return { currentContact: {} };
@@ -33,6 +30,7 @@ const currentContactReducer = (
       return state;
   }
 };
+
 const setCurrentContact = (dispatch: Dispatch<ActionType>) => {
   return (contact: Contact) => {
     dispatch({ type: 'ADD_CURRENT_CONTACT', payload: contact });
@@ -47,5 +45,6 @@ const deleteCurrentContact = (dispatch: Dispatch<ActionType>) => {
 export const { Context, Provider } = createDataContext(
   currentContactReducer,
   { setCurrentContact, deleteCurrentContact },
-  initialState
+  initialState,
+  {} as ActionCreatorsType
 );
