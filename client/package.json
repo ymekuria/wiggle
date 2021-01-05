@@ -28,7 +28,7 @@
     "@typescript-eslint/eslint-plugin": "^3.7.0",
     "@typescript-eslint/parser": "^3.7.0",
     "apollo-client": "^2.6.10",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "date-fns": "^2.16.1",
     "eslint": "^7.5.0",
     "eslint-config-prettier": "^6.11.0",
