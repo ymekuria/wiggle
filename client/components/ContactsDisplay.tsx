@@ -12,24 +12,23 @@ const ContactsDisplay = () => {
   const [searchInputValue, onChangeSearchText] = useState<string>('');
   const [contacts, setContacts, inMemoryContacts] = useContacts();
   const { setCurrentContact } = useContext(ContactContext);
-  const navigation = useNavigation();
 
   const searchContacts = (value: string) => {
     onChangeSearchText(value);
-    const filteredContacts = inMemoryContacts?.filter((contact) => {
+    const filteredContacts = inMemoryContacts.filter((contact) => {
       let contactLowerCase = `${contact.firstName} ${contact.lastName}`.toLowerCase();
 
       let searchTermLowerCase = value.toLowerCase();
 
       return contactLowerCase.includes(searchTermLowerCase);
     });
+
     setContacts(filteredContacts);
   };
 
   const onContactPress = (item: Contact) => {
     console.log('item onContactPress:', item);
     setCurrentContact(item);
-    navigation.navigate('ContactDisplayScreen');
   };
 
   const renderContacts = ({ item }: { item: Contact }) => {
