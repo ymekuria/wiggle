@@ -31,5 +31,5 @@ export default () => {
     getContacts();
   }, []);
 
-  return [contacts, setContacts, inMemoryContacts];
+  return [contacts, setContacts, inMemoryContacts] as const;
 };
