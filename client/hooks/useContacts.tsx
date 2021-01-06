@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import * as Contacts from 'expo-contacts';
+import {
+  requestPermissionsAsync,
+  getContactsAsync,
+  SortTypes,
+  Contact
+} from 'expo-contacts';
 
 export default () => {
-  const [contacts, setContacts] = useState<Contacts.Contact[] | undefined>();
-  const [inMemoryContacts, setInMemoryContacts] = useState<
-    Contacts.Contact[] | undefined
-  >();
+  const [contacts, setContacts] = useState([] as Contact[]);
+  const [inMemoryContacts, setInMemoryContacts] = useState([] as Contact[]);
 
   useEffect(() => {
     async function getContacts() {
       try {
-        let { status } = await Contacts.requestPermissionsAsync();
+        let { status } = await requestPermissionsAsync();
         if (status === 'granted') {
-          let { data } = await Contacts.getContactsAsync({
-            sort: Contacts.SortTypes.FirstName,
+          let { data } = await getContactsAsync({
+            sort: SortTypes.FirstName,
             pageSize: 0
           });
 

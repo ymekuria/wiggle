@@ -1,13 +1,14 @@
 import React, { createContext, Dispatch, Reducer } from 'react';
 import { Contact } from 'expo-contacts';
 import { createDataContext } from './createDataContext';
+import { ActionCreators } from '@react-navigation/native';
 
 type StateType = {
   currentContact: Partial<Contact>;
 };
 
 type ActionCreatorsType = {
-  setCurrentContact: (contact: Contact, cb: () => void) => void;
+  setCurrentContact: (contact: Contact) => void;
   deleteCurrentContact: () => void;
 };
 
@@ -20,9 +21,10 @@ const initialState: StateType = { currentContact: {} };
 const currentContactReducer: Reducer<StateType, ActionType> = (
   state,
   action
-): StateType => {
+) => {
   switch (action.type) {
     case 'ADD_CURRENT_CONTACT':
+      console.log('contact in reducer:', action.payload);
       return { currentContact: action.payload };
     case 'DELETE_CURRENT_CONTACT':
       return { currentContact: {} };
@@ -33,6 +35,7 @@ const currentContactReducer: Reducer<StateType, ActionType> = (
 
 const setCurrentContact = (dispatch: Dispatch<ActionType>) => {
   return (contact: Contact) => {
+    console.log('contact in action creator dispatch:', contact);
     dispatch({ type: 'ADD_CURRENT_CONTACT', payload: contact });
   };
 };

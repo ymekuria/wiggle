@@ -14,8 +14,7 @@ import BirthdayDisplay from '../components/BirthdayDisplay';
 const ContactDisplayScreen: React.FC = () => {
   const { currentContact } = useContext(ContactContext);
 
-  console.log('contact current', currentContact);
-
+  console.log('currentContact:', currentContact);
   return (
     <LinearGradient
       colors={['rgba(163,175,243,1)', 'rgba(220,182,232,1)']}

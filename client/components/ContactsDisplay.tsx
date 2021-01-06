@@ -27,6 +27,7 @@ const ContactsDisplay = () => {
   };
 
   const onContactPress = (item: Contact) => {
+    console.log('item onContactPress:', item);
     setCurrentContact(item);
     navigation.navigate('ContactDisplayScreen');
   };
