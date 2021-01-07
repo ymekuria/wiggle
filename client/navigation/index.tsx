@@ -22,6 +22,7 @@ import LinkingConfiguration from './LinkingConfiguration';
 
 import { useAuth0 } from '../hooks/useAuth0';
 import createApolloClient from '../utils/createApolloClient';
+import { navigationRef } from './navigationRef';
 
 type RootStackParamList = {
   Root: undefined;
@@ -43,7 +44,7 @@ type TabTwoParamList = {
 };
 
 type NavigationProps = {
-  navigationRef: React.RefObject<NavigationContainerRef>;
+  // navigationRef: React.RefObject<NavigationContainerRef>;
   colorScheme: ColorSchemeName;
 };
 
@@ -70,6 +71,7 @@ const getHeaderTitle = (route: RouteProp<RootStackParamList, 'Root'>) => {
 const Stack = createStackNavigator<RootStackParamList>();
 // rgba(163,175,243,1) 0%, rgba(220,182,232,1)
 const RootNavigator = () => {
+  // const { accessToken } = useAuth0();
   return (
     <Stack.Navigator
       initialRouteName="Root"
@@ -93,21 +95,23 @@ const RootNavigator = () => {
         //   }
         // })}
       />
-      <Stack.Screen
-        name="NotFound"
-        component={NotFoundScreen}
-        options={{ title: 'Oops!' }}
-      />
+
       <Stack.Screen
         name="SignIn"
         component={SignInScreen}
         options={{ title: 'SignIn!' }}
       />
+
+      <Stack.Screen
+        name="NotFound"
+        component={NotFoundScreen}
+        options={{ title: 'Oops!' }}
+      />
     </Stack.Navigator>
   );
 };
-
-const Navigation = ({ colorScheme, navigationRef }: NavigationProps) => {
+// export const navigationRef = React.createRef<NavigationContainerRef>();
+const Navigation = ({ colorScheme }: NavigationProps) => {
   const { accessToken } = useAuth0();
   console.log('access token:', accessToken);
   const apolloClient = createApolloClient(accessToken);

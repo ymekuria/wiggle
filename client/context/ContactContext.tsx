@@ -1,7 +1,8 @@
 import React, { createContext, Dispatch, Reducer } from 'react';
 import { Contact } from 'expo-contacts';
 import { createDataContext } from './createDataContext';
-import { navigationRef } from '../App';
+// import { navigationRef } from '../App';
+import { navigationRef } from '../navigation/navigationRef';
 type StateType = {
   currentContact: Partial<Contact>;
 };

@@ -10,7 +10,8 @@ import store from './store';
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
-export const navigationRef = React.createRef<NavigationContainerRef>();
+import { navigationRef } from './navigation/navigationRef';
+// export const navigationRef = React.createRef<NavigationContainerRef>();
 
 export default (): JSX.Element | null => {
   const isLoadingComplete = useCachedResources();
@@ -34,7 +35,7 @@ export default (): JSX.Element | null => {
         <ContactProvider>
           <React.Fragment>
             <Navigation
-              navigationRef={navigationRef}
+              // navigationRef={navigationRef}
               colorScheme={colorScheme}
             />
             <StatusBar />
