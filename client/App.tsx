@@ -13,7 +13,7 @@ import Navigation from './navigation';
 import { navigationRef } from './navigation/navigationRef';
 // export const navigationRef = React.createRef<NavigationContainerRef>();
 
-export default (): JSX.Element | null => {
+const App = (): JSX.Element | null => {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
 
@@ -26,10 +26,10 @@ export default (): JSX.Element | null => {
         audience={AUTH0_AUDIENCE}
         domain={AUTH0_DOMAIN}
         onLogin={() => {
-          navigationRef.current?.navigate('Root', { screen: 'TabThree' });
+          // navigationRef.current?.navigate('Root', { screen: 'TabThree' });
         }}
         onTokenRequestFailure={() => {
-          navigationRef.current?.navigate('SignIn');
+          // navigationRef.current?.navigate('SignIn');
         }}
       >
         <ContactProvider>
@@ -45,3 +45,5 @@ export default (): JSX.Element | null => {
     );
   }
 };
+
+export default App;

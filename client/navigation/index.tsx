@@ -13,6 +13,7 @@ import {
 import * as React from 'react';
 import { ColorSchemeName } from 'react-native';
 import { ApolloProvider } from '@apollo/client';
+import * as SecureStore from 'expo-secure-store';
 
 import NotFoundScreen from '../screens/NotFoundScreen';
 import SignInScreen from '../screens/SignInScreen';
@@ -71,7 +72,19 @@ const getHeaderTitle = (route: RouteProp<RootStackParamList, 'Root'>) => {
 const Stack = createStackNavigator<RootStackParamList>();
 // rgba(163,175,243,1) 0%, rgba(220,182,232,1)
 const RootNavigator = () => {
-  // const { accessToken } = useAuth0();
+  let { accessToken } = useAuth0();
+  const { setAccessToken } = useAuth0();
+
+  React.useEffect(() => {
+    if (!accessToken) {
+      SecureStore.getItemAsync('accessToken').then((token) => {
+        accessToken = token;
+        console.log('accessToken in Navigation', accessToken);
+        setAccessToken(accessToken);
+      });
+    }
+  }, [accessToken]);
+
   return (
     <Stack.Navigator
       initialRouteName="Root"
@@ -84,23 +97,25 @@ const RootNavigator = () => {
         }
       })}
     >
-      <Stack.Screen
-        name="Root"
-        component={BottomTabNavigator}
-        // options={({ route }) => ({
-        //   headerTitle: getHeaderTitle(route),
+      {accessToken ? (
+        <Stack.Screen
+          name="Root"
+          component={BottomTabNavigator}
+          // options={({ route }) => ({
+          //   headerTitle: getHeaderTitle(route),
 
-        //   headerStyle: {
-        //     backgroundColor: 'rgba(163,175,243,1)'
-        //   }
-        // })}
-      />
-
-      <Stack.Screen
-        name="SignIn"
-        component={SignInScreen}
-        options={{ title: 'SignIn!' }}
-      />
+          //   headerStyle: {
+          //     backgroundColor: 'rgba(163,175,243,1)'
+          //   }
+          // })}
+        />
+      ) : (
+        <Stack.Screen
+          name="SignIn"
+          component={SignInScreen}
+          options={{ title: 'SignIn!' }}
+        />
+      )}
 
       <Stack.Screen
         name="NotFound"
@@ -113,7 +128,7 @@ const RootNavigator = () => {
 // export const navigationRef = React.createRef<NavigationContainerRef>();
 const Navigation = ({ colorScheme }: NavigationProps) => {
   const { accessToken } = useAuth0();
-  console.log('access token:', accessToken);
+  console.log('accessToken in Navigation', accessToken);
   const apolloClient = createApolloClient(accessToken);
   return (
     <ApolloProvider client={apolloClient}>

@@ -1,6 +1,7 @@
 import * as AuthSession from 'expo-auth-session';
 import React, { useContext, useEffect, useState } from 'react';
 import { Alert, Platform } from 'react-native';
+import * as SecureStore from 'expo-secure-store';
 
 // Official Expo Auth0 example doesn't handle refresh tokens
 // https://github.com/expo/examples/tree/master/with-auth0
@@ -30,19 +31,19 @@ export type User = {
 
 // custom type to fix AuthSession.AuthSessionResult type
 // https://github.com/microsoft/TypeScript/issues/12815
-type Result = {
-  type: 'cancel' | 'dismiss' | 'locked' | 'error' | 'success';
-  errorCode?: string | null;
-  error?: AuthSession.AuthError | null;
-  params?: {
-    [key: string]: string;
-  };
-  url?: string;
-};
+// type Result = {
+//   type: 'cancel' | 'dismiss' | 'locked' | 'error' | 'success';
+//   errorCode?: string | null;
+//   error?: AuthSession.AuthError | null;
+//   params?: {
+//     [key: string]: string;
+//   };
+//   url?: string;
+// };
 
 type Auth0Context = {
   request?: AuthSession.AuthRequest | null;
-  result?: Result;
+  result?: AuthSession.AuthSessionResult | null;
   /**
    * ```ts
    * await login();
@@ -57,6 +58,7 @@ type Auth0Context = {
    * The Auth0 access token.
    */
   accessToken?: string;
+  setAccessToken?: any;
 };
 
 type Auth0ProviderOptions = {
@@ -102,7 +104,7 @@ export const Auth0Context = React.createContext<Auth0Context>({
 /**
  * use the `useAuth0` hook in the components to access the auth state and methods.
  * ie
- *
+ *```ts
  * const {
  *   // Auth state:
  *   request,
@@ -174,7 +176,6 @@ const fetchAccessToken = async (
   if (tokenResponse.ok) {
     const token = (await tokenResponse.json()) as Token;
 
-    console.log('token in tokenResponse.ok', token);
     // Refetch the access token before it expires
     setTimeout(() => {
       let refreshTokenData: TokenData | RefreshTokenData = data;
@@ -201,6 +202,8 @@ const fetchAccessToken = async (
 
     // Set state at the same time to trigger a single update on the context
     // otherwise components are sent two separate updates
+    // await SecureStore.setItemAsync('accessToken', token.access_token);
+    // const testToken = await SecureStore.getItemAsync('accessToken');
     setAccessToken(token.access_token);
     setUser(userInfo);
   } else {
@@ -260,13 +263,17 @@ export const Auth0Provider = ({
       authorizationEndpoint
     } as AuthSession.DiscoveryDocument
   );
-  const result = auth0Result as Result;
+  // const result = auth0Result as Result;
 
   useEffect(() => {
     async function getToken() {
+      if (!auth0Result) {
+        console.log('inside if !auth0Result accessToken is', accessToken);
+        return;
+      }
       if (
-        result.type === 'success' &&
-        result?.params?.code &&
+        auth0Result.type === 'success' &&
+        auth0Result?.params?.code &&
         auth0request?.redirectUri &&
         auth0request?.codeVerifier
       ) {
@@ -274,7 +281,7 @@ export const Auth0Provider = ({
           {
             grant_type: 'authorization_code',
             client_id: clientId,
-            code: result.params.code,
+            code: auth0Result.params.code,
             redirect_uri: auth0request.redirectUri,
             // Expo AuthSession uses Authorization Code Flow with PKCE
             // Code verifier is required with PKCE
@@ -290,25 +297,27 @@ export const Auth0Provider = ({
       } else {
         Alert.alert(
           'Authentication Error',
-          result?.params?.error_description || 'something went wrong'
+          auth0Result.type === 'error'
+            ? auth0Result.params.error_description
+            : 'something went wrong'
         );
         onTokenRequestFailure?.();
       }
     }
-    if (result) {
-      getToken();
-    }
+
+    getToken();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [onLogin, result, clientId]);
+  }, [onLogin, auth0Result, clientId]);
 
   return (
     <Auth0Context.Provider
       value={{
         request: auth0request,
-        result,
+        result: auth0Result,
         login: () => promptAsync?.({ useProxy }),
         user,
-        accessToken
+        accessToken,
+        setAccessToken
       }}
     >
       {children}
