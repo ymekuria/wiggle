@@ -24,7 +24,6 @@ const currentContactReducer: Reducer<StateType, ActionType> = (
 ) => {
   switch (action.type) {
     case 'ADD_CURRENT_CONTACT':
-      console.log('contact in reducer:', action.payload);
       return { currentContact: action.payload };
     case 'DELETE_CURRENT_CONTACT':
       return { currentContact: {} };

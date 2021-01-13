@@ -2,6 +2,7 @@ import * as AuthSession from 'expo-auth-session';
 import React, { useContext, useEffect, useState } from 'react';
 import { Alert, Platform } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
+import jwt_decode from 'jwt-decode';
 
 // Official Expo Auth0 example doesn't handle refresh tokens
 // https://github.com/expo/examples/tree/master/with-auth0
@@ -9,7 +10,7 @@ import * as SecureStore from 'expo-secure-store';
 // tokens with rotation enabled
 
 // Request a new access token this many seconds prior to expiration
-const requestNewAccessTokenBuffer = 5 * 1000;
+const requestNewAccessTokenBuffer = 10;
 
 export type User = {
   // Common auth0 user fields
@@ -177,14 +178,18 @@ const fetchAccessToken = async (
     const token = (await tokenResponse.json()) as Token;
 
     // Refetch the access token before it expires
+
     setTimeout(() => {
       let refreshTokenData: TokenData | RefreshTokenData = data;
       if (token.refresh_token) {
+        console.log('refreshTokenData before', refreshTokenData);
+        console.log('inside settimeout of refreshtoken flow');
         refreshTokenData = {
           ...data,
           refresh_token: token.refresh_token,
           grant_type: 'refresh_token'
         };
+        console.log('refreshTokenData after', refreshTokenData);
       }
       fetchAccessToken(
         refreshTokenData,
@@ -202,7 +207,7 @@ const fetchAccessToken = async (
 
     // Set state at the same time to trigger a single update on the context
     // otherwise components are sent two separate updates
-    // await SecureStore.setItemAsync('accessToken', token.access_token);
+    await SecureStore.setItemAsync('accessToken', token.access_token);
     // const testToken = await SecureStore.getItemAsync('accessToken');
     setAccessToken(token.access_token);
     setUser(userInfo);
@@ -263,12 +268,36 @@ export const Auth0Provider = ({
       authorizationEndpoint
     } as AuthSession.DiscoveryDocument
   );
-  // const result = auth0Result as Result;
 
   useEffect(() => {
     async function getToken() {
       if (!auth0Result) {
-        console.log('inside if !auth0Result accessToken is', accessToken);
+        if (!accessToken) {
+          console.log('not access token in useEffect');
+          SecureStore.getItemAsync('accessToken')
+            .then((token) => {
+              if (!token) {
+                return;
+              }
+
+              const currentTime = new Date().getTime() / 1000;
+              const { exp } = jwt_decode(token);
+              // If token from secure storage is old, it is not set into state forcing the user to reathenticate
+              // TODO: integrate token from secure storage into refresh token flow via fetchAccessToken function
+              if (exp < currentTime - requestNewAccessTokenBuffer) {
+                console.log(
+                  'Its time to refresh the token. Time until expiration in seconds:',
+                  exp - currentTime
+                );
+                return;
+              } else {
+                setAccessToken(token);
+              }
+            })
+            .catch((error) =>
+              console.log('Error retriving accessToken from device:', error)
+            );
+        }
         return;
       }
       if (

@@ -8,7 +8,7 @@ import ContactsDisplay from '../components/ContactsDisplay';
 
 const TabTwoScreen: React.FC = (props) => {
   const { accessToken } = useAuth0();
-  console.log('accessToken', accessToken);
+
   return (
     <LinearGradient
       colors={['rgba(163,175,243,1)', 'rgba(220,182,232,1)']}

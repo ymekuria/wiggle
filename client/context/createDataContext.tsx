@@ -28,7 +28,7 @@ export const createDataContext = <Actions, InitialState, T>(
       dispatchActions[action] = actions[action](dispatch);
       // actions[action] = actions[action](dispatch);
     }
-    console.log('actoions', actions);
+
     return (
       <Context.Provider value={{ ...state, ...dispatchActions }}>
         {children}

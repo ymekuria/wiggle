@@ -24,6 +24,7 @@ import LinkingConfiguration from './LinkingConfiguration';
 import { useAuth0 } from '../hooks/useAuth0';
 import createApolloClient from '../utils/createApolloClient';
 import { navigationRef } from './navigationRef';
+import { null } from 'mathjs';
 
 type RootStackParamList = {
   Root: undefined;
@@ -72,19 +73,22 @@ const getHeaderTitle = (route: RouteProp<RootStackParamList, 'Root'>) => {
 const Stack = createStackNavigator<RootStackParamList>();
 // rgba(163,175,243,1) 0%, rgba(220,182,232,1)
 const RootNavigator = () => {
-  let { accessToken } = useAuth0();
-  const { setAccessToken } = useAuth0();
+  // let { accessToken } = useAuth0();
+  // const { setAccessToken } = useAuth0();
 
-  React.useEffect(() => {
-    if (!accessToken) {
-      SecureStore.getItemAsync('accessToken').then((token) => {
-        accessToken = token;
-        console.log('accessToken in Navigation', accessToken);
-        setAccessToken(accessToken);
-      });
-    }
-  }, [accessToken]);
+  // React.useEffect(() => {
+  //   // SecureStore.setItemAsync('accessToken', '');
+  //   if (!accessToken) {
+  //     SecureStore.getItemAsync('accessToken').then((token) => {
+  //       accessToken = token;
+  //       console.log('accessToken in Navigation from asyncStorage', accessToken);
+  //       setAccessToken(accessToken);
+  //     });
+  //   }
+  // }, [accessToken]);
 
+   const{ accessToken } = useAuth0();
+   console.log('accessToken in RootNav', accessToken) 
   return (
     <Stack.Navigator
       initialRouteName="Root"
