@@ -1,15 +1,9 @@
 import React from 'react';
 import {
   getFocusedRouteNameFromRoute,
-  RouteProp,
-  NavigatorScreenParams,
-  CompositeNavigationProp
+  NavigatorScreenParams
 } from '@react-navigation/native';
-import {
-  createStackNavigator,
-  HeaderBackButton,
-  StackNavigationProp
-} from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import { Route } from '@react-navigation/routers';
 import BottomTabNavigator, {
   BottomTabNavaigatorParamList

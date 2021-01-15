@@ -3,23 +3,17 @@ import {
   createBottomTabNavigator,
   BottomTabBar
 } from '@react-navigation/bottom-tabs';
-import {
-  createStackNavigator,
-  HeaderBackButton
-} from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import { NavigatorScreenParams } from '@react-navigation/native';
 import * as React from 'react';
 
-import Colors from '../constants/Colors';
-import useColorScheme from '../hooks/useColorScheme';
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import TabThreeScreen from '../screens/TabThreeScreen';
 import TabFourScreen from '../screens/TabFourScreen';
 import ContactDisplayScreen from '../screens/ContactDisplayScreen';
-import SignInScreen from '../screens/SignInScreen';
+
 import { useThemeColor } from '../components/Themed';
-import LougoutScreen from '../screens/LogoutScreen';
 
 type TabOneParamList = {
   TabOneScreen: undefined;
