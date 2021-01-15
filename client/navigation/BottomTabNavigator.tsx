@@ -7,7 +7,7 @@ import {
   createStackNavigator,
   HeaderBackButton
 } from '@react-navigation/stack';
-
+import { NavigatorScreenParams } from '@react-navigation/native';
 import * as React from 'react';
 
 import Colors from '../constants/Colors';
@@ -20,13 +20,6 @@ import ContactDisplayScreen from '../screens/ContactDisplayScreen';
 import SignInScreen from '../screens/SignInScreen';
 import { useThemeColor } from '../components/Themed';
 import LougoutScreen from '../screens/LogoutScreen';
-
-export type BottomTabNavaigatorParamList = {
-  TabOne: undefined;
-  TabTwo: undefined;
-  TabThree: undefined;
-  TabFour: undefined;
-};
 
 type TabOneParamList = {
   TabOneScreen: undefined;
@@ -44,6 +37,12 @@ type TabFourParamList = {
   TabFourScreen: undefined;
 };
 
+export type BottomTabNavaigatorParamList = {
+  TabOne: NavigatorScreenParams<TabOneParamList>;
+  TabTwo: NavigatorScreenParams<TabTwoParamList>;
+  TabThree: NavigatorScreenParams<TabThreeParamList>;
+  TabFour: NavigatorScreenParams<TabFourParamList>;
+};
 // background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(163,175,243,1) 0%, rgba(220,182,232,1) 100.2% );
 
 const TabOneStack = createStackNavigator<TabOneParamList>();

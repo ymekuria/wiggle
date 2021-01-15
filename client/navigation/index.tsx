@@ -25,25 +25,6 @@ import { useAuth0 } from '../hooks/useAuth0';
 import createApolloClient from '../utils/createApolloClient';
 import { navigationRef } from './navigationRef';
 
-// type RootStackParamList = {
-//   Root: undefined;
-//   NotFound: undefined;
-//   SignIn: undefined;
-// };
-
-// type BottomTabParamList = {
-//   TabOne: undefined;
-//   TabTwo: undefined;
-// };
-
-// type TabOneParamList = {
-//   TabOneScreen: undefined;
-// };
-
-// type TabTwoParamList = {
-//   TabTwoScreen: undefined;
-// };
-
 type NavigationProps = {
   // navigationRef: React.RefObject<NavigationContainerRef>;
   colorScheme: ColorSchemeName;
