@@ -21,7 +21,7 @@ import SignInScreen from '../screens/SignInScreen';
 import { useThemeColor } from '../components/Themed';
 import LougoutScreen from '../screens/LogoutScreen';
 
-type BottomTabParamList = {
+export type BottomTabNavaigatorParamList = {
   TabOne: undefined;
   TabTwo: undefined;
   TabThree: undefined;
@@ -162,7 +162,7 @@ const TabBarIcon = (props: { name: string; color: string }): JSX.Element => {
   return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
 };
 
-const BottomTab = createBottomTabNavigator<BottomTabParamList>();
+const BottomTab = createBottomTabNavigator<BottomTabNavaigatorParamList>();
 // 'rgba(163,175,243,1)', 'rgba(220,182,232,1)';
 const BottomTabNavigator: React.FC = () => {
   const bottomNavTintColor = useThemeColor(

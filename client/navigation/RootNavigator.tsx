@@ -1,41 +1,33 @@
 import React from 'react';
 import {
   getFocusedRouteNameFromRoute,
-  RouteProp
+  RouteProp,
+  NavigatorScreenParams,
+  CompositeNavigationProp
 } from '@react-navigation/native';
 import {
   createStackNavigator,
-  HeaderBackButton
+  HeaderBackButton,
+  StackNavigationProp
 } from '@react-navigation/stack';
-import BottomTabNavigator from './BottomTabNavigator';
+import { Route } from '@react-navigation/routers';
+import BottomTabNavigator, {
+  BottomTabNavaigatorParamList
+} from './BottomTabNavigator';
 import SignInScreen from '../screens/SignInScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 
 type RootStackParamList = {
-  Root: undefined;
+  Root: NavigatorScreenParams<BottomTabNavaigatorParamList>;
   NotFound: undefined;
   SignIn: undefined;
 };
 
-type BottomTabParamList = {
-  TabOne: undefined;
-  TabTwo: undefined;
-};
-
-type TabOneParamList = {
-  TabOneScreen: undefined;
-};
-
-type TabTwoParamList = {
-  TabTwoScreen: undefined;
-};
-
 type RootNavigatorProps = {
-  // navigationRef: React.RefObject<NavigationContainerRef>;
   accessToken: string | undefined;
 };
 
-const getHeaderTitle = (route: RouteProp<RootStackParamList, 'Root'>) => {
+const getHeaderTitle = (route: Route<string>) => {
   // If the focused route is not found, we need to assume it's the initial screen
   // This can happen if there hasn't been any navigation inside the screen
   const routeName = getFocusedRouteNameFromRoute(route) ?? 'SignIn';
