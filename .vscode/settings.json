@@ -7,5 +7,5 @@
     "**/.git/subtree-cache/**": true,
     "**/.hg/store/**": true
   },
-  "editor.quickSuggestions": null
+  "editor.quickSuggestions": true
 }
