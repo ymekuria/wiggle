@@ -1,12 +1,12 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Image } from 'react-native';
 
-import { useJokeQuery } from '../__generated__/ui_types';
+import { useDogPicQuery } from '../__generated__/ui_types';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Text, View } from '../components/Themed';
 
-const TabThreeScreen: React.FC = (props) => {
-  const { loading, error, data } = useJokeQuery();
+const DogPicDisplayScreen: React.FC = (props) => {
+  const { loading, error, data } = useDogPicQuery();
 
   if (loading) {
     return (
@@ -24,14 +24,20 @@ const TabThreeScreen: React.FC = (props) => {
     );
   }
 
-  console.log({ data });
+  console.log('pic uri', data?.dogPic?.picture);
   return (
     <LinearGradient
       colors={['rgba(163,175,243,1)', 'rgba(220,182,232,1)']}
       style={styles.container}
     >
-      <Text style={styles.title}>Tab Three</Text>
-      <Text>{data.joke.joke}</Text>
+      <Text style={styles.title}>Dog Pic</Text>
+
+      <Image
+        source={{
+          uri: `${data?.dogPic?.picture}`
+        }}
+        style={{ height: '45%', width: '100%', resizeMode: 'contain' }}
+      ></Image>
     </LinearGradient>
   );
 };
@@ -48,4 +54,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default TabThreeScreen;
+export default DogPicDisplayScreen;
