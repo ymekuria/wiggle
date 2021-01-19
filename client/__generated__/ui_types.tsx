@@ -130,6 +130,11 @@ export type WiggleFragmentFragment = { __typename?: 'Wiggle', schedule?: Maybe<s
     & ContactFragmentFragment
   ) };
 
+export type DogPicQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type DogPicQuery = { __typename?: 'Query', dogPic?: Maybe<{ __typename?: 'DogPic', picture?: Maybe<string> }> };
+
 export type JokeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -160,6 +165,38 @@ export const WiggleFragmentFragmentDoc = gql`
   }
 }
     ${ContactFragmentFragmentDoc}`;
+export const DogPicDocument = gql`
+    query dogPic {
+  dogPic {
+    picture
+  }
+}
+    `;
+
+/**
+ * __useDogPicQuery__
+ *
+ * To run a query within a React component, call `useDogPicQuery` and pass it any options that fit your needs.
+ * When your component renders, `useDogPicQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useDogPicQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useDogPicQuery(baseOptions?: Apollo.QueryHookOptions<DogPicQuery, DogPicQueryVariables>) {
+        return Apollo.useQuery<DogPicQuery, DogPicQueryVariables>(DogPicDocument, baseOptions);
+      }
+export function useDogPicLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<DogPicQuery, DogPicQueryVariables>) {
+          return Apollo.useLazyQuery<DogPicQuery, DogPicQueryVariables>(DogPicDocument, baseOptions);
+        }
+export type DogPicQueryHookResult = ReturnType<typeof useDogPicQuery>;
+export type DogPicLazyQueryHookResult = ReturnType<typeof useDogPicLazyQuery>;
+export type DogPicQueryResult = Apollo.QueryResult<DogPicQuery, DogPicQueryVariables>;
 export const JokeDocument = gql`
     query joke {
   joke {
