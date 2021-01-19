@@ -135,6 +135,11 @@ export type DogPicQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type DogPicQuery = { __typename?: 'Query', dogPic?: Maybe<{ __typename?: 'DogPic', picture?: Maybe<string> }> };
 
+export type DogPicsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type DogPicsQuery = { __typename?: 'Query', dogPics?: Maybe<{ __typename?: 'DogPics', pictures?: Maybe<Array<Maybe<string>>> }> };
+
 export type JokeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -197,6 +202,38 @@ export function useDogPicLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Dog
 export type DogPicQueryHookResult = ReturnType<typeof useDogPicQuery>;
 export type DogPicLazyQueryHookResult = ReturnType<typeof useDogPicLazyQuery>;
 export type DogPicQueryResult = Apollo.QueryResult<DogPicQuery, DogPicQueryVariables>;
+export const DogPicsDocument = gql`
+    query dogPics {
+  dogPics {
+    pictures
+  }
+}
+    `;
+
+/**
+ * __useDogPicsQuery__
+ *
+ * To run a query within a React component, call `useDogPicsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useDogPicsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useDogPicsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useDogPicsQuery(baseOptions?: Apollo.QueryHookOptions<DogPicsQuery, DogPicsQueryVariables>) {
+        return Apollo.useQuery<DogPicsQuery, DogPicsQueryVariables>(DogPicsDocument, baseOptions);
+      }
+export function useDogPicsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<DogPicsQuery, DogPicsQueryVariables>) {
+          return Apollo.useLazyQuery<DogPicsQuery, DogPicsQueryVariables>(DogPicsDocument, baseOptions);
+        }
+export type DogPicsQueryHookResult = ReturnType<typeof useDogPicsQuery>;
+export type DogPicsLazyQueryHookResult = ReturnType<typeof useDogPicsLazyQuery>;
+export type DogPicsQueryResult = Apollo.QueryResult<DogPicsQuery, DogPicsQueryVariables>;
 export const JokeDocument = gql`
     query joke {
   joke {
