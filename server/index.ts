@@ -50,7 +50,8 @@ const server = new ApolloServer({
   typeDefs: mainSchema,
   resolvers,
   engine: {
-    reportSchema: true
+    reportSchema: true,
+    graphVariant: 'current'
   },
   context: ({ req }: { req: AuthRequest }) => {
     const userToken = req.userToken;

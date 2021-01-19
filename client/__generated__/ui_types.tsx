@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -117,3 +118,77 @@ export enum CacheControlScope {
   Private = 'PRIVATE'
 }
 
+
+export type ContactFragmentFragment = { __typename?: 'Contact', name?: Maybe<string>, phoneNumber: string };
+
+export type JokeFragmentFragment = { __typename?: 'Joke', joke?: Maybe<string> };
+
+export type UserFragmentFragment = { __typename?: 'User', userName?: Maybe<string>, email?: Maybe<string> };
+
+export type WiggleFragmentFragment = { __typename?: 'Wiggle', schedule?: Maybe<string>, contact: (
+    { __typename?: 'Contact' }
+    & ContactFragmentFragment
+  ) };
+
+export type JokeQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type JokeQuery = { __typename?: 'Query', joke?: Maybe<{ __typename?: 'Joke', joke?: Maybe<string> }> };
+
+export const JokeFragmentFragmentDoc = gql`
+    fragment JokeFragment on Joke {
+  joke
+}
+    `;
+export const UserFragmentFragmentDoc = gql`
+    fragment UserFragment on User {
+  userName
+  email
+}
+    `;
+export const ContactFragmentFragmentDoc = gql`
+    fragment ContactFragment on Contact {
+  name
+  phoneNumber
+}
+    `;
+export const WiggleFragmentFragmentDoc = gql`
+    fragment WiggleFragment on Wiggle {
+  schedule
+  contact {
+    ...ContactFragment
+  }
+}
+    ${ContactFragmentFragmentDoc}`;
+export const JokeDocument = gql`
+    query joke {
+  joke {
+    joke
+  }
+}
+    `;
+
+/**
+ * __useJokeQuery__
+ *
+ * To run a query within a React component, call `useJokeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useJokeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useJokeQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useJokeQuery(baseOptions?: Apollo.QueryHookOptions<JokeQuery, JokeQueryVariables>) {
+        return Apollo.useQuery<JokeQuery, JokeQueryVariables>(JokeDocument, baseOptions);
+      }
+export function useJokeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<JokeQuery, JokeQueryVariables>) {
+          return Apollo.useLazyQuery<JokeQuery, JokeQueryVariables>(JokeDocument, baseOptions);
+        }
+export type JokeQueryHookResult = ReturnType<typeof useJokeQuery>;
+export type JokeLazyQueryHookResult = ReturnType<typeof useJokeLazyQuery>;
+export type JokeQueryResult = Apollo.QueryResult<JokeQuery, JokeQueryVariables>;

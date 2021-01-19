@@ -1,5 +1,4 @@
 fragment ContactFragment on Contact {
-  id
-  userName
+  name
   phoneNumber
 }

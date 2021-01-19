@@ -1,18 +1,12 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { useQuery, gql } from '@apollo/client';
+import { useJokeQuery } from '../__generated__/ui_types';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Text, View } from '../components/Themed';
 
-const JOKE = gql`
-  query GetJoke {
-    joke {
-      joke
-    }
-  }
-`;
 const TabThreeScreen: React.FC = (props) => {
-  const { loading, error, data } = useQuery(JOKE);
+  const { loading, error, data } = useJokeQuery();
 
   if (loading) {
     return (

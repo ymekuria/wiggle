@@ -1,7 +1,7 @@
 #import from '../fragments/joke'
 
-query jokeQuery {
+query joke {
   joke {
-    ...JokeFragment
+    joke
   }
 }

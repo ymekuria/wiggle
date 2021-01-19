@@ -1,4 +1,3 @@
 fragment JokeFragment on Joke {
-  id
   joke
 }

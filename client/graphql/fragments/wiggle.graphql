@@ -1,6 +1,6 @@
 fragment WiggleFragment on Wiggle {
-  id
-  ..UserFragment
   schedule
-  ..ContactFragment
+  contact {
+    ...ContactFragment
+  }
 }
