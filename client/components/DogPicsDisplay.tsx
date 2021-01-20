@@ -1,11 +1,22 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { StyleSheet, FlatList, SafeAreaView } from 'react-native';
+import {
+  StyleSheet,
+  FlatList,
+  SafeAreaView,
+  Animated,
+  Dimensions
+} from 'react-native';
 import { TouchableOpacity, TextInput } from 'react-native-gesture-handler';
-import { useDogPicsQuery } from '../__generated__/ui_types';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Image } from 'react-native-elements';
+import { useDogPicsQuery, DogPic } from '../__generated__/ui_types';
 
 import { Text, View } from '../components/Themed';
 
+const { width, height } = Dimensions.get('screen');
+
 const DogPicsDisplay = () => {
+  const scrollX = React.useRef(new Animated.Value(0)).current;
   const { data, error, loading } = useDogPicsQuery();
 
   if (loading) {
@@ -23,61 +34,87 @@ const DogPicsDisplay = () => {
       </View>
     );
   }
-
-  const onPicPress = (item) => {
-    console.log('item', item);
-  };
+  const onPicPress = (item) => {};
 
   const renderPictures = ({ item }) => {
+    console.log('item: ', item);
     return (
       <TouchableOpacity onPress={() => onPicPress(item)}>
-        <View style={styles.contactContainer}>
-          <Text style={{ fontSize: 22 }}>{item?.name}</Text>
+        <View style={styles.pictureContainer}>
+          <View
+            style={{
+              justifyContent: 'center',
+              backgroundColor: 'transparent',
+              paddingTop: height / 20
+            }}
+          >
+            <Image
+              source={{
+                uri: item
+              }}
+              style={{
+                height: height / 2,
+                width: width / 1.5,
+                resizeMode: 'stretch',
+                borderRadius: 15
+              }}
+            ></Image>
+          </View>
         </View>
       </TouchableOpacity>
     );
   };
+
   return (
-    <SafeAreaView>
-      <FlatList
-        data={data?.dogPics?.pictures}
-        renderItem={renderPictures}
-        keyExtractor={(picture) => picture.id.toString()}
-      />
-    </SafeAreaView>
+    <LinearGradient
+      colors={['rgba(163,175,243,1)', 'rgba(220,182,232,1)']}
+      style={styles.container}
+    >
+      <SafeAreaView>
+        <Animated.FlatList
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          pagingEnabled
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+            { useNativeDriver: false }
+          )}
+          data={data?.dogPics?.pictures}
+          renderItem={renderPictures}
+          keyExtractor={(picture, index) => index.toString()}
+        />
+      </SafeAreaView>
+    </LinearGradient>
+    // <Image
+    //   source={{
+    //     uri: `${data?.dogPics?.pictures[0]}`
+    //   }}
+    //   style={{ height: '20%', width: '80%', resizeMode: 'contain' }}
+    // ></Image>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
-    // alignItems: 'center',
-    // justifyContent: 'center'
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   title: {
     fontSize: 20,
     fontWeight: 'bold'
   },
-  contactContainer: {
-    margin: 10,
-    padding: 10,
-    flex: 1,
-    backgroundColor: 'rgba(247,236,250,.3)',
-    justifyContent: 'space-evenly'
-  },
-  searchBar: {
-    fontSize: 25,
-    padding: 10
-  },
-  searchBarContainer: {
-    backgroundColor: 'rgba(247,236,250,.3)',
-    borderTopWidth: 0,
-    borderBottomWidth: 0
-  },
-  searchBarInputContainer: {
-    backgroundColor: 'rgba(247,236,250,.3)'
-  },
-  searchBarInput: { fontSize: 22 }
+  pictureContainer: {
+    // margin: 5,
+    padding: 20,
+    width: width,
+    // flex: 1,
+    backgroundColor: 'transparent',
+    // backgroundColor: 'rgba(247,236,250,.3)',
+    // justifyContent: 'space-evenly'
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
 });
 
 export default DogPicsDisplay;

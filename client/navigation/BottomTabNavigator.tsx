@@ -13,11 +13,12 @@ import TabThreeScreen from '../screens/TabThreeScreen';
 import TabFourScreen from '../screens/TabFourScreen';
 import ContactDisplayScreen from '../screens/ContactDisplayScreen';
 import DogPicDisplayScreen from '../screens/DogPicScreen';
+import DogPicsDisplay from '../components/DogPicsDisplay';
 
 import { useThemeColor } from '../components/Themed';
 
 type TabOneParamList = {
-  DogPicDisplayScreen: undefined;
+  DogPicsDisplay: undefined;
 };
 
 type TabTwoParamList = {
@@ -57,10 +58,7 @@ const TabOneNavigator = () => {
         headerTintColor: headerTintColor
       })}
     >
-      <TabOneStack.Screen
-        name="DogPicDisplayScreen"
-        component={DogPicDisplayScreen}
-      />
+      <TabOneStack.Screen name="DogPicsDisplay" component={DogPicsDisplay} />
     </TabOneStack.Navigator>
   );
 };
