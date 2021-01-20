@@ -81,7 +81,7 @@ const DogPicsDisplay = () => {
           )}
           data={data?.dogPics?.pictures}
           renderItem={renderPictures}
-          keyExtractor={(picture, index) => index.toString()}
+          keyExtractor={(item, index) => index.toString()}
         />
       </SafeAreaView>
     </LinearGradient>
