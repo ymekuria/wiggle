@@ -10,7 +10,7 @@ import { TouchableOpacity, TextInput } from 'react-native-gesture-handler';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Image } from 'react-native-elements';
 import { useDogPicsQuery, DogPic } from '../__generated__/ui_types';
-
+import SlideIndicator from '../components/SlideIndicator';
 import { Text, View } from '../components/Themed';
 
 const { width, height } = Dimensions.get('screen');
@@ -81,9 +81,14 @@ const DogPicsDisplay = () => {
           )}
           data={data?.dogPics?.pictures}
           renderItem={renderPictures}
-          keyExtractor={(item, index) => index.toString()}
+          keyExtractor={(picture, index) => index.toString()}
         />
       </SafeAreaView>
+      <SlideIndicator
+        scrollX={scrollX}
+        width={width}
+        data={data?.dogPics?.pictures}
+      />
     </LinearGradient>
     // <Image
     //   source={{
