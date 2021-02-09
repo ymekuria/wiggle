@@ -41,10 +41,13 @@ const styles = StyleSheet.create({
   birthdayContainer: {
     backgroundColor: 'rgba(247,236,250,.3)',
     margin: 10,
-    padding: 10
+    padding: 10,
+    borderRadius: 10
   },
   birthdayText: {
-    fontSize: 20
+    fontSize: 20,
+    paddingTop: 3,
+    opacity: 0.7
   }
 });
 

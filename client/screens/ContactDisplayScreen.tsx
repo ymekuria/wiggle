@@ -34,6 +34,7 @@ const ContactDisplayScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1
+
     // alignItems: 'center',
     // justifyContent: 'center'
   },
@@ -47,7 +48,8 @@ const styles = StyleSheet.create({
   cardContainer: {
     flex: 1,
     backgroundColor: 'rgba(247,236,250,.3)',
-    borderWidth: 0
+    borderWidth: 0,
+    borderRadius: 16
   },
   title: {
     fontSize: 20,

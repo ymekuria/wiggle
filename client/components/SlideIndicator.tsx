@@ -4,7 +4,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Text, View } from '../components/Themed';
 
 type SlideIndicatorProps = {
-  data: [];
+  data: any[];
   scrollX: Animated.Value;
   width: number;
 };
@@ -27,10 +27,16 @@ const SlideIndicator: React.FC<SlideIndicatorProps> = ({
         extrapolate: 'clamp'
       });
 
+      const opacity = scrollX.interpolate({
+        inputRange,
+        outputRange: [0.6, 0.9, 0.6],
+        extrapolate: 'clamp'
+      });
+
       return (
         <Animated.View
           key={`indicator-${index}`}
-          style={[styles.indicatorsStyle, { transform: [{ scale }] }]}
+          style={[styles.indicatorsStyle, { opacity, transform: [{ scale }] }]}
         />
       );
     });

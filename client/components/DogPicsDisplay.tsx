@@ -1,22 +1,16 @@
-import React, { useEffect, useState, useContext } from 'react';
-import {
-  StyleSheet,
-  FlatList,
-  SafeAreaView,
-  Animated,
-  Dimensions
-} from 'react-native';
-import { TouchableOpacity, TextInput } from 'react-native-gesture-handler';
+import React, { useRef } from 'react';
+import { StyleSheet, SafeAreaView, Animated, Dimensions } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Image } from 'react-native-elements';
-import { useDogPicsQuery, DogPic } from '../__generated__/ui_types';
+import { useDogPicsQuery } from '../__generated__/ui_types';
 import SlideIndicator from '../components/SlideIndicator';
 import { Text, View } from '../components/Themed';
 
 const { width, height } = Dimensions.get('screen');
 
 const DogPicsDisplay = () => {
-  const scrollX = React.useRef(new Animated.Value(0)).current;
+  const scrollX = useRef(new Animated.Value(0)).current;
   const { data, error, loading } = useDogPicsQuery();
 
   if (loading) {

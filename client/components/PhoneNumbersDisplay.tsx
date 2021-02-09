@@ -35,10 +35,13 @@ const styles = StyleSheet.create({
     padding: 10,
     flex: 1,
     backgroundColor: 'rgba(247,236,250,.3)',
-    justifyContent: 'space-evenly'
+    justifyContent: 'space-evenly',
+    borderRadius: 10
   },
   phoneNumberText: {
-    fontSize: 20
+    fontSize: 20,
+    paddingTop: 3,
+    opacity: 0.7
   }
 });
 

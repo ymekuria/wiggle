@@ -14,7 +14,6 @@ const TabTwoScreen: React.FC = (props) => {
       colors={['rgba(163,175,243,1)', 'rgba(220,182,232,1)']}
       style={styles.container}
     >
-      <Text style={styles.title}>Tab Two</Text>
       <ContactsDisplay />
     </LinearGradient>
   );
