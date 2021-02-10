@@ -46,16 +46,26 @@ const ContactsDisplay = () => {
     index: number;
   }) => {
     const inputRange = [-1, 0, ITEM_SIZE * index, ITEM_SIZE * (index + 2)];
+    const opacityInputRange = [
+      -1,
+      0,
+      ITEM_SIZE * index,
+      ITEM_SIZE * (index + 0.5)
+    ];
 
     const scale = scrollY.interpolate({
       inputRange,
+      outputRange: [1, 1, 1, 0]
+    });
+    const opacity = scrollY.interpolate({
+      inputRange: opacityInputRange,
       outputRange: [1, 1, 1, 0]
     });
 
     return (
       <TouchableOpacity onPress={() => onContactPress(item)}>
         <Animated.View
-          style={[styles.contactContainer, { transform: [{ scale }] }]}
+          style={[styles.contactContainer, { opacity, transform: [{ scale }] }]}
         >
           <Text style={{ fontSize: 22 }}>{item?.name}</Text>
         </Animated.View>
