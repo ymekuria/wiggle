@@ -18,7 +18,7 @@ const AvatarDisplay: React.FC<AvatarDisplayProps> = ({ contact }) => {
           <Avatar
             rounded
             size="xlarge"
-            title={`${contact?.firstName[0]}${contact?.lastName[0]}`}
+            title={`${contact?.name}`}
             overlayContainerStyle={{
               backgroundColor: 'gray'
             }}
