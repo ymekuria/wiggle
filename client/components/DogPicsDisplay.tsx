@@ -32,8 +32,17 @@ const DogPicsDisplay = () => {
   }
   const onPicPress = (item) => {};
 
-  const renderPictures = ({ item }) => {
+  const renderPictures = ({ item, index }) => {
     console.log('item: ', item);
+    const inputRange = [
+      (index - 1) * width,
+      index * width,
+      (index + 1) * width
+    ];
+    const translateX = scrollX.interpolate({
+      inputRange,
+      outputRange: [-width * 0.7, 0, width * 0.7]
+    });
     return (
       <TouchableOpacity onPress={() => onPicPress(item)}>
         <View style={styles.pictureContainer}>
@@ -42,7 +51,7 @@ const DogPicsDisplay = () => {
               borderRadius: 18,
               shadowColor: '#000',
               shadowOpacity: 0.5,
-              shadowRadius: 20,
+              shadowRadius: 30,
               shadowOffset: {
                 width: 0,
                 height: 0
@@ -62,16 +71,21 @@ const DogPicsDisplay = () => {
                 borderRadius: 14
               }}
             >
-              <Image
+              <Animated.Image
                 source={{
                   uri: item
                 }}
                 style={{
                   height: PICTURE_HEIGHT,
-                  width: PICTURE_WIDTH,
-                  resizeMode: 'stretch'
+                  width: PICTURE_WIDTH * 1.4,
+                  resizeMode: 'stretch',
+                  transform: [
+                    {
+                      translateX
+                    }
+                  ]
                 }}
-              ></Image>
+              ></Animated.Image>
             </View>
           </View>
         </View>
@@ -91,7 +105,7 @@ const DogPicsDisplay = () => {
           pagingEnabled
           onScroll={Animated.event(
             [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-            { useNativeDriver: false }
+            { useNativeDriver: true }
           )}
           data={data?.dogPics?.pictures}
           renderItem={renderPictures}
