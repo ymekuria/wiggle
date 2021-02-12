@@ -38,6 +38,10 @@ const prisma = new PrismaClient();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
+app.use(function (err, req, res, next) {
+  console.error('server error', err);
+  res.status(500).send('Something broke!');
+});
 // checks auth token and adds user to req.user
 app.use(checkJwt);
 // checks if if user is in the db and adds it if not

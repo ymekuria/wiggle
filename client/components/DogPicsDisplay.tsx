@@ -8,6 +8,8 @@ import SlideIndicator from '../components/SlideIndicator';
 import { Text, View } from '../components/Themed';
 
 const { width, height } = Dimensions.get('screen');
+const PICTURE_WIDTH = width * 0.66;
+const PICTURE_HEIGHT = height * 0.5;
 
 const DogPicsDisplay = () => {
   const scrollX = useRef(new Animated.Value(0)).current;
@@ -24,7 +26,7 @@ const DogPicsDisplay = () => {
     console.log('error loading dogPics:', error);
     return (
       <View>
-        <Text>Error{error}</Text>
+        <Text>Error</Text>
       </View>
     );
   }
@@ -37,22 +39,40 @@ const DogPicsDisplay = () => {
         <View style={styles.pictureContainer}>
           <View
             style={{
-              justifyContent: 'center',
-              backgroundColor: 'transparent',
-              paddingTop: height / 20
+              borderRadius: 18,
+              shadowColor: '#000',
+              shadowOpacity: 0.5,
+              shadowRadius: 20,
+              shadowOffset: {
+                width: 0,
+                height: 0
+              },
+
+              padding: 12,
+              backgroundColor: 'white'
             }}
           >
-            <Image
-              source={{
-                uri: item
-              }}
+            <View
               style={{
-                height: height / 2,
-                width: width / 1.5,
-                resizeMode: 'stretch',
-                borderRadius: 15
+                alignItems: 'center',
+
+                width: PICTURE_WIDTH,
+                height: PICTURE_HEIGHT,
+                overflow: 'hidden',
+                borderRadius: 14
               }}
-            ></Image>
+            >
+              <Image
+                source={{
+                  uri: item
+                }}
+                style={{
+                  height: PICTURE_HEIGHT,
+                  width: PICTURE_WIDTH,
+                  resizeMode: 'stretch'
+                }}
+              ></Image>
+            </View>
           </View>
         </View>
       </TouchableOpacity>
@@ -105,10 +125,13 @@ const styles = StyleSheet.create({
   },
   pictureContainer: {
     // margin: 5,
-    padding: 20,
-    width: width,
+    width,
+    // padding: 20,
+    paddingTop: height / 20,
+
     // flex: 1,
     backgroundColor: 'transparent',
+
     // backgroundColor: 'rgba(247,236,250,.3)',
     // justifyContent: 'space-evenly'
     alignItems: 'center',

@@ -207,7 +207,13 @@ const fetchAccessToken = async (
 
     // Set state at the same time to trigger a single update on the context
     // otherwise components are sent two separate updates
-    await SecureStore.setItemAsync('accessToken', token.access_token);
+    if (token.refresh_token) {
+      await SecureStore.setItemAsync(
+        'AUTH0_REFRESH_TOKEN',
+        token.refresh_token
+      );
+    }
+    // await SecureStore.setItemAsync('accessToken', token.access_token);
     // const testToken = await SecureStore.getItemAsync('accessToken');
     setAccessToken(token.access_token);
     setUser(userInfo);
@@ -271,35 +277,60 @@ export const Auth0Provider = ({
 
   useEffect(() => {
     async function getToken() {
-      if (!auth0Result) {
-        if (!accessToken) {
-          console.log('not access token in useEffect');
-          SecureStore.getItemAsync('accessToken')
-            .then((token) => {
-              if (!token) {
-                return;
-              }
-
-              const currentTime = new Date().getTime() / 1000;
-              const { exp } = jwt_decode(token);
-              // If token from secure storage is old, it is not set into state forcing the user to reathenticate
-              // TODO: integrate token from secure storage into refresh token flow via fetchAccessToken function
-              if (exp < currentTime - requestNewAccessTokenBuffer) {
-                console.log(
-                  'Its time to refresh the token. Time until expiration in seconds:',
-                  exp - currentTime
-                );
-                return;
-              } else {
-                setAccessToken(token);
-              }
-            })
-            .catch((error) =>
-              console.log('Error retriving accessToken from device:', error)
-            );
+      if (!auth0Result && !accessToken) {
+        const refresh_token = await SecureStore.getItemAsync(
+          'AUTH0_REFRESH_TOKEN'
+        );
+        if (!refresh_token) {
+          return;
         }
-        return;
+        const refreshTokenData: RefreshTokenData = {
+          client_id: clientId,
+          redirect_uri: redirectUri,
+          refresh_token,
+          grant_type: 'refresh_token'
+        };
+        fetchAccessToken(
+          refreshTokenData,
+          domain,
+          setAccessToken,
+          setUser,
+          onTokenRequestFailure
+        );
       }
+
+      // my code below to keep user login after hard close
+      // if (!auth0Result) {
+      //   if (!accessToken) {
+      //     console.log('not access token in useEffect');
+      //     SecureStore.getItemAsync('accessToken')
+      //       .then((token) => {
+      //         if (!token) {
+      //           console.log('no token in secure store. please authenticate');
+      //           return;
+      //         }
+
+      //         const currentTime = new Date().getTime() / 1000;
+      //         const { exp } = jwt_decode(token);
+      //         console.log('exp', exp - currentTime);
+      //         // If token from secure storage is old, it is not set into state forcing the user to reathenticate
+      //         // TODO: integrate token from secure storage into refresh token flow via fetchAccessToken function
+      //         if (exp < currentTime - requestNewAccessTokenBuffer) {
+      //           console.log(
+      //             'Its time to refresh the token. Time until expiration in seconds:',
+      //             exp - currentTime
+      //           );
+      //           return;
+      //         } else {
+      //           setAccessToken(token);
+      //         }
+      //       })
+      //       .catch((error) =>
+      //         console.log('Error retriving accessToken from device:', error)
+      //       );
+      //   }
+      //   return;
+      // }
       if (
         auth0Result.type === 'success' &&
         auth0Result?.params?.code &&
