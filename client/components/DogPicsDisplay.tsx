@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { StyleSheet, SafeAreaView, Animated, Dimensions } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Image } from 'react-native-elements';
+import { Image, Button } from 'react-native-elements';
 import { useDogPicsQuery } from '../__generated__/ui_types';
 import SlideIndicator from '../components/SlideIndicator';
 import { Text, View } from '../components/Themed';
@@ -30,8 +30,9 @@ const DogPicsDisplay = () => {
       </View>
     );
   }
+  console.log(data);
   const onPicPress = (item) => {};
-
+  const onButtonPress = async () => {};
   const renderPictures = ({ item, index }) => {
     console.log('item: ', item);
     const inputRange = [
@@ -112,6 +113,9 @@ const DogPicsDisplay = () => {
           keyExtractor={(picture, index) => index.toString()}
         />
       </SafeAreaView>
+      <TouchableOpacity onPress={onButtonPress}>
+        <Text>More Dogs </Text>
+      </TouchableOpacity>
       <SlideIndicator
         scrollX={scrollX}
         width={width}
