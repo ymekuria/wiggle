@@ -4,6 +4,10 @@ type singleJoke = {
   id: string;
   joke: string;
 };
+type singleJoke = {
+  id: string;
+  joke: string;
+};
 
 type multipleJokes = singleJoke[];
 
@@ -24,6 +28,7 @@ class JokeAPI extends RESTDataSource {
       return error.message;
     }
   }
+
   async searchJokes(term: string): Promise<multipleJokes> {
     try {
       const { results } = await this.get(`/search?limit=5&term=${term}`);

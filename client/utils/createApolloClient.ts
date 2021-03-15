@@ -9,7 +9,8 @@ import jwt_decode from 'jwt-decode';
 import { setContext } from '@apollo/client/link/context';
 
 // add dynamic url for testing and production environments
-const httpLink = new HttpLink({ uri: 'http://localhost:8088/graphql' });
+// must use current dev server ip adress instead of localhost to test on device
+const httpLink = new HttpLink({ uri: 'http://192.168.1.71:8088/graphql' });
 
 const createApolloClient = (accessToken: string | undefined) => {
   const currentTime = new Date().getTime() / 1000;

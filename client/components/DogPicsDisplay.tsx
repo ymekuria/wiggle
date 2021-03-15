@@ -1,9 +1,12 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { StyleSheet, SafeAreaView, Animated, Dimensions } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Image, Button } from 'react-native-elements';
-import { useDogPicsQuery } from '../__generated__/ui_types';
+import {
+  useDogPicsQuery,
+  useDogPicsLazyQuery
+} from '../__generated__/ui_types';
 import SlideIndicator from '../components/SlideIndicator';
 import { Text, View } from '../components/Themed';
 
@@ -13,23 +16,31 @@ const PICTURE_HEIGHT = height * 0.5;
 
 const DogPicsDisplay = () => {
   const scrollX = useRef(new Animated.Value(0)).current;
-  const { data, error, loading } = useDogPicsQuery();
+  // const { data, error, loading } = useDogPicsQuery();
+  useEffect(() => {
+    getDogPics();
+  }, []);
+  const [getDogPics, { loading, data }] = useDogPicsLazyQuery({
+    fetchPolicy: 'network-only'
+  });
+  // console.log('lazyQueryResulyt', testResult[0]);
 
   if (loading) {
+    console.log('loading', loading);
     return (
       <View>
         <Text>...Loading</Text>
       </View>
     );
   }
-  if (error) {
-    console.log('error loading dogPics:', error);
-    return (
-      <View>
-        <Text>Error</Text>
-      </View>
-    );
-  }
+  // if (error) {
+  //   console.log('error loading dogPics:', error);
+  //   return (
+  //     <View>
+  //       <Text>Error</Text>
+  //     </View>
+  //   );
+  // }
   console.log(data);
   const onPicPress = (item) => {};
   const onButtonPress = async () => {};
@@ -112,15 +123,23 @@ const DogPicsDisplay = () => {
           renderItem={renderPictures}
           keyExtractor={(picture, index) => index.toString()}
         />
+
+        <TouchableOpacity
+          // style={{
+          //   // position: 'absolute',
+          //   flex: 0.5,
+          //   backgroundColor: 'transparent'
+          // }}
+          onPress={() => getDogPics()}
+        >
+          <Text>More Dogs </Text>
+        </TouchableOpacity>
       </SafeAreaView>
-      <TouchableOpacity onPress={onButtonPress}>
-        <Text>More Dogs </Text>
-      </TouchableOpacity>
-      <SlideIndicator
+      {/* <SlideIndicator
         scrollX={scrollX}
         width={width}
         data={data?.dogPics?.pictures}
-      />
+      /> */}
     </LinearGradient>
     // <Image
     //   source={{

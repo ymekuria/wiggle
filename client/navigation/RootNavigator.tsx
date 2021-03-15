@@ -18,7 +18,7 @@ type RootStackParamList = {
 };
 
 type RootNavigatorProps = {
-  accessToken: string | undefined;
+  accessToken: string | undefined | null;
 };
 
 const getHeaderTitle = (route: Route<string>) => {

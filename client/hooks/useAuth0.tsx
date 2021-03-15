@@ -277,6 +277,7 @@ export const Auth0Provider = ({
 
   useEffect(() => {
     async function getToken() {
+      // await SecureStore.deleteItemAsync('AUTH0_REFRESH_TOKEN');
       if (!auth0Result && !accessToken) {
         const refresh_token = await SecureStore.getItemAsync(
           'AUTH0_REFRESH_TOKEN'
