@@ -4,6 +4,7 @@ import { StyleSheet, Dimensions, Image } from 'react-native';
 import { useJokeQuery } from '../__generated__/ui_types';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Text, View } from '../components/Themed';
+import Loading from '../components/Loading';
 
 const { width, height } = Dimensions.get('screen');
 const PICTURE_WIDTH = width * 0.66;
@@ -11,18 +12,14 @@ const PICTURE_HEIGHT = height * 0.5;
 const TabThreeScreen: React.FC = (props) => {
   const { loading, error, data } = useJokeQuery();
 
-  if (loading) {
-    return (
-      <View>
-        <Text>Loading...</Text>
-      </View>
-    );
+  if (Loading) {
+    return <Loading />;
   }
   if (error) {
     console.log(error);
     return (
       <View>
-        <Text>Error</Text>
+        <Text>Error...</Text>
       </View>
     );
   }

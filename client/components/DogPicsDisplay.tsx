@@ -38,11 +38,10 @@ const DogPicsDisplay = () => {
   //     </View>
   //   );
   // }
-  console.log(data);
+
   const onPicPress = (item) => {};
   const onButtonPress = async () => {};
   const renderPictures = ({ item, index }) => {
-    console.log('item: ', item);
     const inputRange = [
       (index - 1) * width,
       index * width,

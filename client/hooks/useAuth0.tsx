@@ -279,6 +279,7 @@ export const Auth0Provider = ({
     async function getToken() {
       // await SecureStore.deleteItemAsync('AUTH0_REFRESH_TOKEN');
       if (!auth0Result && !accessToken) {
+        console.log();
         const refresh_token = await SecureStore.getItemAsync(
           'AUTH0_REFRESH_TOKEN'
         );
@@ -333,7 +334,7 @@ export const Auth0Provider = ({
       //   return;
       // }
       if (
-        auth0Result.type === 'success' &&
+        auth0Result?.type === 'success' &&
         auth0Result?.params?.code &&
         auth0request?.redirectUri &&
         auth0request?.codeVerifier
@@ -355,10 +356,10 @@ export const Auth0Provider = ({
           onTokenRequestFailure
         );
         onLogin?.();
-      } else {
+      } else if (auth0Result && auth0Result.type === 'error') {
         Alert.alert(
           'Authentication Error',
-          auth0Result.type === 'error'
+          auth0Result?.type === 'error'
             ? auth0Result.params.error_description
             : 'something went wrong'
         );
