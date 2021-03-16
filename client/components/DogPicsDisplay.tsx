@@ -9,6 +9,7 @@ import {
 } from '../__generated__/ui_types';
 import SlideIndicator from '../components/SlideIndicator';
 import { Text, View } from '../components/Themed';
+import Loading from '../components/Loading';
 
 const { width, height } = Dimensions.get('screen');
 const PICTURE_WIDTH = width * 0.66;
@@ -27,11 +28,7 @@ const DogPicsDisplay = () => {
 
   if (loading) {
     console.log('loading', loading);
-    return (
-      <View>
-        <Text>...Loading</Text>
-      </View>
-    );
+    return <Loading />;
   }
   // if (error) {
   //   console.log('error loading dogPics:', error);

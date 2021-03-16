@@ -4,16 +4,13 @@ import { StyleSheet, Image } from 'react-native';
 import { useDogPicQuery } from '../__generated__/ui_types';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Text, View } from '../components/Themed';
+import Loading from '../components/Loading';
 
 const DogPicDisplayScreen: React.FC = (props) => {
   const { loading, error, data } = useDogPicQuery();
 
   if (loading) {
-    return (
-      <View>
-        <Text>Loading...</Text>
-      </View>
-    );
+    return <Loading />;
   }
   if (error) {
     console.log(error);
