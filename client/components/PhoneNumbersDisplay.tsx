@@ -72,7 +72,15 @@ const PhoneNumbersDisplay: React.FC<PhoneNumbersDisplayProps> = ({
                 onPress={async () => {
                   const { result } = await sendSMSAsync(
                     selectedNumber,
-                    'https://images.dog.ceo/breeds/corgi-cardigan/n02113186_13335.jpg'
+                    'hello wiggle',
+                    {
+                      attachments: {
+                        uri:
+                          'https://images.dog.ceo/breeds/corgi-cardigan/n02113186_13335.jpg',
+                        mimeType: 'image/png'
+                        // filename: 'myfile.png'
+                      }
+                    }
                   );
                   console.log('sms result', result);
                   setModalVisible(!modalVisible);
