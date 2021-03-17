@@ -1,7 +1,16 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { StyleSheet, FlatList, Modal, Pressable, Alert } from 'react-native';
+import {
+  StyleSheet,
+  FlatList,
+  Modal,
+  Pressable,
+  Alert,
+  View,
+  Text
+} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Text, View } from '../components/Themed';
+// import { Text, View } from '../components/Themed';
+import { getItemAsync } from 'expo-secure-store';
 
 interface PhoneNumbersDisplayProps {
   phoneNumbers: any;
@@ -10,11 +19,14 @@ interface PhoneNumbersDisplayProps {
 const PhoneNumbersDisplay: React.FC<PhoneNumbersDisplayProps> = ({
   phoneNumbers
 }) => {
-  const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [selectedNumber, setSelectedNumber] = useState<String>('');
   const renderPhoneNumbers = ({ item }) => {
     const onPhoneNumberPress = (item) => {
       setModalVisible(!modalVisible);
-      console.log('phoneNumberItem', item);
+      console.log('phoneNumberItem', item.digits);
+      setSelectedNumber(item.digits);
+      console.log('selectedNumber', selectedNumber);
     };
     return (
       <TouchableOpacity onPress={() => onPhoneNumberPress(item)}>
@@ -44,13 +56,31 @@ const PhoneNumbersDisplay: React.FC<PhoneNumbersDisplayProps> = ({
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>Hello World!</Text>
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}
+            <Text style={styles.modalText}>
+              Send a Wiggle to {selectedNumber} ?
+            </Text>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'flex-start',
+                justifyContent: 'space-around'
+              }}
             >
-              <Text style={styles.textStyle}>Hide Modal</Text>
-            </Pressable>
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => {
+                  setModalVisible(!modalVisible);
+                }}
+              >
+                <Text style={styles.textStyle}>Yes</Text>
+              </Pressable>
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => setModalVisible(!modalVisible)}
+              >
+                <Text style={styles.textStyle}>No</Text>
+              </Pressable>
+            </View>
           </View>
         </View>
       </Modal>
@@ -80,16 +110,17 @@ const styles = StyleSheet.create({
   },
   centeredView: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignItems: 'center',
     marginTop: 22
   },
   modalView: {
     margin: 20,
-    backgroundColor: 'white',
-    borderRadius: 20,
+    backgroundColor: '#f3f0f0',
+    borderRadius: 15,
     padding: 35,
-    alignItems: 'center',
+    // alignItems: 'center',
+    justifyContent: 'space-around',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -100,7 +131,7 @@ const styles = StyleSheet.create({
     elevation: 5
   },
   button: {
-    borderRadius: 20,
+    borderRadius: 10,
     padding: 10,
     elevation: 2
   },

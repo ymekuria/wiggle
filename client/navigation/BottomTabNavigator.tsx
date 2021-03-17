@@ -96,17 +96,7 @@ const TabTwoNavigator = () => {
     </TabTwoStack.Navigator>
   );
 };
-// options={{
-//   headerLeft: (props) => (
-//     <HeaderBackButton
-//       onPress={() => {
-//         console.log('props on back button', props);
-//         // alert('This is a button!');
-//       }}
-//       label="Back"
-//     />
-//   )
-// }}
+
 const TabThreeStack = createStackNavigator<TabThreeParamList>();
 
 const TabThreeNavigator = () => {
