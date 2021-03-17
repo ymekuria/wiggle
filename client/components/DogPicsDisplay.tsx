@@ -39,7 +39,9 @@ const DogPicsDisplay = () => {
   //   );
   // }
 
-  const onPicPress = (item) => {};
+  const onPicPress = (item) => {
+    console.log('dog uri', item);
+  };
   const onButtonPress = async () => {};
   const renderPictures = ({ item, index }) => {
     const inputRange = [

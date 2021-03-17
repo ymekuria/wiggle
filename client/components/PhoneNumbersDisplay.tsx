@@ -8,6 +8,7 @@ import {
   View,
   Text
 } from 'react-native';
+import { sendSMSAsync } from 'expo-sms';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 // import { Text, View } from '../components/Themed';
 import { getItemAsync } from 'expo-secure-store';
@@ -68,7 +69,12 @@ const PhoneNumbersDisplay: React.FC<PhoneNumbersDisplayProps> = ({
             >
               <Pressable
                 style={[styles.button, styles.buttonClose]}
-                onPress={() => {
+                onPress={async () => {
+                  const { result } = await sendSMSAsync(
+                    selectedNumber,
+                    'https://images.dog.ceo/breeds/corgi-cardigan/n02113186_13335.jpg'
+                  );
+                  console.log('sms result', result);
                   setModalVisible(!modalVisible);
                 }}
               >
@@ -84,12 +90,6 @@ const PhoneNumbersDisplay: React.FC<PhoneNumbersDisplayProps> = ({
           </View>
         </View>
       </Modal>
-      <Pressable
-        style={[styles.button, styles.buttonOpen]}
-        onPress={() => setModalVisible(true)}
-      >
-        <Text style={styles.textStyle}>Show Modal</Text>
-      </Pressable>
     </>
   );
 };
