@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { StyleSheet, FlatList } from 'react-native';
+import { StyleSheet, FlatList, Modal } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import * as Contacts from 'expo-contacts';
@@ -27,6 +27,12 @@ const ContactDisplayScreen: React.FC = () => {
         {/* <Card.Divider /> */}
         <BirthdayDisplay birthday={currentContact?.birthday} />
       </Card>
+
+      <Modal visible={false} transparent={true} animationType="slide">
+        <View>
+          <Text>Modal Content</Text>
+        </View>
+      </Modal>
     </LinearGradient>
   );
 };
