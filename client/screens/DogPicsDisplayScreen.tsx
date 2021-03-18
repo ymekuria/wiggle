@@ -15,7 +15,7 @@ const { width, height } = Dimensions.get('screen');
 const PICTURE_WIDTH = width * 0.66;
 const PICTURE_HEIGHT = height * 0.5;
 
-const DogPicsDisplay = () => {
+const DogPicsDisplayScreen = () => {
   const scrollX = useRef(new Animated.Value(0)).current;
   // const { data, error, loading } = useDogPicsQuery();
   useEffect(() => {
@@ -174,4 +174,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default DogPicsDisplay;
+export default DogPicsDisplayScreen;
