@@ -8,7 +8,11 @@ import { useThemeColor } from '../components/Themed';
 
 type CreateWiggleScreenProps = {};
 
-const CreateWiggleScreen: React.FC<CreateWiggleScreenProps> = () => {
+const CreateWiggleScreen: React.FC<CreateWiggleScreenProps> = ({
+  navigation
+}) => {
+  console.log('navigation', navigation);
+
   const pickerItemTextColor = useThemeColor(
     { light: undefined, dark: undefined },
     'text'
@@ -31,7 +35,6 @@ const CreateWiggleScreen: React.FC<CreateWiggleScreenProps> = () => {
         <Picker.Item label="Send a Dog Wiggle" value="dog" />
         <Picker.Item label="Send a Joke Wiggle" value="joke" />
       </Picker>
-      <Text style={styles.title}>Create a Wiggle</Text>
     </LinearGradient>
   );
 };
