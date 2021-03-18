@@ -2,11 +2,17 @@ import React, { useEffect, useState, useContext } from 'react';
 import { StyleSheet, FlatList } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { LinearGradient } from 'expo-linear-gradient';
+import { StackNavigationProp } from '@react-navigation/stack';
+
 import { Picker } from '@react-native-picker/picker';
+import { TabOneParamList } from '../navigation/BottomTabNavigator';
 import { Text, View } from '../components/Themed';
 import { useThemeColor } from '../components/Themed';
+import { im } from 'mathjs';
 
-type CreateWiggleScreenProps = {};
+type CreateWiggleScreenProps = {
+  navigation: StackNavigationProp<TabOneParamList>;
+};
 
 const CreateWiggleScreen: React.FC<CreateWiggleScreenProps> = ({
   navigation
@@ -28,12 +34,13 @@ const CreateWiggleScreen: React.FC<CreateWiggleScreenProps> = ({
         style={styles.picker}
         itemStyle={{ color: pickerItemTextColor, height: 100 }}
         selectedValue={selectedLanguage}
-        onValueChange={(itemValue, itemIndex) =>
-          console.log('itemValue', itemValue)
-        }
+        onValueChange={(itemValue, itemIndex) => {
+          console.log('item', itemValue);
+          navigation.navigate('DogPicsDisplayScreen');
+        }}
       >
-        <Picker.Item label="Send a Dog Wiggle" value="dog" />
-        <Picker.Item label="Send a Joke Wiggle" value="joke" />
+        <Picker.Item label="Send a Dog Wiggle" value="DogPicsDisplayScreen" />
+        <Picker.Item label="Send a Joke Wiggle" value="JokeDisplayScreen" />
       </Picker>
     </LinearGradient>
   );

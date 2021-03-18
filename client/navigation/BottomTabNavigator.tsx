@@ -9,17 +9,19 @@ import * as React from 'react';
 
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
-import TabThreeScreen from '../screens/TabThreeScreen';
+import JokeDisplayScreen from '../screens/JokeDisplayScreen';
 import TabFourScreen from '../screens/TabFourScreen';
 import ContactDisplayScreen from '../screens/ContactDisplayScreen';
-import DogPicDisplayScreen from '../screens/DogPicScreen';
-import DogPicsDisplay from '../components/DogPicsDisplay';
+import DogPicsDisplayScreen from '../screens/DogPicsDisplayScreen';
+
 import CreateWiggleScreen from '../screens/CreateWiggleScreen';
 
 import { useThemeColor } from '../components/Themed';
 
-type TabOneParamList = {
-  DogPicsDisplay: undefined;
+export type TabOneParamList = {
+  CreateWiggleScreen: undefined;
+  DogPicsDisplayScreen: undefined;
+  JokeDisplayScreen: undefined;
 };
 
 type TabTwoParamList = {
@@ -63,7 +65,14 @@ const TabOneNavigator = () => {
         name="CreateWiggleScreen"
         component={CreateWiggleScreen}
       />
-      <TabOneStack.Screen name="DogPicsDisplay" component={DogPicsDisplay} />
+      <TabOneStack.Screen
+        name="DogPicsDisplayScreen"
+        component={DogPicsDisplayScreen}
+      />
+      <TabOneStack.Screen
+        name="JokeDisplayScreen"
+        component={JokeDisplayScreen}
+      />
     </TabOneStack.Navigator>
   );
 };
@@ -120,7 +129,10 @@ const TabThreeNavigator = () => {
         headerTintColor: headerTintColor
       })}
     >
-      <TabThreeStack.Screen name="TabThreeScreen" component={TabThreeScreen} />
+      <TabThreeStack.Screen
+        name="TabThreeScreen"
+        component={JokeDisplayScreen}
+      />
     </TabThreeStack.Navigator>
   );
 };
