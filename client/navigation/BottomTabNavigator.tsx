@@ -14,6 +14,7 @@ import TabFourScreen from '../screens/TabFourScreen';
 import ContactDisplayScreen from '../screens/ContactDisplayScreen';
 import DogPicDisplayScreen from '../screens/DogPicScreen';
 import DogPicsDisplay from '../components/DogPicsDisplay';
+import CreateWiggleScreen from '../screens/CreateWiggleScreen';
 
 import { useThemeColor } from '../components/Themed';
 
@@ -58,6 +59,10 @@ const TabOneNavigator = () => {
         headerTintColor: headerTintColor
       })}
     >
+      <TabOneStack.Screen
+        name="CreateWiggleScreen"
+        component={CreateWiggleScreen}
+      />
       <TabOneStack.Screen name="DogPicsDisplay" component={DogPicsDisplay} />
     </TabOneStack.Navigator>
   );
@@ -70,7 +75,7 @@ const TabTwoNavigator = () => {
     { light: undefined, dark: undefined },
     'tint'
   );
-
+  console.log('themeColor', headerTintColor);
   return (
     <TabTwoStack.Navigator
       initialRouteName="TabTwoScreen"
@@ -157,7 +162,7 @@ const BottomTabNavigator: React.FC = () => {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabTwo"
+      initialRouteName="TabOne"
       tabBarOptions={{
         // activeTintColor: Colors['dark'].tint,
         activeTintColor: '#fff',

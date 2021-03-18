@@ -218,7 +218,7 @@ const fetchAccessToken = async (
     setAccessToken(token.access_token);
     setUser(userInfo);
   } else {
-    console.log('Token Request Failure');
+    console.log('Token Request Failure', tokenResponse);
     onTokenRequestFailure?.();
   }
 };
