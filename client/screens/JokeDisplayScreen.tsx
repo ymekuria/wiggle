@@ -1,15 +1,16 @@
 import React from 'react';
-import { StyleSheet, Dimensions, Image } from 'react-native';
+import { StyleSheet, Dimensions, Image, Pressable } from 'react-native';
 
 import { useJokeQuery } from '../__generated__/ui_types';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Text, View } from '../components/Themed';
 import Loading from '../components/Loading';
+import Navigation from '../navigation';
 
 const { width, height } = Dimensions.get('screen');
 const PICTURE_WIDTH = width * 0.66;
 const PICTURE_HEIGHT = height * 0.5;
-const TabThreeScreen: React.FC = (props) => {
+const TabThreeScreen: React.FC = ({navigation}) => {
   const { loading, error, data } = useJokeQuery();
 
   if (Loading) {
@@ -23,7 +24,9 @@ const TabThreeScreen: React.FC = (props) => {
       </View>
     );
   }
-
+  const onJokePress = () => {
+    navigation.navigate('TabTwo', {screen, 'ContactsDisplayScreen'})
+  }
   console.log('joke', data);
   return (
     <LinearGradient
@@ -31,8 +34,9 @@ const TabThreeScreen: React.FC = (props) => {
       style={styles.container}
     >
       <Text style={styles.title}>Tab Three</Text>
-
-      <Text>{data.joke.joke}</Text>
+      <Pressable onPress={onJokePress}>
+        <Text>{data.joke.joke}</Text>
+      </Pressable>
     </LinearGradient>
   );
 };
@@ -63,4 +67,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default TabThreeScreen;
+export default JokeDisplayScreen;
