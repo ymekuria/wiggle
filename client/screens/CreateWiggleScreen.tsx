@@ -8,11 +8,15 @@ import { Picker } from '@react-native-picker/picker';
 import { TabOneParamList } from '../navigation/BottomTabNavigator';
 import { Text, View } from '../components/Themed';
 import { useThemeColor } from '../components/Themed';
-import { im } from 'mathjs';
 
 type CreateWiggleScreenProps = {
   navigation: StackNavigationProp<TabOneParamList>;
 };
+
+enum PickerItemValue {
+  JokeDisplayScreen = 'JokeDisplayScreen',
+  DogPicsDisplayScreen = 'DogPicsDisplayScreen'
+}
 
 const CreateWiggleScreen: React.FC<CreateWiggleScreenProps> = ({
   navigation
@@ -24,7 +28,7 @@ const CreateWiggleScreen: React.FC<CreateWiggleScreenProps> = ({
     'text'
   );
   console.log('pickerItermColor', pickerItemTextColor);
-  const [selectedLanguage, setSelectedLanguage] = useState();
+  const [wiggleSelection, setWiggleSelection] = useState<PickerItemValue>();
   return (
     <LinearGradient
       colors={['rgba(163,175,243,1)', 'rgba(220,182,232,1)']}
@@ -33,10 +37,10 @@ const CreateWiggleScreen: React.FC<CreateWiggleScreenProps> = ({
       <Picker
         style={styles.picker}
         itemStyle={{ color: pickerItemTextColor, height: 100 }}
-        selectedValue={selectedLanguage}
-        onValueChange={(itemValue, itemIndex) => {
-          console.log('item', itemValue);
-          navigation.navigate('DogPicsDisplayScreen');
+        selectedValue={wiggleSelection}
+        onValueChange={(wiggleSelection) => {
+          console.log('item', wiggleSelection);
+          navigation.navigate(wiggleSelection as PickerItemValue);
         }}
       >
         <Picker.Item label="Send a Dog Wiggle" value="DogPicsDisplayScreen" />

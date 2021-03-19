@@ -2,6 +2,7 @@ import React, { useState, useContext, useRef } from 'react';
 import { StyleSheet, FlatList, SafeAreaView, Animated } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Contact } from 'expo-contacts';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useHeaderHeight } from '@react-navigation/stack';
 
 // ...
@@ -13,7 +14,7 @@ import { SearchBar } from 'react-native-elements';
 import { Context as ContactContext } from '../context/ContactContext';
 
 const ITEM_SIZE = 66.3;
-const ContactsDisplay = () => {
+const ContactsDisplayScreen = () => {
   const HEADER_HEIGHT = useHeaderHeight();
 
   const scrollY = useRef(new Animated.Value(0)).current;
@@ -73,27 +74,32 @@ const ContactsDisplay = () => {
     );
   };
   return (
-    <SafeAreaView>
-      <SearchBar
-        onChangeText={searchContacts}
-        value={searchInputValue}
-        containerStyle={styles.searchBarContainer}
-        inputContainerStyle={styles.searchBarInputContainer}
-        inputStyle={styles.searchBarInput}
-        placeholder="Search"
-      />
+    <LinearGradient
+      colors={['rgba(163,175,243,1)', 'rgba(220,182,232,1)']}
+      style={styles.container}
+    >
+      <SafeAreaView>
+        <SearchBar
+          onChangeText={searchContacts}
+          value={searchInputValue}
+          containerStyle={styles.searchBarContainer}
+          inputContainerStyle={styles.searchBarInputContainer}
+          inputStyle={styles.searchBarInput}
+          placeholder="Search"
+        />
 
-      <Animated.FlatList
-        data={contacts}
-        onScroll={Animated.event(
-          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-          { useNativeDriver: true }
-        )}
-        renderItem={renderContacts}
-        keyExtractor={(contact) => contact.id.toString()}
-        // contentContainerStyle={{ padding: 5 }}
-      />
-    </SafeAreaView>
+        <Animated.FlatList
+          data={contacts}
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+            { useNativeDriver: true }
+          )}
+          renderItem={renderContacts}
+          keyExtractor={(contact) => contact.id.toString()}
+          // contentContainerStyle={{ padding: 5 }}
+        />
+      </SafeAreaView>
+    </LinearGradient>
   );
 };
 
@@ -137,4 +143,4 @@ const styles = StyleSheet.create({
   searchBarInput: { fontSize: 22 }
 });
 
-export default ContactsDisplay;
+export default ContactsDisplayScreen;

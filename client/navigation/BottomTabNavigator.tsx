@@ -12,6 +12,7 @@ import TabTwoScreen from '../screens/TabTwoScreen';
 import JokeDisplayScreen from '../screens/JokeDisplayScreen';
 import TabFourScreen from '../screens/TabFourScreen';
 import ContactDisplayScreen from '../screens/ContactDisplayScreen';
+import ContactsDisplayScreen from '../screens/ContactsDisplayScreen';
 import DogPicsDisplayScreen from '../screens/DogPicsDisplayScreen';
 
 import CreateWiggleScreen from '../screens/CreateWiggleScreen';
@@ -87,7 +88,7 @@ const TabTwoNavigator = () => {
   console.log('themeColor', headerTintColor);
   return (
     <TabTwoStack.Navigator
-      initialRouteName="TabTwoScreen"
+      initialRouteName="ContactDisplayScreen"
       headerMode="screen"
       screenOptions={() => ({
         headerStyle: {
@@ -98,6 +99,15 @@ const TabTwoNavigator = () => {
       })}
     >
       <TabTwoStack.Screen name="TabTwoScreen" component={TabTwoScreen} />
+      <TabTwoStack.Screen
+        name="ContactsDisplayScreen"
+        component={ContactsDisplayScreen}
+        // options={() => ({
+        //   headerStyle: {
+        //     backgroundColor: 'rgba(163,175,243,1)'
+        //   }
+        // })}
+      />
       <TabTwoStack.Screen
         name="ContactDisplayScreen"
         component={ContactDisplayScreen}

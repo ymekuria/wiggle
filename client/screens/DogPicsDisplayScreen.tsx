@@ -7,6 +7,8 @@ import {
   useDogPicsQuery,
   useDogPicsLazyQuery
 } from '../__generated__/ui_types';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { TabOneParamList } from '../navigation/BottomTabNavigator';
 import SlideIndicator from '../components/SlideIndicator';
 import { Text, View } from '../components/Themed';
 import Loading from '../components/Loading';
@@ -15,7 +17,12 @@ const { width, height } = Dimensions.get('screen');
 const PICTURE_WIDTH = width * 0.66;
 const PICTURE_HEIGHT = height * 0.5;
 
-const DogPicsDisplayScreen = () => {
+type DogPicsDisplayScreenProps = {
+  navigation: StackNavigationProp<TabOneParamList>;
+};
+const DogPicsDisplayScreen: React.FC<DogPicsDisplayScreenProps> = ({
+  navigation
+}) => {
   const scrollX = useRef(new Animated.Value(0)).current;
   // const { data, error, loading } = useDogPicsQuery();
   useEffect(() => {
@@ -40,7 +47,9 @@ const DogPicsDisplayScreen = () => {
   // }
 
   const onPicPress = (item) => {
-    console.log('dog uri', item);
+    navigation.navigate('TabTwo', { screen: 'ContactsDisplayScreen' });
+    // navigation.navigate('JokeDisplayScreen');
+    // navigationRef.current?.navigate('Root', { screen: 'TabThree' });
   };
   const onButtonPress = async () => {};
   const renderPictures = ({ item, index }) => {
