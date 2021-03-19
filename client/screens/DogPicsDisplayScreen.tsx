@@ -1,5 +1,11 @@
 import React, { useRef, useEffect } from 'react';
-import { StyleSheet, SafeAreaView, Animated, Dimensions } from 'react-native';
+import {
+  StyleSheet,
+  SafeAreaView,
+  Animated,
+  Dimensions,
+  Pressable
+} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Image, Button } from 'react-native-elements';
@@ -63,7 +69,7 @@ const DogPicsDisplayScreen: React.FC<DogPicsDisplayScreenProps> = ({
       outputRange: [-width * 0.7, 0, width * 0.7]
     });
     return (
-      <TouchableOpacity onPress={() => onPicPress(item)}>
+      <Pressable onPress={() => onPicPress(item)}>
         <View style={styles.pictureContainer}>
           <View
             style={{
@@ -108,7 +114,7 @@ const DogPicsDisplayScreen: React.FC<DogPicsDisplayScreenProps> = ({
             </View>
           </View>
         </View>
-      </TouchableOpacity>
+      </Pressable>
     );
   };
 
