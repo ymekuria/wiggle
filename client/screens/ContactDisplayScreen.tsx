@@ -5,6 +5,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import * as Contacts from 'expo-contacts';
 import { Card, Avatar } from 'react-native-elements';
 import { Context as ContactContext } from '../context/ContactContext';
+import { Context as WiggleContext } from '../context/WiggleContext';
 import { Text, View } from '../components/Themed';
 import AvatarDisplay from '../components/AvatarDisplay';
 import PhoneNumbersDisplay from '../components/PhoneNumbersDisplay';
@@ -13,8 +14,10 @@ import BirthdayDisplay from '../components/BirthdayDisplay';
 
 const ContactDisplayScreen: React.FC = () => {
   const { currentContact } = useContext(ContactContext);
+  const { selectedWiggle } = useContext(WiggleContext);
 
   console.log('currentContact:', currentContact);
+  console.log('selectedWiggle', selectedWiggle);
   return (
     <LinearGradient
       colors={['rgba(163,175,243,1)', 'rgba(220,182,232,1)']}

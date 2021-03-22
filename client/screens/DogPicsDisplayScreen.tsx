@@ -31,7 +31,7 @@ const DogPicsDisplayScreen: React.FC<DogPicsDisplayScreenProps> = ({
   navigation
 }) => {
   const scrollX = useRef(new Animated.Value(0)).current;
-  const { setSelectedWiggleContact } = useContext(WiggleContext);
+  const { setSelectedWiggle } = useContext(WiggleContext);
   // const { data, error, loading } = useDogPicsQuery();
   useEffect(() => {
     getDogPics();
@@ -55,7 +55,7 @@ const DogPicsDisplayScreen: React.FC<DogPicsDisplayScreenProps> = ({
   // }
 
   const onPicPress = (item) => {
-    cons;
+    setSelectedWiggle(item);
     navigation.navigate('TabTwo', { screen: 'ContactsDisplayScreen' });
     // navigation.navigate('JokeDisplayScreen');
     // navigationRef.current?.navigate('Root', { screen: 'TabThree' });

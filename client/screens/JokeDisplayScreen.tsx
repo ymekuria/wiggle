@@ -10,7 +10,7 @@ import Navigation from '../navigation';
 const { width, height } = Dimensions.get('screen');
 const PICTURE_WIDTH = width * 0.66;
 const PICTURE_HEIGHT = height * 0.5;
-const TabThreeScreen: React.FC = ({navigation}) => {
+const JokeDisplayScreen: React.FC = ({ navigation }) => {
   const { loading, error, data } = useJokeQuery();
 
   if (Loading) {
@@ -25,8 +25,8 @@ const TabThreeScreen: React.FC = ({navigation}) => {
     );
   }
   const onJokePress = () => {
-    navigation.navigate('TabTwo', {screen, 'ContactsDisplayScreen'})
-  }
+    // navigation.navigate('TabTwo', {screen, 'ContactsDisplayScreen'})
+  };
   console.log('joke', data);
   return (
     <LinearGradient
