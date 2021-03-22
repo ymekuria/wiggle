@@ -18,7 +18,7 @@ const createApolloClient = (accessToken: string | undefined) => {
     const { exp } = jwt_decode(accessToken);
     console.log('exp', exp - currentTime);
   }
-  console.log('accessToken in createApolloClient', accessToken);
+  // console.log('accessToken in createApolloClient', accessToken);
   const authLink = setContext(async (_, { headers }) => {
     if (!accessToken) {
       console.log('no access token in apollo client');

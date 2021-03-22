@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet, Dimensions, Image, Pressable } from 'react-native';
 
 import { useJokeQuery } from '../__generated__/ui_types';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Text, View } from '../components/Themed';
+import { Context as WiggleContext } from '../context/WiggleContext';
 import Loading from '../components/Loading';
 import Navigation from '../navigation';
 
@@ -12,8 +13,8 @@ const PICTURE_WIDTH = width * 0.66;
 const PICTURE_HEIGHT = height * 0.5;
 const JokeDisplayScreen: React.FC = ({ navigation }) => {
   const { loading, error, data } = useJokeQuery();
-
-  if (Loading) {
+  const { setSelectedWiggle } = useContext(WiggleContext);
+  if (loading) {
     return <Loading />;
   }
   if (error) {
@@ -24,17 +25,18 @@ const JokeDisplayScreen: React.FC = ({ navigation }) => {
       </View>
     );
   }
-  const onJokePress = () => {
+  const onJokePress = (data) => {
+    setSelectedWiggle(joke);
     // navigation.navigate('TabTwo', {screen, 'ContactsDisplayScreen'})
   };
-  console.log('joke', data);
+  // console.log('joke', data);
   return (
     <LinearGradient
       colors={['rgba(163,175,243,1)', 'rgba(220,182,232,1)']}
       style={styles.container}
     >
       <Text style={styles.title}>Tab Three</Text>
-      <Pressable onPress={onJokePress}>
+      <Pressable onPress={() => onJokePress(data.joke.joke)}>
         <Text>{data.joke.joke}</Text>
       </Pressable>
     </LinearGradient>

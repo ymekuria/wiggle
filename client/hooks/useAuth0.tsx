@@ -182,14 +182,14 @@ const fetchAccessToken = async (
     setTimeout(() => {
       let refreshTokenData: TokenData | RefreshTokenData = data;
       if (token.refresh_token) {
-        console.log('refreshTokenData before', refreshTokenData);
-        console.log('inside settimeout of refreshtoken flow');
+        // console.log('refreshTokenData before', refreshTokenData);
+        // console.log('inside settimeout of refreshtoken flow');
         refreshTokenData = {
           ...data,
           refresh_token: token.refresh_token,
           grant_type: 'refresh_token'
         };
-        console.log('refreshTokenData after', refreshTokenData);
+        // console.log('refreshTokenData after', refreshTokenData);
       }
       fetchAccessToken(
         refreshTokenData,

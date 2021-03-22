@@ -33,12 +33,12 @@ const DogPicsDisplayScreen: React.FC<DogPicsDisplayScreenProps> = ({
   const scrollX = useRef(new Animated.Value(0)).current;
   const { setSelectedWiggle } = useContext(WiggleContext);
   // const { data, error, loading } = useDogPicsQuery();
-  useEffect(() => {
-    getDogPics();
-  }, []);
   const [getDogPics, { loading, data }] = useDogPicsLazyQuery({
     fetchPolicy: 'network-only'
   });
+  useEffect(() => {
+    getDogPics();
+  }, []);
   // console.log('lazyQueryResulyt', testResult[0]);
 
   if (loading) {
