@@ -88,7 +88,7 @@ const TabTwoNavigator = () => {
   console.log('themeColor', headerTintColor);
   return (
     <TabTwoStack.Navigator
-      initialRouteName="ContactDisplayScreen"
+      initialRouteName="ContactsDisplayScreen"
       headerMode="screen"
       screenOptions={() => ({
         headerStyle: {
@@ -98,7 +98,7 @@ const TabTwoNavigator = () => {
         headerTintColor: headerTintColor
       })}
     >
-      <TabTwoStack.Screen name="TabTwoScreen" component={TabTwoScreen} />
+      {/* <TabTwoStack.Screen name="TabTwoScreen" component={TabTwoScreen} /> */}
       <TabTwoStack.Screen
         name="ContactsDisplayScreen"
         component={ContactsDisplayScreen}

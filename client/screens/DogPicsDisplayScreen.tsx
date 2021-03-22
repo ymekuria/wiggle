@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useContext } from 'react';
 import {
   StyleSheet,
   SafeAreaView,
@@ -18,6 +18,7 @@ import { TabOneParamList } from '../navigation/BottomTabNavigator';
 import SlideIndicator from '../components/SlideIndicator';
 import { Text, View } from '../components/Themed';
 import Loading from '../components/Loading';
+import { Context as WiggleContext } from '../context/WiggleContext';
 
 const { width, height } = Dimensions.get('screen');
 const PICTURE_WIDTH = width * 0.66;
@@ -30,6 +31,7 @@ const DogPicsDisplayScreen: React.FC<DogPicsDisplayScreenProps> = ({
   navigation
 }) => {
   const scrollX = useRef(new Animated.Value(0)).current;
+  const { setSelectedWiggleContact } = useContext(WiggleContext);
   // const { data, error, loading } = useDogPicsQuery();
   useEffect(() => {
     getDogPics();
@@ -53,6 +55,7 @@ const DogPicsDisplayScreen: React.FC<DogPicsDisplayScreenProps> = ({
   // }
 
   const onPicPress = (item) => {
+    cons;
     navigation.navigate('TabTwo', { screen: 'ContactsDisplayScreen' });
     // navigation.navigate('JokeDisplayScreen');
     // navigationRef.current?.navigate('Root', { screen: 'TabThree' });

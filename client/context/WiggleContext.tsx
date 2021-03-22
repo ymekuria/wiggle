@@ -34,6 +34,7 @@ const selectedWiggleReducer: Reducer<StateType, ActionType> = (
 const setSelectedWiggle = (dispatch: Dispatch<ActionType>) => {
   return (contact: Contact) => {
     dispatch({ type: 'ADD_SELECTED_WIGGLE', payload: contact });
+    //navigate to contactsDispaly here
   };
 };
 const deleteSelectedWiggle = (dispatch: Dispatch<ActionType>) => {

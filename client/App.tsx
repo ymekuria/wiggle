@@ -5,6 +5,7 @@ import { NavigationContainerRef } from '@react-navigation/native';
 import { Provider } from 'react-redux';
 import { Auth0Provider } from './hooks/useAuth0';
 import { Provider as ContactProvider } from './context/ContactContext';
+import { Provider as WiggleProvider } from './context/WiggleContext';
 import { AUTH0_CLIENT_ID, AUTH0_AUDIENCE, AUTH0_DOMAIN } from './utils/config';
 import store from './store';
 import useCachedResources from './hooks/useCachedResources';
@@ -33,13 +34,15 @@ const App = (): JSX.Element | null => {
         }}
       >
         <ContactProvider>
-          <React.Fragment>
-            <Navigation
-              // navigationRef={navigationRef}
-              colorScheme={colorScheme}
-            />
-            <StatusBar />
-          </React.Fragment>
+          <WiggleProvider>
+            <React.Fragment>
+              <Navigation
+                // navigationRef={navigationRef}
+                colorScheme={colorScheme}
+              />
+              <StatusBar />
+            </React.Fragment>
+          </WiggleProvider>
         </ContactProvider>
       </Auth0Provider>
     );
