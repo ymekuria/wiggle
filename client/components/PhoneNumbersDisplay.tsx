@@ -11,7 +11,7 @@ import {
 import { sendSMSAsync } from 'expo-sms';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 // import { Text, View } from '../components/Themed';
-import { getItemAsync } from 'expo-secure-store';
+import { Context as WiggleContext } from '../context/WiggleContext';
 
 interface PhoneNumbersDisplayProps {
   phoneNumbers: any;
@@ -22,12 +22,35 @@ const PhoneNumbersDisplay: React.FC<PhoneNumbersDisplayProps> = ({
 }) => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [selectedNumber, setSelectedNumber] = useState<String>('');
+  const { selectedWiggle } = useContext(WiggleContext);
+
+  const sendSMSwiggle = async () => {
+    if (selectedWiggle.type === 'joke') {
+      {
+        const { result } = await sendSMSAsync(
+          selectedNumber,
+          selectedWiggle.wiggle
+          // {
+          //   attachments: {
+          //     uri: null,
+          //     mimeType: 'image/png'
+          //     // filename: 'myfile.png'
+          //   }
+          // }
+        );
+        console.log('sms result', result);
+        setModalVisible(!modalVisible);
+      }
+    }
+  };
+
   const renderPhoneNumbers = ({ item }) => {
     const onPhoneNumberPress = (item) => {
       setModalVisible(!modalVisible);
       console.log('phoneNumberItem', item.digits);
       setSelectedNumber(item.digits);
       console.log('selectedNumber', selectedNumber);
+      console.log('selectedWiggle', selectedWiggle);
     };
     return (
       <TouchableOpacity onPress={() => onPhoneNumberPress(item)}>
@@ -69,22 +92,7 @@ const PhoneNumbersDisplay: React.FC<PhoneNumbersDisplayProps> = ({
             >
               <Pressable
                 style={[styles.button, styles.buttonClose]}
-                onPress={async () => {
-                  const { result } = await sendSMSAsync(
-                    selectedNumber,
-                    'hello wiggle',
-                    {
-                      attachments: {
-                        uri:
-                          'https://images.dog.ceo/breeds/corgi-cardigan/n02113186_13335.jpg',
-                        mimeType: 'image/png'
-                        // filename: 'myfile.png'
-                      }
-                    }
-                  );
-                  console.log('sms result', result);
-                  setModalVisible(!modalVisible);
-                }}
+                onPress={sendSMSwiggle}
               >
                 <Text style={styles.textStyle}>Yes</Text>
               </Pressable>
