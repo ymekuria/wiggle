@@ -26,28 +26,27 @@ const PhoneNumbersDisplay: React.FC<PhoneNumbersDisplayProps> = ({
 
   const sendSMSwiggle = async () => {
     if (selectedWiggle.type === 'joke') {
-      {
-        const { result } = await sendSMSAsync(
-          selectedNumber,
-          selectedWiggle.wiggle
-          // {
-          //   attachments: {
-          //     uri: null,
-          //     mimeType: 'image/png'
-          //     // filename: 'myfile.png'
-          //   }
-          // }
-        );
-        console.log('sms result', result);
-        setModalVisible(!modalVisible);
-      }
+      const { result } = await sendSMSAsync(
+        selectedNumber,
+        selectedWiggle.wiggle
+      );
+      console.log('sms result', result);
+      setModalVisible(!modalVisible);
+    } else if (selectedWiggle.type === 'pic') {
+      const { result } = await sendSMSAsync(selectedNumber, '', {
+        attachments: {
+          uri: selectedWiggle.wiggle,
+          mimeType: 'image/png'
+        }
+      });
+      console.log('sms result', result);
+      setModalVisible(!modalVisible);
     }
   };
 
   const renderPhoneNumbers = ({ item }) => {
     const onPhoneNumberPress = (item) => {
       setModalVisible(!modalVisible);
-      console.log('phoneNumberItem', item.digits);
       setSelectedNumber(item.digits);
       console.log('selectedNumber', selectedNumber);
       console.log('selectedWiggle', selectedWiggle);

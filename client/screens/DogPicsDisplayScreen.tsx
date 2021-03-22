@@ -55,7 +55,7 @@ const DogPicsDisplayScreen: React.FC<DogPicsDisplayScreenProps> = ({
   // }
 
   const onPicPress = (item) => {
-    setSelectedWiggle(item);
+    setSelectedWiggle({ wiggle: item, type: 'pic' });
     navigation.navigate('TabTwo', { screen: 'ContactsDisplayScreen' });
     // navigation.navigate('JokeDisplayScreen');
     // navigationRef.current?.navigate('Root', { screen: 'TabThree' });
