@@ -16,11 +16,13 @@ import ContactsDisplayScreen from '../screens/ContactsDisplayScreen';
 import DogPicsDisplayScreen from '../screens/DogPicsDisplayScreen';
 
 import CreateWiggleScreen from '../screens/CreateWiggleScreen';
+import ScheduleWiggleScreen from '../screens/ScheduleWiggleScreen';
 
 import { useThemeColor } from '../components/Themed';
 
 export type TabOneParamList = {
   CreateWiggleScreen: undefined;
+  ScheduleWiggleScreen: undefined;
   DogPicsDisplayScreen: undefined;
   JokeDisplayScreen: undefined;
 };
@@ -65,6 +67,10 @@ const TabOneNavigator = () => {
       <TabOneStack.Screen
         name="CreateWiggleScreen"
         component={CreateWiggleScreen}
+      />
+      <TabOneStack.Screen
+        name="ScheduleWiggleScreen"
+        component={ScheduleWiggleScreen}
       />
       <TabOneStack.Screen
         name="DogPicsDisplayScreen"
