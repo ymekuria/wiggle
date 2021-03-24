@@ -140,7 +140,7 @@ const DogPicsDisplayScreen: React.FC<DogPicsDisplayScreenProps> = ({
           keyExtractor={(picture, index) => index.toString()}
         />
 
-        <TouchableOpacity
+        <Pressable
           // style={{
           //   // position: 'absolute',
           //   flex: 0.5,
@@ -149,7 +149,7 @@ const DogPicsDisplayScreen: React.FC<DogPicsDisplayScreenProps> = ({
           onPress={() => getDogPics()}
         >
           <Text>More Dogs </Text>
-        </TouchableOpacity>
+        </  m   Pressable>
       </SafeAreaView>
       {/* <SlideIndicator
         scrollX={scrollX}
