@@ -45,6 +45,7 @@ const CreateWiggleScreen: React.FC<CreateWiggleScreenProps> = ({
       >
         <Picker.Item label="Send a Dog Wiggle" value="DogPicsDisplayScreen" />
         <Picker.Item label="Send a Joke Wiggle" value="JokeDisplayScreen" />
+        <Picker.Item label="Schedule a Wiggle" value="ScheduleWiggleScreen" />
       </Picker>
     </LinearGradient>
   );

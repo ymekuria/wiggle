@@ -149,7 +149,7 @@ const DogPicsDisplayScreen: React.FC<DogPicsDisplayScreenProps> = ({
           onPress={() => getDogPics()}
         >
           <Text>More Dogs </Text>
-        </  m   Pressable>
+        </Pressable>
       </SafeAreaView>
       {/* <SlideIndicator
         scrollX={scrollX}
