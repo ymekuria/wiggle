@@ -63,7 +63,7 @@ const ScheduleWiggleScreen: React.FC<ScheduleWiggleScreenProps> = ({
         body: notificationBody,
         data: { data: 'goes here' }
       },
-      trigger: { seconds: 2 }
+      trigger: { seconds: 60, repeats: true }
     });
   }
 
@@ -122,6 +122,13 @@ const ScheduleWiggleScreen: React.FC<ScheduleWiggleScreenProps> = ({
         title="Press to schedule a notification"
         onPress={async () => {
           await schedulePushNotification();
+        }}
+      />
+      <Button
+        title="Cancel all scheduled notifications"
+        onPress={async () => {
+          const result = Notifications.cancelAllScheduledNotificationsAsync();
+          console.log('isCanceled', result);
         }}
       />
     </LinearGradient>
