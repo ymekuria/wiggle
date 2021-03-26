@@ -1,14 +1,28 @@
+import { Platform } from 'react-native';
 import React, { useEffect, useState, useContext, useRef } from 'react';
 import * as Notifications from 'expo-notifications';
 import Constants from 'expo-constants';
 
 export default () => {
-  const [expoPushToken, setExpoPushToken] = useState('');
+  const [expoPushToken, setExpoPushToken] = useState<string>('');
   const [notification, setNotification] = useState(false);
   const [notificationBody, setNotificationBody] = useState('');
   const notificationListener = useRef();
   const responseListener = useRef();
 
+  async function schedulePushNotification(
+    scheduleOptions: Notifications.NotificationRequestInput
+  ) {
+    await Notifications.scheduleNotificationAsync(scheduleOptions);
+  }
+
+  async function cancelAllNotificationsAsync() {
+    await Notifications.cancelAllScheduledNotificationsAsync();
+  }
+
+  async function cancelNotificationAsync(identifier: string) {
+    await Notifications.cancelScheduledNotificationAsync(identifier);
+  }
   useEffect(() => {
     async function registerForPushNotificationsAsync() {
       let token;
@@ -43,11 +57,6 @@ export default () => {
       return token;
     }
 
-    async function schedulePushNotification(
-      scheduleOptions: Notifications.NotificationRequestInput
-    ) {
-      await Notifications.scheduleNotificationAsync(scheduleOptions);
-    }
     Notifications.setNotificationHandler({
       handleNotification: async () => ({
         shouldShowAlert: true,
@@ -76,7 +85,7 @@ export default () => {
       Notifications.removeNotificationSubscription(notificationListener);
       Notifications.removeNotificationSubscription(responseListener);
     };
-  }, []);
+  }, [notificationListener, responseListener]);
 
   // {
   //     content: {
@@ -86,4 +95,10 @@ export default () => {
   //     },
   //     trigger: { seconds: 60, repeats: true }
   //   }
+
+  return [
+    schedulePushNotification,
+    cancelAllNotificationsAsync,
+    cancelNotificationAsync
+  ] as const;
 };
