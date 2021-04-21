@@ -9,7 +9,7 @@ import {
   Text
 } from 'react-native';
 import { sendSMSAsync } from 'expo-sms';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import PressableOpacity from './Pressable';
 // import { Text, View } from '../components/Themed';
 import { Context as WiggleContext } from '../context/WiggleContext';
 
@@ -52,25 +52,31 @@ const PhoneNumbersDisplay: React.FC<PhoneNumbersDisplayProps> = ({
       console.log('selectedWiggle', selectedWiggle);
     };
     return (
+      <Pressable onPress={() => onPhoneNumberPress(item)}>
+        <View style={styles.phoneNumberContainer}>
+          <Text>{item.label}</Text>
+          <Text style={styles.phoneNumberText}>{item.digits}</Text>
+        </View>
+      </Pressable>
       // <TouchableOpacity onPress={() => onPhoneNumberPress(item)}>
       //   <View style={styles.phoneNumberContainer}>
       //     <Text>{item.label}</Text>
       //     <Text style={styles.phoneNumberText}>{item.digits}</Text>
       //   </View>
       // </TouchableOpacity>
-      <Pressable
-        onPress={() => onPhoneNumberPress(item)}
-        style={({ pressed }) => {
-          return {
-            opacity: pressed ? 0.2 : 1
-          };
-        }}
-      >
-        <View style={styles.phoneNumberContainer}>
-          <Text>{item.label}</Text>
-          <Text style={styles.phoneNumberText}>{item.digits}</Text>
-        </View>
-      </Pressable>
+      // <Pressable
+      //   onPress={() => onPhoneNumberPress(item)}
+      //   style={({ pressed }) => {
+      //     return {
+      //       opacity: pressed ? 0.2 : 1
+      //     };
+      //   }}
+      // >
+      //   <View style={styles.phoneNumberContainer}>
+      //     <Text>{item.label}</Text>
+      //     <Text style={styles.phoneNumberText}>{item.digits}</Text>
+      //   </View>
+      // </Pressable>
     );
   };
 

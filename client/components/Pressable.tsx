@@ -23,7 +23,7 @@ export default function PressableOpacity(
   const getOpacity = useCallback(
     (pressed: boolean) => {
       if (disabled) return disabledOpacity ?? 1;
-      else return pressed ? 0.6 : 1;
+      else return pressed ? 0.2 : 1;
     },
     [disabled, disabledOpacity]
   );
