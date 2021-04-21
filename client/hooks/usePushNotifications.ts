@@ -4,7 +4,7 @@ import * as Notifications from 'expo-notifications';
 import Constants from 'expo-constants';
 
 export default () => {
-  const [expoPushToken, setExpoPushToken] = useState<string>('');
+  const [expoPushToken, setExpoPushToken] = useState<string | undefined>('');
   const [notification, setNotification] = useState(false);
   const [notificationBody, setNotificationBody] = useState('');
   const notificationListener = useRef();
@@ -65,9 +65,9 @@ export default () => {
       })
     });
 
-    registerForPushNotificationsAsync().then((token) =>
-      setExpoPushToken(token)
-    );
+    registerForPushNotificationsAsync().then((token) => {
+      setExpoPushToken(token);
+    });
 
     notificationListener.current = Notifications.addNotificationReceivedListener(
       (notification) => {

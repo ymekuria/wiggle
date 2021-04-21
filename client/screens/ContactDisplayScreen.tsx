@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { StyleSheet, FlatList, Modal } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+
 import * as Contacts from 'expo-contacts';
 import { Card, Avatar } from 'react-native-elements';
 import { Context as ContactContext } from '../context/ContactContext';

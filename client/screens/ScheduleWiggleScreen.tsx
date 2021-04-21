@@ -3,10 +3,10 @@ import {
   StyleSheet,
   FlatList,
   Platform,
-  Button,
+  Pressable,
   TextInput
 } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Notifications from 'expo-notifications';
 import Constants from 'expo-constants';
@@ -46,9 +46,9 @@ const ScheduleWiggleScreen: React.FC<ScheduleWiggleScreenProps> = ({
           placeholder="Notification Body"
         />
       </View>
-      <Button
-        title="Press to schedule a notification"
+      <Pressable
         onPress={async () => {
+          console.log('pressed');
           await schedulePushNotification({
             content: {
               title: 'First Noftification',
@@ -58,14 +58,17 @@ const ScheduleWiggleScreen: React.FC<ScheduleWiggleScreenProps> = ({
             trigger: { seconds: 60, repeats: true }
           });
         }}
-      />
-      <Button
-        title="Cancel all scheduled notifications"
+      >
+        <Text>Press to schedule a notification"</Text>
+      </Pressable>
+      <Pressable
         onPress={async () => {
           const result = cancelAllNotificationsAsync();
           console.log('isCanceled', result);
         }}
-      />
+      >
+        <Text>Cancel all scheduled notifications</Text>
+      </Pressable>
     </LinearGradient>
   );
 };

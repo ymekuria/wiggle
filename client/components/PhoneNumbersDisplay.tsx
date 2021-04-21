@@ -52,12 +52,25 @@ const PhoneNumbersDisplay: React.FC<PhoneNumbersDisplayProps> = ({
       console.log('selectedWiggle', selectedWiggle);
     };
     return (
-      <TouchableOpacity onPress={() => onPhoneNumberPress(item)}>
+      // <TouchableOpacity onPress={() => onPhoneNumberPress(item)}>
+      //   <View style={styles.phoneNumberContainer}>
+      //     <Text>{item.label}</Text>
+      //     <Text style={styles.phoneNumberText}>{item.digits}</Text>
+      //   </View>
+      // </TouchableOpacity>
+      <Pressable
+        onPress={() => onPhoneNumberPress(item)}
+        style={({ pressed }) => {
+          return {
+            opacity: pressed ? 0.2 : 1
+          };
+        }}
+      >
         <View style={styles.phoneNumberContainer}>
           <Text>{item.label}</Text>
           <Text style={styles.phoneNumberText}>{item.digits}</Text>
         </View>
-      </TouchableOpacity>
+      </Pressable>
     );
   };
 
