@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { StyleSheet, FlatList } from 'react-native';
+import { StyleSheet, FlatList, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { LinearGradient } from 'expo-linear-gradient';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { Picker } from '@react-native-picker/picker';
 import { TabOneParamList } from '../navigation/BottomTabNavigator';
-import { Text, View } from '../components/Themed';
+import { Text } from '../components/Themed';
+import Pressable from '../components/Pressable';
 import { useThemeColor } from '../components/Themed';
 
 type CreateWiggleScreenProps = {
@@ -34,19 +35,33 @@ const CreateWiggleScreen: React.FC<CreateWiggleScreenProps> = ({
       colors={['rgba(163,175,243,1)', 'rgba(220,182,232,1)']}
       style={styles.container}
     >
-      <Picker
-        style={styles.picker}
-        itemStyle={{ color: pickerItemTextColor, height: 100 }}
-        selectedValue={wiggleSelection}
-        onValueChange={(wiggleSelection) => {
-          console.log('item', wiggleSelection);
-          navigation.navigate(wiggleSelection as PickerItemValue);
-        }}
+      <View
+        onStartShouldSetResponder={() => true}
+        onResponderGrant={
+          (event) => {
+            console.log('Press');
+          } /* Handle touched state here */
+        }
       >
-        <Picker.Item label="Send a Dog Wiggle" value="DogPicsDisplayScreen" />
-        <Picker.Item label="Send a Joke Wiggle" value="JokeDisplayScreen" />
-        <Picker.Item label="Schedule a Wiggle" value="ScheduleWiggleScreen" />
-      </Picker>
+        <Picker
+          style={styles.picker}
+          itemStyle={{ color: pickerItemTextColor, height: 100 }}
+          prompt="Create A Wiggle"
+          selectedValue={wiggleSelection}
+          onValueChange={(wiggleItem) => {
+            setWiggleSelection(wiggleItem);
+            console.log('item', wiggleItem);
+            if (wiggleItem !== '') {
+              // navigation.navigate(wiggleSelection as PickerItemValue);
+            }
+          }}
+        >
+          <Picker.Item label="Create a Wiggle" value="" />
+          <Picker.Item label="Send a Dog Wiggle" value="DogPicsDisplayScreen" />
+          <Picker.Item label="Send a Joke Wiggle" value="JokeDisplayScreen" />
+          <Picker.Item label="Schedule a Wiggle" value="ScheduleWiggleScreen" />
+        </Picker>
+      </View>
     </LinearGradient>
   );
 };
