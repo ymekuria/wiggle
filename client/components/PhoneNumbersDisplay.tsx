@@ -3,13 +3,13 @@ import {
   StyleSheet,
   FlatList,
   Modal,
-  Pressable,
   Alert,
   View,
-  Text
+  Text,
+  Pressable
 } from 'react-native';
 import { sendSMSAsync } from 'expo-sms';
-import PressableOpacity from './Pressable';
+import PressableOpacity from './PressableOpacity';
 // import { Text, View } from '../components/Themed';
 import { Context as WiggleContext } from '../context/WiggleContext';
 
@@ -52,12 +52,12 @@ const PhoneNumbersDisplay: React.FC<PhoneNumbersDisplayProps> = ({
       console.log('selectedWiggle', selectedWiggle);
     };
     return (
-      <Pressable onPress={() => onPhoneNumberPress(item)}>
+      <PressableOpacity onPress={() => onPhoneNumberPress(item)}>
         <View style={styles.phoneNumberContainer}>
           <Text>{item.label}</Text>
           <Text style={styles.phoneNumberText}>{item.digits}</Text>
         </View>
-      </Pressable>
+      </PressableOpacity>
       // <TouchableOpacity onPress={() => onPhoneNumberPress(item)}>
       //   <View style={styles.phoneNumberContainer}>
       //     <Text>{item.label}</Text>

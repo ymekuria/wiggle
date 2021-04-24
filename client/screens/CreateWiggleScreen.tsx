@@ -1,13 +1,20 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { StyleSheet, FlatList, View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import {
+  StyleSheet,
+  FlatList,
+  View,
+  Animated,
+  Easing,
+  TouchableOpacity
+} from 'react-native';
+// import { TouchableOpacity } from 'react-native-gesture-handler';
 import { LinearGradient } from 'expo-linear-gradient';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { Picker } from '@react-native-picker/picker';
 import { TabOneParamList } from '../navigation/BottomTabNavigator';
 import { Text } from '../components/Themed';
-import Pressable from '../components/Pressable';
+import PressableOpacity from '../components/PressableOpacity';
 import { useThemeColor } from '../components/Themed';
 
 type CreateWiggleScreenProps = {
@@ -22,31 +29,33 @@ enum PickerItemValue {
 const CreateWiggleScreen: React.FC<CreateWiggleScreenProps> = ({
   navigation
 }) => {
-  console.log('navigation', navigation);
-
   const pickerItemTextColor = useThemeColor(
     { light: undefined, dark: undefined },
     'text'
   );
-  console.log('pickerItermColor', pickerItemTextColor);
-  const [wiggleSelection, setWiggleSelection] = useState<PickerItemValue>();
+
+  const [wiggleSelection, setWiggleSelection] = useState<PickerItemValue>('');
   return (
     <LinearGradient
       colors={['rgba(163,175,243,1)', 'rgba(220,182,232,1)']}
       style={styles.container}
     >
-      <View
-        onStartShouldSetResponder={() => true}
-        onResponderGrant={
-          (event) => {
-            console.log('Press');
-          } /* Handle touched state here */
-        }
+      {/* <PressableOpacity> */}
+
+      <TouchableOpacity
+        onPress={() => {
+          if (wiggleSelection !== '') {
+            navigation.navigate(wiggleSelection as PickerItemValue);
+          }
+        }}
       >
         <Picker
           style={styles.picker}
-          itemStyle={{ color: pickerItemTextColor, height: 100 }}
-          prompt="Create A Wiggle"
+          itemStyle={{
+            color: pickerItemTextColor,
+            height: 100
+          }}
+          mode={'dialog'}
           selectedValue={wiggleSelection}
           onValueChange={(wiggleItem) => {
             setWiggleSelection(wiggleItem);
@@ -61,7 +70,9 @@ const CreateWiggleScreen: React.FC<CreateWiggleScreenProps> = ({
           <Picker.Item label="Send a Joke Wiggle" value="JokeDisplayScreen" />
           <Picker.Item label="Schedule a Wiggle" value="ScheduleWiggleScreen" />
         </Picker>
-      </View>
+      </TouchableOpacity>
+      {/* </View> */}
+      {/* </PressableOpacity> */}
     </LinearGradient>
   );
 };
