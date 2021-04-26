@@ -21,7 +21,7 @@ const Query: QueryResolvers = {
     return dataSources.dogAPI.getRandomDogPic();
   },
   dogPics: (_parent, _args, { dataSources }) => {
-    return dataSources.dogAPI.getThreeRandomDogPics();
+    return dataSources.dogAPI.getRandomDogPics();
   },
   searchJokes: (_parent, { term }, { dataSources }) => {
     return dataSources.jokeAPI.searchJokes(term);

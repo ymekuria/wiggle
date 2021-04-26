@@ -4,7 +4,7 @@ type singleDogResponse = {
   picture: string;
 };
 
-type threeRandomDogsResponse = {
+type randomDogsResponse = {
   pictures: string[];
 };
 class DogAPI extends RESTDataSource {
@@ -21,9 +21,9 @@ class DogAPI extends RESTDataSource {
       return error.message;
     }
   }
-  async getThreeRandomDogPics(): Promise<threeRandomDogsResponse> {
+  async getRandomDogPics(): Promise<randomDogsResponse> {
     try {
-      const { message } = await this.get('breeds/image/random/20');
+      const { message } = await this.get('breeds/image/random/10');
       return { pictures: message };
     } catch (error) {
       return error.message;
