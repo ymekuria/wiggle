@@ -13,7 +13,9 @@ const { width, height } = Dimensions.get('screen');
 const PICTURE_WIDTH = width * 0.66;
 const PICTURE_HEIGHT = height * 0.5;
 const JokeDisplayScreen: React.FC = ({ navigation }) => {
-  const [getJoke, { loading, data }] = useJokeLazyQuery();
+  const [getJoke, { loading, data }] = useJokeLazyQuery({
+    fetchPolicy: 'network-only'
+  });
   const { setSelectedWiggle } = useContext(WiggleContext);
   useEffect(() => {
     getJoke();
