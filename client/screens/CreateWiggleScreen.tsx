@@ -33,6 +33,10 @@ const CreateWiggleScreen: React.FC<CreateWiggleScreenProps> = ({
     { light: undefined, dark: undefined },
     'text'
   );
+  const headerTintColor = useThemeColor(
+    { light: undefined, dark: undefined },
+    'tint'
+  );
 
   const [wiggleSelection, setWiggleSelection] = useState<PickerItemValue>('');
   return (
@@ -40,7 +44,7 @@ const CreateWiggleScreen: React.FC<CreateWiggleScreenProps> = ({
       colors={['rgba(163,175,243,1)', 'rgba(220,182,232,1)']}
       style={styles.container}
     >
-      {/* <PressableOpacity> */}
+      {/* <Text style={styles.title}>Create a Wiggle</Text> */}
 
       <TouchableOpacity
         onPress={() => {
@@ -65,7 +69,7 @@ const CreateWiggleScreen: React.FC<CreateWiggleScreenProps> = ({
             }
           }}
         >
-          <Picker.Item label="Create a Wiggle" value="" />
+          {/* <Picker.Item label="Create a Wiggle" value="" /> */}
           <Picker.Item label="Send a Dog Wiggle" value="DogPicsDisplayScreen" />
           <Picker.Item label="Send a Joke Wiggle" value="JokeDisplayScreen" />
           <Picker.Item label="Schedule a Wiggle" value="ScheduleWiggleScreen" />
@@ -84,8 +88,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   title: {
-    fontSize: 20,
-    fontWeight: 'bold'
+    fontSize: 30,
+    marginBottom: 20,
+    color: '#fff'
   },
   picker: {
     width: 300,

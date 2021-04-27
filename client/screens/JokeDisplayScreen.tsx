@@ -7,6 +7,7 @@ import { Text, View } from '../components/Themed';
 import { Context as WiggleContext } from '../context/WiggleContext';
 import Loading from '../components/Loading';
 import Navigation from '../navigation';
+import PressableOpacity from '../components/PressableOpacity';
 
 const { width, height } = Dimensions.get('screen');
 const PICTURE_WIDTH = width * 0.66;
@@ -38,10 +39,50 @@ const JokeDisplayScreen: React.FC = ({ navigation }) => {
       colors={['rgba(163,175,243,1)', 'rgba(220,182,232,1)']}
       style={styles.container}
     >
-      <Text style={styles.title}>Tab Three</Text>
-      <Pressable onPress={() => onJokePress(data?.joke.joke)}>
-        <Text>{data?.joke.joke}</Text>
-      </Pressable>
+      <PressableOpacity onPress={() => onJokePress(data?.joke.joke)}>
+        <View style={styles.pictureContainer}>
+          <View
+            style={{
+              borderRadius: 18,
+              shadowColor: '#000',
+              shadowOpacity: 0.5,
+              shadowRadius: 30,
+              shadowOffset: {
+                width: 0,
+                height: 0
+              },
+
+              padding: 12,
+              backgroundColor: 'transparent'
+            }}
+          >
+            <View
+              style={{
+                alignItems: 'center',
+                backgroundColor: 'transparent',
+                width: PICTURE_WIDTH,
+                height: PICTURE_HEIGHT,
+                overflow: 'hidden',
+                borderRadius: 14
+              }}
+            >
+              <Text style={styles.jokeText}>{data?.joke.joke}</Text>
+            </View>
+          </View>
+        </View>
+      </PressableOpacity>
+      <PressableOpacity>
+        <View
+          style={{
+            margin: 20,
+            padding: 10,
+            borderRadius: 10,
+            backgroundColor: 'rgba(247,236,250,.3)'
+          }}
+        >
+          <Text>Next Joke</Text>
+        </View>
+      </PressableOpacity>
     </LinearGradient>
   );
 };
@@ -69,6 +110,9 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: 'bold'
+  },
+  jokeText: {
+    fontSize: 20
   }
 });
 

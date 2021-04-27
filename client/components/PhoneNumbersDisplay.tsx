@@ -1,13 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import {
-  StyleSheet,
-  FlatList,
-  Modal,
-  Alert,
-  View,
-  Text,
-  Pressable
-} from 'react-native';
+import { StyleSheet, FlatList, Modal, Alert, View, Text } from 'react-native';
 import { sendSMSAsync } from 'expo-sms';
 import PressableOpacity from './PressableOpacity';
 // import { Text, View } from '../components/Themed';
@@ -108,18 +100,18 @@ const PhoneNumbersDisplay: React.FC<PhoneNumbersDisplayProps> = ({
                 justifyContent: 'space-around'
               }}
             >
-              <Pressable
+              <PressableOpacity
                 style={[styles.button, styles.buttonClose]}
                 onPress={sendSMSwiggle}
               >
                 <Text style={styles.textStyle}>Yes</Text>
-              </Pressable>
-              <Pressable
+              </PressableOpacity>
+              <PressableOpacity
                 style={[styles.button, styles.buttonClose]}
                 onPress={() => setModalVisible(!modalVisible)}
               >
                 <Text style={styles.textStyle}>No</Text>
-              </Pressable>
+              </PressableOpacity>
             </View>
           </View>
         </View>

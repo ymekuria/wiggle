@@ -19,6 +19,7 @@ import SlideIndicator from '../components/SlideIndicator';
 import { Text, View } from '../components/Themed';
 import Loading from '../components/Loading';
 import { Context as WiggleContext } from '../context/WiggleContext';
+import PressableOpacity from '../components/PressableOpacity';
 
 const { width, height } = Dimensions.get('screen');
 const PICTURE_WIDTH = width * 0.66;
@@ -40,7 +41,7 @@ const DogPicsDisplayScreen: React.FC<DogPicsDisplayScreenProps> = ({
     getDogPics();
   }, []);
   // console.log('lazyQueryResulyt', testResult[0]);
-
+  console.log('pic data', data);
   if (loading) {
     console.log('loading', loading);
     return <Loading />;
@@ -72,7 +73,7 @@ const DogPicsDisplayScreen: React.FC<DogPicsDisplayScreenProps> = ({
       outputRange: [-width * 0.7, 0, width * 0.7]
     });
     return (
-      <Pressable onPress={() => onPicPress(item)}>
+      <PressableOpacity onPress={() => onPicPress(item)}>
         <View style={styles.pictureContainer}>
           <View
             style={{
@@ -117,7 +118,7 @@ const DogPicsDisplayScreen: React.FC<DogPicsDisplayScreenProps> = ({
             </View>
           </View>
         </View>
-      </Pressable>
+      </PressableOpacity>
     );
   };
 
@@ -126,36 +127,38 @@ const DogPicsDisplayScreen: React.FC<DogPicsDisplayScreenProps> = ({
       colors={['rgba(163,175,243,1)', 'rgba(220,182,232,1)']}
       style={styles.container}
     >
-      <SafeAreaView>
-        <Animated.FlatList
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          pagingEnabled
-          onScroll={Animated.event(
-            [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-            { useNativeDriver: true }
-          )}
-          data={data?.dogPics?.pictures}
-          renderItem={renderPictures}
-          keyExtractor={(picture, index) => index.toString()}
-        />
-
-        <Pressable
-          // style={{
-          //   // position: 'absolute',
-          //   flex: 0.5,
-          //   backgroundColor: 'transparent'
-          // }}
-          onPress={() => getDogPics()}
-        >
-          <Text>More Dogs </Text>
-        </Pressable>
-      </SafeAreaView>
-      {/* <SlideIndicator
+      {/* <SafeAreaView> */}
+      <Animated.FlatList
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        pagingEnabled
+        removeClippedSubviews
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+          { useNativeDriver: true }
+        )}
+        data={data?.dogPics?.pictures}
+        renderItem={renderPictures}
+        keyExtractor={(picture, index) => index.toString()}
+      />
+      {/* </SafeAreaView> */}
+      <SlideIndicator
         scrollX={scrollX}
         width={width}
         data={data?.dogPics?.pictures}
-      /> */}
+      />
+      <PressableOpacity onPress={() => getDogPics()}>
+        <View
+          style={{
+            // margin: 20,
+            padding: 10,
+            borderRadius: 10,
+            backgroundColor: 'rgba(247,236,250,.3)'
+          }}
+        >
+          <Text>More Dogs</Text>
+        </View>
+      </PressableOpacity>
     </LinearGradient>
     // <Image
     //   source={{
