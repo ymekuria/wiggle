@@ -38,7 +38,9 @@ const CreateWiggleScreen: React.FC<CreateWiggleScreenProps> = ({
     'tint'
   );
 
-  const [wiggleSelection, setWiggleSelection] = useState<PickerItemValue>('');
+  const [wiggleSelection, setWiggleSelection] = useState<PickerItemValue>(
+    'DogPicsDisplayScreen'
+  );
   return (
     <LinearGradient
       colors={['rgba(163,175,243,1)', 'rgba(220,182,232,1)']}

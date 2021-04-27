@@ -11,12 +11,12 @@ import PressableOpacity from '../components/PressableOpacity';
 
 const { width, height } = Dimensions.get('screen');
 const PICTURE_WIDTH = width * 0.66;
-const PICTURE_HEIGHT = height * 0.5;
+const PICTURE_HEIGHT = height * 0.45;
 const JokeDisplayScreen: React.FC = ({ navigation }) => {
+  const { setSelectedWiggle } = useContext(WiggleContext);
   const [getJoke, { loading, data }] = useJokeLazyQuery({
     fetchPolicy: 'network-only'
   });
-  const { setSelectedWiggle } = useContext(WiggleContext);
   useEffect(() => {
     getJoke();
   }, []);
@@ -55,7 +55,7 @@ const JokeDisplayScreen: React.FC = ({ navigation }) => {
               },
 
               padding: 12,
-              backgroundColor: 'transparent'
+              backgroundColor: 'rgba(247,236,250,.3)'
             }}
           >
             <View
@@ -73,7 +73,7 @@ const JokeDisplayScreen: React.FC = ({ navigation }) => {
           </View>
         </View>
       </PressableOpacity>
-      <PressableOpacity>
+      <PressableOpacity onPress={() => getJoke()}>
         <View
           style={{
             margin: 20,

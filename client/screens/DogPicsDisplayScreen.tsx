@@ -23,7 +23,7 @@ import PressableOpacity from '../components/PressableOpacity';
 
 const { width, height } = Dimensions.get('screen');
 const PICTURE_WIDTH = width * 0.66;
-const PICTURE_HEIGHT = height * 0.5;
+const PICTURE_HEIGHT = height * 0.45;
 
 type DogPicsDisplayScreenProps = {
   navigation: StackNavigationProp<TabOneParamList>;
@@ -151,6 +151,8 @@ const DogPicsDisplayScreen: React.FC<DogPicsDisplayScreenProps> = ({
         <View
           style={{
             // margin: 20,
+            flexDirection: 'row',
+            flex: 0.17,
             padding: 10,
             borderRadius: 10,
             backgroundColor: 'rgba(247,236,250,.3)'

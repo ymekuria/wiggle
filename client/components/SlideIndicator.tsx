@@ -1,16 +1,16 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { StyleSheet, FlatList, Animated } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Text, View } from '../components/Themed';
+import { StyleSheet, FlatList, Animated, View } from 'react-native';
+
+// import { Text, View } from '../components/Themed';
 
 type SlideIndicatorProps = {
-  data: any[];
+  data: any;
   scrollX: Animated.Value;
   width: number;
 };
 
 const SlideIndicator: React.FC<SlideIndicatorProps> = ({
-  data,
+  data = [],
   scrollX,
   width
 }) => {
