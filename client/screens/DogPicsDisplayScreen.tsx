@@ -41,7 +41,7 @@ const DogPicsDisplayScreen: React.FC<DogPicsDisplayScreenProps> = ({
     getDogPics();
   }, []);
   // console.log('lazyQueryResulyt', testResult[0]);
-  console.log('pic data', data);
+
   if (loading) {
     console.log('loading', loading);
     return <Loading />;

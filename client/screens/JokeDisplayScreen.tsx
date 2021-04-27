@@ -8,6 +8,7 @@ import { Context as WiggleContext } from '../context/WiggleContext';
 import Loading from '../components/Loading';
 import Navigation from '../navigation';
 import PressableOpacity from '../components/PressableOpacity';
+import Button from '../components/Button';
 
 const { width, height } = Dimensions.get('screen');
 const PICTURE_WIDTH = width * 0.66;
@@ -85,6 +86,9 @@ const JokeDisplayScreen: React.FC = ({ navigation }) => {
           <Text>Next Joke</Text>
         </View>
       </PressableOpacity>
+      <Button>
+        <Text>TEST</Text>
+      </Button>
     </LinearGradient>
   );
 };

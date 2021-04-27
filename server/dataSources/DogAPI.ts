@@ -23,7 +23,7 @@ class DogAPI extends RESTDataSource {
   }
   async getRandomDogPics(): Promise<randomDogsResponse> {
     try {
-      const { message } = await this.get('breeds/image/random/6');
+      const { message } = await this.get('breeds/image/random/8');
       return { pictures: message };
     } catch (error) {
       return error.message;
