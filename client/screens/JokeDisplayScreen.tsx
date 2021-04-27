@@ -74,18 +74,6 @@ const JokeDisplayScreen: React.FC = ({ navigation }) => {
           </View>
         </View>
       </PressableOpacity>
-      {/* <PressableOpacity onPress={() => getJoke()}>
-        <View
-          style={{
-            margin: 20,
-            padding: 10,
-            borderRadius: 10,
-            backgroundColor: 'rgba(247,236,250,.3)'
-          }}
-        >
-          <Text>Next Joke</Text>
-        </View>
-      </PressableOpacity> */}
       <Button style={{ margin: 20 }} onPress={() => getJoke()}>
         <Text>Next Joke</Text>
       </Button>

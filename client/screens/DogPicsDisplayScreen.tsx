@@ -1,22 +1,14 @@
 import React, { useRef, useEffect, useContext } from 'react';
-import {
-  StyleSheet,
-  SafeAreaView,
-  Animated,
-  Dimensions,
-  Pressable
-} from 'react-native';
+import { StyleSheet, SafeAreaView, Animated, Dimensions } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Image, Button } from 'react-native-elements';
-import {
-  useDogPicsQuery,
-  useDogPicsLazyQuery
-} from '../__generated__/ui_types';
+import { Image } from 'react-native-elements';
+import { useDogPicsLazyQuery } from '../__generated__/ui_types';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { TabOneParamList } from '../navigation/BottomTabNavigator';
 import SlideIndicator from '../components/SlideIndicator';
 import { Text, View } from '../components/Themed';
+import Button from '../components/Button';
 import Loading from '../components/Loading';
 import { Context as WiggleContext } from '../context/WiggleContext';
 import PressableOpacity from '../components/PressableOpacity';
@@ -33,33 +25,21 @@ const DogPicsDisplayScreen: React.FC<DogPicsDisplayScreenProps> = ({
 }) => {
   const scrollX = useRef(new Animated.Value(0)).current;
   const { setSelectedWiggle } = useContext(WiggleContext);
-  // const { data, error, loading } = useDogPicsQuery();
   const [getDogPics, { loading, data }] = useDogPicsLazyQuery({
     fetchPolicy: 'network-only'
   });
   useEffect(() => {
     getDogPics();
   }, []);
-  // console.log('lazyQueryResulyt', testResult[0]);
 
   if (loading) {
     console.log('loading', loading);
     return <Loading />;
   }
-  // if (error) {
-  //   console.log('error loading dogPics:', error);
-  //   return (
-  //     <View>
-  //       <Text>Error</Text>
-  //     </View>
-  //   );
-  // }
 
   const onPicPress = (item) => {
     setSelectedWiggle({ wiggle: item, type: 'pic' });
     navigation.navigate('TabTwo', { screen: 'ContactsDisplayScreen' });
-    // navigation.navigate('JokeDisplayScreen');
-    // navigationRef.current?.navigate('Root', { screen: 'TabThree' });
   };
   const onButtonPress = async () => {};
   const renderPictures = ({ item, index }) => {
@@ -147,27 +127,11 @@ const DogPicsDisplayScreen: React.FC<DogPicsDisplayScreenProps> = ({
         width={width}
         data={data?.dogPics?.pictures}
       />
-      <PressableOpacity onPress={() => getDogPics()}>
-        <View
-          style={{
-            // margin: 20,
-            flexDirection: 'row',
-            flex: 0.17,
-            padding: 10,
-            borderRadius: 10,
-            backgroundColor: 'rgba(247,236,250,.3)'
-          }}
-        >
-          <Text>More Dogs</Text>
-        </View>
-      </PressableOpacity>
+
+      <Button style={{ flex: 0.17 }} onPress={() => getDogPics()}>
+        <Text>More Dogs</Text>
+      </Button>
     </LinearGradient>
-    // <Image
-    //   source={{
-    //     uri: `${data?.dogPics?.pictures[0]}`
-    //   }}
-    //   style={{ height: '20%', width: '80%', resizeMode: 'contain' }}
-    // ></Image>
   );
 };
 
