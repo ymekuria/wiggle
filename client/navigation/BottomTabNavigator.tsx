@@ -60,12 +60,7 @@ const TabOneNavigator = () => {
       headerMode={'screen'}
       screenOptions={() => ({
         headerTransparent: true,
-        // headerStyle: {
-        //   backgroundColor: 'rgba(163,175,243,1)'
-        // },
-        // headerBackImage: ({ tintColor }) => {
-        //   return <View></View>;
-        // },
+        headerTitle: '',
 
         headerTintColor: headerTintColor
       })}
@@ -101,9 +96,7 @@ const TabTwoNavigator = () => {
       headerMode="screen"
       screenOptions={() => ({
         headerTransparent: true,
-        headerStyle: {
-          backgroundColor: 'rgba(163,175,243,1)'
-        },
+        headerTitle: '',
 
         headerTintColor: headerTintColor
       })}
