@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { StyleSheet, FlatList, Modal } from 'react-native';
+import { StyleSheet, FlatList, Modal, Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import * as Contacts from 'expo-contacts';
@@ -11,7 +11,7 @@ import AvatarDisplay from '../components/AvatarDisplay';
 import PhoneNumbersDisplay from '../components/PhoneNumbersDisplay';
 import { Contact } from 'expo-contacts';
 import BirthdayDisplay from '../components/BirthdayDisplay';
-
+const { width, height } = Dimensions.get('screen');
 const ContactDisplayScreen: React.FC = () => {
   const { currentContact } = useContext(ContactContext);
   const { selectedWiggle } = useContext(WiggleContext);
@@ -42,7 +42,8 @@ const ContactDisplayScreen: React.FC = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    paddingTop: height * 0.125
 
     // alignItems: 'center',
     // justifyContent: 'center'

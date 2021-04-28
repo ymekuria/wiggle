@@ -6,6 +6,7 @@ import {
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigatorScreenParams } from '@react-navigation/native';
 import * as React from 'react';
+import { Text, View } from 'react-native';
 
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
@@ -56,18 +57,20 @@ const TabOneNavigator = () => {
   );
   return (
     <TabOneStack.Navigator
+      headerMode={'screen'}
       screenOptions={() => ({
-        headerStyle: {
-          backgroundColor: 'rgba(163,175,243,1)'
-        },
+        headerTransparent: true,
+        // headerStyle: {
+        //   backgroundColor: 'rgba(163,175,243,1)'
+        // },
+        // headerBackImage: ({ tintColor }) => {
+        //   return <View></View>;
+        // },
 
         headerTintColor: headerTintColor
       })}
     >
-      <TabOneStack.Screen
-        name="CreateWiggleScreen"
-        component={CreateWiggleScreen}
-      />
+      <TabOneStack.Screen name=" " component={CreateWiggleScreen} />
       <TabOneStack.Screen
         name="ScheduleWiggleScreen"
         component={ScheduleWiggleScreen}
@@ -97,6 +100,7 @@ const TabTwoNavigator = () => {
       initialRouteName="ContactsDisplayScreen"
       headerMode="screen"
       screenOptions={() => ({
+        headerTransparent: true,
         headerStyle: {
           backgroundColor: 'rgba(163,175,243,1)'
         },

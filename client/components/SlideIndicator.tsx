@@ -15,7 +15,7 @@ const SlideIndicator: React.FC<SlideIndicatorProps> = ({
   width
 }) => {
   const renderIndicator = () => {
-    return data.map((_, index) => {
+    return data?.map((_, index) => {
       const inputRange = [
         (index - 1) * width,
         index * width,

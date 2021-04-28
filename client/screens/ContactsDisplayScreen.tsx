@@ -1,5 +1,11 @@
 import React, { useState, useContext, useRef } from 'react';
-import { StyleSheet, FlatList, SafeAreaView, Animated } from 'react-native';
+import {
+  StyleSheet,
+  FlatList,
+  SafeAreaView,
+  Animated,
+  Dimensions
+} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Contact } from 'expo-contacts';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -14,6 +20,7 @@ import { SearchBar } from 'react-native-elements';
 import { Context as ContactContext } from '../context/ContactContext';
 
 const ITEM_SIZE = 66.3;
+const { width, height } = Dimensions.get('screen');
 const ContactsDisplayScreen = () => {
   const HEADER_HEIGHT = useHeaderHeight();
 
@@ -105,7 +112,8 @@ const ContactsDisplayScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    paddingTop: height * 0.125
     // alignItems: 'center',
     // justifyContent: 'center'
   },

@@ -1,5 +1,11 @@
 import React, { useRef, useEffect, useContext } from 'react';
-import { StyleSheet, SafeAreaView, Animated, Dimensions } from 'react-native';
+import {
+  StyleSheet,
+  SafeAreaView,
+  Animated,
+  Dimensions,
+  View
+} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Image } from 'react-native-elements';
@@ -7,7 +13,7 @@ import { useDogPicsLazyQuery } from '../__generated__/ui_types';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { TabOneParamList } from '../navigation/BottomTabNavigator';
 import SlideIndicator from '../components/SlideIndicator';
-import { Text, View } from '../components/Themed';
+import { Text } from '../components/Themed';
 import Button from '../components/Button';
 import Loading from '../components/Loading';
 import { Context as WiggleContext } from '../context/WiggleContext';
@@ -60,7 +66,7 @@ const DogPicsDisplayScreen: React.FC<DogPicsDisplayScreenProps> = ({
               borderRadius: 18,
               shadowColor: '#000',
               shadowOpacity: 0.5,
-              shadowRadius: 30,
+              shadowRadius: 20,
               shadowOffset: {
                 width: 0,
                 height: 0
@@ -108,6 +114,7 @@ const DogPicsDisplayScreen: React.FC<DogPicsDisplayScreenProps> = ({
       style={styles.container}
     >
       {/* <SafeAreaView> */}
+
       <Animated.FlatList
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -121,7 +128,9 @@ const DogPicsDisplayScreen: React.FC<DogPicsDisplayScreenProps> = ({
         renderItem={renderPictures}
         keyExtractor={(picture, index) => index.toString()}
       />
+
       {/* </SafeAreaView> */}
+
       <SlideIndicator
         scrollX={scrollX}
         width={width}
@@ -138,6 +147,7 @@ const DogPicsDisplayScreen: React.FC<DogPicsDisplayScreenProps> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: height * 0.125,
     alignItems: 'center',
     justifyContent: 'center'
   },

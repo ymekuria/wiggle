@@ -48,13 +48,15 @@ const RootNavigator: React.FC<RootNavigatorProps> = ({ accessToken }) => {
     <Stack.Navigator
       initialRouteName="Root"
       headerMode="none"
-      screenOptions={({ route }) => ({
-        headerTitle: getHeaderTitle(route),
+      //   screenOptions={
+      //   //   ({ route }) => ({
+      //   //   headerTitle: getHeaderTitle(route),
 
-        headerStyle: {
-          backgroundColor: 'rgba(163,175,243,1)'
-        }
-      })}
+      //   //   headerStyle: {
+      //   //     backgroundColor: 'rgba(163,175,243,1)'
+      //   //   }
+      //   // })
+      // }
     >
       {accessToken ? (
         <Stack.Screen
