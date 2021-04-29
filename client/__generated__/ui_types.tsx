@@ -145,6 +145,11 @@ export type JokeQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type JokeQuery = { __typename?: 'Query', joke?: Maybe<{ __typename?: 'Joke', joke?: Maybe<string> }> };
 
+export type JokesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type JokesQuery = { __typename?: 'Query', jokes?: Maybe<Array<Maybe<{ __typename?: 'Joke', joke?: Maybe<string> }>>> };
+
 export const JokeFragmentFragmentDoc = gql`
     fragment JokeFragment on Joke {
   joke
@@ -266,3 +271,35 @@ export function useJokeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<JokeQ
 export type JokeQueryHookResult = ReturnType<typeof useJokeQuery>;
 export type JokeLazyQueryHookResult = ReturnType<typeof useJokeLazyQuery>;
 export type JokeQueryResult = Apollo.QueryResult<JokeQuery, JokeQueryVariables>;
+export const JokesDocument = gql`
+    query jokes {
+  jokes {
+    joke
+  }
+}
+    `;
+
+/**
+ * __useJokesQuery__
+ *
+ * To run a query within a React component, call `useJokesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useJokesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useJokesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useJokesQuery(baseOptions?: Apollo.QueryHookOptions<JokesQuery, JokesQueryVariables>) {
+        return Apollo.useQuery<JokesQuery, JokesQueryVariables>(JokesDocument, baseOptions);
+      }
+export function useJokesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<JokesQuery, JokesQueryVariables>) {
+          return Apollo.useLazyQuery<JokesQuery, JokesQueryVariables>(JokesDocument, baseOptions);
+        }
+export type JokesQueryHookResult = ReturnType<typeof useJokesQuery>;
+export type JokesLazyQueryHookResult = ReturnType<typeof useJokesLazyQuery>;
+export type JokesQueryResult = Apollo.QueryResult<JokesQuery, JokesQueryVariables>;

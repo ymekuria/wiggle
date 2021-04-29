@@ -1,47 +1,56 @@
-import React, { useContext, useEffect } from 'react';
-import { StyleSheet, Dimensions, Image, Pressable } from 'react-native';
+import React, { useContext, useEffect, useRef } from 'react';
+import { StyleSheet, Dimensions, Pressable, Animated } from 'react-native';
 
-import { useJokeQuery, useJokeLazyQuery } from '../__generated__/ui_types';
+import {
+  useJokeQuery,
+  useJokeLazyQuery,
+  useJokesLazyQuery
+} from '../__generated__/ui_types';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Text, View } from '../components/Themed';
 import { Context as WiggleContext } from '../context/WiggleContext';
 import Loading from '../components/Loading';
+import SlideIndicator from '../components/SlideIndicator';
 import Navigation from '../navigation';
 import PressableOpacity from '../components/PressableOpacity';
 import Button from '../components/Button';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const { width, height } = Dimensions.get('screen');
 const PICTURE_WIDTH = width * 0.66;
 const PICTURE_HEIGHT = height * 0.45;
+
 const JokeDisplayScreen: React.FC = ({ navigation }) => {
+  const scrollX = useRef(new Animated.Value(0)).current;
   const { setSelectedWiggle } = useContext(WiggleContext);
-  const [getJoke, { loading, data }] = useJokeLazyQuery({
+  const [getJokes, { loading, data }] = useJokesLazyQuery({
     fetchPolicy: 'network-only'
   });
   useEffect(() => {
-    getJoke();
+    getJokes();
   }, []);
+  console.log('jokes', data);
   if (loading) {
     return <Loading />;
   }
-  // if (error) {
-  //   console.log(error);
-  //   return (
-  //     <View>
-  //       <Text>Error...</Text>
-  //     </View>
-  //   );
-  // }
+
   const onJokePress = (joke) => {
     setSelectedWiggle({ wiggle: joke, type: 'joke' });
     navigation.navigate('TabTwo', { screen: 'ContactsDisplayScreen' });
   };
-  // console.log('joke', data);
-  return (
-    <LinearGradient
-      colors={['rgba(163,175,243,1)', 'rgba(220,182,232,1)']}
-      style={styles.container}
-    >
+
+  const renderJokes = ({ item, index }) => {
+    const inputRange = [
+      (index - 1) * width,
+      index * width,
+      (index + 1) * width
+    ];
+    const translateX = scrollX.interpolate({
+      inputRange,
+      outputRange: [-width * 0.7, 0, width * 0.7]
+    });
+
+    return (
       <PressableOpacity onPress={() => onJokePress(data?.joke.joke)}>
         <View style={styles.pictureContainer}>
           <View
@@ -69,13 +78,37 @@ const JokeDisplayScreen: React.FC = ({ navigation }) => {
                 borderRadius: 14
               }}
             >
-              <Text style={styles.jokeText}>{data?.joke.joke}</Text>
+              <Text style={styles.jokeText}>{item.joke}</Text>
             </View>
           </View>
         </View>
       </PressableOpacity>
-      <Button style={{ margin: 20 }} onPress={() => getJoke()}>
-        <Text>Next Joke</Text>
+    );
+  };
+  // console.log('joke', data);
+  return (
+    <LinearGradient
+      colors={['rgba(163,175,243,1)', 'rgba(220,182,232,1)']}
+      style={styles.container}
+    >
+      <Animated.FlatList
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        pagingEnabled
+        removeClippedSubviews
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+          { useNativeDriver: true }
+        )}
+        data={data?.jokes}
+        renderItem={renderJokes}
+        keyExtractor={(joke, index) => index.toString()}
+      />
+
+      <SlideIndicator scrollX={scrollX} width={width} data={data?.jokes} />
+
+      <Button style={{ flex: 0.17 }} onPress={() => getJokes()}>
+        <Text>More Jokes</Text>
       </Button>
     </LinearGradient>
   );

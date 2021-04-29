@@ -25,11 +25,17 @@ const ScheduleWiggleScreen: React.FC<ScheduleWiggleScreenProps> = ({
   navigation
 }) => {
   const [notificationBody, setNotificationBody] = useState('');
+  const pickerItemTextColor = useThemeColor(
+    { light: undefined, dark: undefined },
+    'text'
+  );
 
   const [
     schedulePushNotification,
     cancelAllNotificationsAsync
   ] = usePushNotifications();
+
+  const [frequencySelection, setFrequencySelection] = useState('');
   return (
     <LinearGradient
       colors={['rgba(163,175,243,1)', 'rgba(220,182,232,1)']}
@@ -42,22 +48,43 @@ const ScheduleWiggleScreen: React.FC<ScheduleWiggleScreenProps> = ({
           height: 100
         }}
         mode={'dialog'}
-        selectedValue={wiggleSelection}
-        onValueChange={(wiggleItem) => {
-          setWiggleSelection(wiggleItem);
-          console.log('item', wiggleItem);
-          if (wiggleItem !== '') {
-            // navigation.navigate(wiggleSelection as PickerItemValue);
+        selectedValue={frequencySelection}
+        onValueChange={(frequencyItem) => {
+          setFrequencySelection(frequencyItem);
+          console.log('item', frequencyItem);
+          if (frequencyItem !== '') {
+            // navigation.navigate(frequencySelection as PickerItemValue);
           }
         }}
       >
         {/* <Picker.Item label="Create a Wiggle" value="" /> */}
-        <Picker.Item label="Send a Dog Wiggle" value="DogPicsDisplayScreen" />
-        <Picker.Item label="Send a Joke Wiggle" value="JokeDisplayScreen" />
-        <Picker.Item label="Schedule a Wiggle" value="ScheduleWiggleScreen" />
+        <Picker.Item label="Daily" value="Daily" />
+        <Picker.Item label="Twice a Day" value="Twice" />
+        <Picker.Item label="Weekly" value="Weekly" />
       </Picker>
 
-      <View
+      <Picker
+        style={styles.picker}
+        itemStyle={{
+          color: pickerItemTextColor,
+          height: 100
+        }}
+        mode={'dialog'}
+        selectedValue={frequencySelection}
+        onValueChange={(frequencyItem) => {
+          setFrequencySelection(frequencyItem);
+          console.log('item', frequencyItem);
+          if (frequencyItem !== '') {
+            // navigation.navigate(frequencySelection as PickerItemValue);
+          }
+        }}
+      >
+        {/* <Picker.Item label="Create a Wiggle" value="" /> */}
+        <Picker.Item label="Dog Wiggle" value="Daily" />
+        <Picker.Item label="Joke Wiggle" value="Twice" />
+      </Picker>
+
+      {/* <View
         style={{
           alignItems: 'center',
           justifyContent: 'center',
@@ -65,12 +92,12 @@ const ScheduleWiggleScreen: React.FC<ScheduleWiggleScreenProps> = ({
         }}
       >
         <TextInput
-          style={{ fontSize: 50 }}
+          style={{ fontSize: 20 }}
           onChangeText={setNotificationBody}
           value={notificationBody}
           placeholder="Notification Body"
         />
-      </View>
+      </View> */}
       <Button
         style={styles.buttonStyle}
         onPress={async () => {
@@ -112,6 +139,11 @@ const styles = StyleSheet.create({
   },
   buttonStyle: {
     margin: 20
+  },
+  picker: {
+    width: 300,
+    height: 100,
+    backgroundColor: 'transparent'
   }
 });
 
