@@ -51,7 +51,7 @@ const JokeDisplayScreen: React.FC = ({ navigation }) => {
     });
 
     return (
-      <PressableOpacity onPress={() => onJokePress(data?.joke.joke)}>
+      <PressableOpacity onPress={() => onJokePress(data?.jokes?.joke)}>
         <View style={styles.pictureContainer}>
           <View
             style={{
@@ -118,7 +118,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    paddingTop: height * 0.125
   },
   pictureContainer: {
     // margin: 5,

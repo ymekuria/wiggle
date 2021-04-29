@@ -39,8 +39,8 @@ class JokeAPI extends RESTDataSource {
     const randomPage = Math.floor(Math.random() * 130) + 1;
 
     try {
-      // returns 5 random results
-      const { results } = await this.get(`/search?limit=5&page=${randomPage}`);
+      // returns 8 random results
+      const { results } = await this.get(`/search?limit=8&page=${randomPage}`);
       return results;
     } catch (error) {
       return error.message;
