@@ -80,7 +80,8 @@ const JokeDisplayScreen: React.FC = ({ navigation }) => {
             >
               <Animated.View
                 style={{
-                  padding: height * 0.05,
+                  paddingTop: height * 0.06,
+                  paddingHorizontal: width * 0.05,
                   transform: [{ translateX }]
                 }}
               >

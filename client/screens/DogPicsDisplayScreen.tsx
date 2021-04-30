@@ -47,7 +47,7 @@ const DogPicsDisplayScreen: React.FC<DogPicsDisplayScreenProps> = ({
     setSelectedWiggle({ wiggle: item, type: 'pic' });
     navigation.navigate('TabTwo', { screen: 'ContactsDisplayScreen' });
   };
-  const onButtonPress = async () => {};
+
   const renderPictures = ({ item, index }) => {
     const inputRange = [
       (index - 1) * width,
@@ -60,46 +60,19 @@ const DogPicsDisplayScreen: React.FC<DogPicsDisplayScreenProps> = ({
     });
     return (
       <PressableOpacity onPress={() => onPicPress(item)}>
-        <View style={styles.pictureContainer}>
-          <View
-            style={{
-              borderRadius: 18,
-              shadowColor: '#000',
-              shadowOpacity: 0.5,
-              shadowRadius: 20,
-              shadowOffset: {
-                width: 0,
-                height: 0
-              },
-
-              padding: 12,
-              backgroundColor: 'white'
-            }}
-          >
-            <View
-              style={{
-                alignItems: 'center',
-
-                width: PICTURE_WIDTH,
-                height: PICTURE_HEIGHT,
-                overflow: 'hidden',
-                borderRadius: 14
-              }}
-            >
+        <View style={styles.carouselContainer}>
+          <View style={styles.parallaxContainer}>
+            <View style={styles.imageContainer}>
               <Animated.Image
                 source={{
                   uri: item
                 }}
-                style={{
-                  height: PICTURE_HEIGHT,
-                  width: PICTURE_WIDTH * 1.4,
-                  resizeMode: 'stretch',
-                  transform: [
-                    {
-                      translateX
-                    }
-                  ]
-                }}
+                style={[
+                  styles.imageStyles,
+                  {
+                    transform: [{ translateX }]
+                  }
+                ]}
               ></Animated.Image>
             </View>
           </View>
@@ -113,8 +86,6 @@ const DogPicsDisplayScreen: React.FC<DogPicsDisplayScreenProps> = ({
       colors={['rgba(163,175,243,1)', 'rgba(220,182,232,1)']}
       style={styles.container}
     >
-      {/* <SafeAreaView> */}
-
       <Animated.FlatList
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -128,8 +99,6 @@ const DogPicsDisplayScreen: React.FC<DogPicsDisplayScreenProps> = ({
         renderItem={renderPictures}
         keyExtractor={(picture, index) => index.toString()}
       />
-
-      {/* </SafeAreaView> */}
 
       <SlideIndicator
         scrollX={scrollX}
@@ -155,19 +124,36 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold'
   },
-  pictureContainer: {
-    // margin: 5,
+  carouselContainer: {
     width,
-    // padding: 20,
     paddingTop: height / 20,
-
-    // flex: 1,
     backgroundColor: 'transparent',
-
-    // backgroundColor: 'rgba(247,236,250,.3)',
-    // justifyContent: 'space-evenly'
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  parallaxContainer: {
+    borderRadius: 18,
+    shadowColor: '#000',
+    shadowOpacity: 0.5,
+    shadowRadius: 20,
+    shadowOffset: {
+      width: 0,
+      height: 0
+    },
+    padding: 12,
+    backgroundColor: 'white'
+  },
+  imageContainer: {
+    alignItems: 'center',
+    width: PICTURE_WIDTH,
+    height: PICTURE_HEIGHT,
+    overflow: 'hidden',
+    borderRadius: 14
+  },
+  imageStyles: {
+    height: PICTURE_HEIGHT,
+    width: PICTURE_WIDTH * 1.4,
+    resizeMode: 'stretch'
   }
 });
 
