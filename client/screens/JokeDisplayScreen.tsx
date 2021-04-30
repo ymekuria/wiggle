@@ -52,38 +52,16 @@ const JokeDisplayScreen: React.FC = ({ navigation }) => {
 
     return (
       <PressableOpacity onPress={() => onJokePress(item.joke)}>
-        <View style={styles.pictureContainer}>
-          <View
-            style={{
-              borderRadius: 18,
-              shadowColor: '#000',
-              shadowOpacity: 0.5,
-              shadowRadius: 30,
-              shadowOffset: {
-                width: 0,
-                height: 0
-              },
-
-              padding: 12,
-              backgroundColor: 'rgba(247,236,250,.3)'
-            }}
-          >
-            <View
-              style={{
-                alignItems: 'center',
-                backgroundColor: 'transparent',
-                width: PICTURE_WIDTH,
-                height: PICTURE_HEIGHT,
-                overflow: 'hidden',
-                borderRadius: 14
-              }}
-            >
+        <View style={styles.carouselContainer}>
+          <View style={styles.parallaxContainer}>
+            <View style={styles.jokeContainer}>
               <Animated.View
-                style={{
-                  paddingTop: height * 0.06,
-                  paddingHorizontal: width * 0.05,
-                  transform: [{ translateX }]
-                }}
+                style={[
+                  styles.jokeStyles,
+                  {
+                    transform: [{ translateX }]
+                  }
+                ]}
               >
                 <Text style={styles.jokeText}>{item.joke}</Text>
               </Animated.View>
@@ -129,7 +107,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingTop: height * 0.125
   },
-  pictureContainer: {
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold'
+  },
+  carouselContainer: {
     // margin: 5,
     width,
     // padding: 20,
@@ -143,10 +125,32 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold'
+  parallaxContainer: {
+    borderRadius: 18,
+    shadowColor: '#000',
+    shadowOpacity: 0.5,
+    shadowRadius: 30,
+    shadowOffset: {
+      width: 0,
+      height: 0
+    },
+
+    padding: 12,
+    backgroundColor: 'rgba(247,236,250,.3)'
   },
+  jokeContainer: {
+    alignItems: 'center',
+    backgroundColor: 'transparent',
+    width: PICTURE_WIDTH,
+    height: PICTURE_HEIGHT,
+    overflow: 'hidden',
+    borderRadius: 14
+  },
+  jokeStyles: {
+    paddingTop: height * 0.06,
+    paddingHorizontal: width * 0.05
+  },
+
   jokeText: {
     fontSize: 20
   }
