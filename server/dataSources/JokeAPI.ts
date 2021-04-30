@@ -36,7 +36,7 @@ class JokeAPI extends RESTDataSource {
   }
 
   async getMultipleRandomJokes(): Promise<multipleJokes> {
-    const randomPage = Math.floor(Math.random() * 130) + 1;
+    const randomPage = Math.floor(Math.random() * 90) + 1;
 
     try {
       // returns 8 random results

@@ -51,7 +51,7 @@ const JokeDisplayScreen: React.FC = ({ navigation }) => {
     });
 
     return (
-      <PressableOpacity onPress={() => onJokePress(data?.jokes?.joke)}>
+      <PressableOpacity onPress={() => onJokePress(item.joke)}>
         <View style={styles.pictureContainer}>
           <View
             style={{
@@ -78,7 +78,14 @@ const JokeDisplayScreen: React.FC = ({ navigation }) => {
                 borderRadius: 14
               }}
             >
-              <Text style={styles.jokeText}>{item.joke}</Text>
+              <Animated.View
+                style={{
+                  padding: height * 0.05,
+                  transform: [{ translateX }]
+                }}
+              >
+                <Text style={styles.jokeText}>{item.joke}</Text>
+              </Animated.View>
             </View>
           </View>
         </View>
