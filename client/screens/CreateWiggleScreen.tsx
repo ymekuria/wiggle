@@ -49,7 +49,8 @@ const CreateWiggleScreen: React.FC<CreateWiggleScreenProps> = ({
       {/* <Text style={styles.title}>Create a Wiggle</Text> */}
 
       <TouchableOpacity
-        onPress={() => {
+        delayLongPress={200}
+        onLongPress={() => {
           if (wiggleSelection !== '') {
             navigation.navigate(wiggleSelection as PickerItemValue);
           }

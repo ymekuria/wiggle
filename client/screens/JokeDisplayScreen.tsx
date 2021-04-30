@@ -29,7 +29,7 @@ const JokeDisplayScreen: React.FC = ({ navigation }) => {
   useEffect(() => {
     getJokes();
   }, []);
-  console.log('jokes', data);
+
   if (loading) {
     return <Loading />;
   }
