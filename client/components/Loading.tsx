@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { StyleSheet, FlatList } from 'react-native';
+import { StyleSheet, ActivityIndicator } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Text, View } from '../components/Themed';
@@ -12,7 +12,7 @@ const Loading: React.FC<LoadingProps> = () => {
       colors={['rgba(163,175,243,1)', 'rgba(220,182,232,1)']}
       style={styles.container}
     >
-      <Text>...Loading</Text>
+      <ActivityIndicator size="large" />
     </LinearGradient>
   );
 };
