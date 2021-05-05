@@ -118,15 +118,6 @@ export default () => {
     };
   }, []);
 
-  // {
-  //     content: {
-  //       title: 'First Noftification',
-  //       body: notificationBody,
-  //       data: { data: 'goes here' }
-  //     },
-  //     trigger: { seconds: 60, repeats: true }
-  //   }
-
   return [
     schedulePushNotification,
     cancelAllNotificationsAsync,
