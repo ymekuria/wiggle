@@ -2,6 +2,7 @@ import { Platform } from 'react-native';
 import React, { useEffect, useState, useContext, useRef } from 'react';
 import * as Notifications from 'expo-notifications';
 import Constants from 'expo-constants';
+import { navigationRef } from '../navigation/navigationRef';
 
 export default () => {
   const [expoPushToken, setExpoPushToken] = useState<string | undefined>('');
@@ -52,7 +53,21 @@ export default () => {
           vibrationPattern: [0, 250, 250, 250],
           lightColor: '#FF231F7C'
         });
+      } else {
+        // interactive buttons for push notifiaction
+        Notifications.setNotificationCategoryAsync('basic', [
+          { identifier: 'dog', buttonTitle: 'Send Dog Wiggle 😀' },
+          { identifier: 'joke', buttonTitle: 'Send Joke Wiggle 😕' }
+        ]);
       }
+      // Check category is there
+      Notifications.getNotificationCategoriesAsync().then((categories) => {
+        console.log('categories', categories);
+      });
+
+      // Get experienceId
+      const experienceId = Constants.manifest.id;
+      console.log('experienceId', experienceId);
 
       return token;
     }
@@ -69,6 +84,24 @@ export default () => {
       setExpoPushToken(token);
     });
 
+    async function handleNotificationResponse(response) {
+      const actionType = response.actionIdentifier;
+      switch (actionType) {
+        case 'dog':
+          console.log('case yes');
+          navigationRef.current?.navigate('TabOne', {
+            screen: 'DogPicsDisplayScreen'
+          });
+        case 'joke':
+          console.log('case yes');
+          navigationRef.current?.navigate('TabOne', {
+            screen: 'JokeDisplayScreen'
+          });
+        default:
+          break;
+      }
+    }
+
     notificationListener.current = Notifications.addNotificationReceivedListener(
       (notification) => {
         setNotification(notification);
@@ -76,16 +109,14 @@ export default () => {
     );
 
     responseListener.current = Notifications.addNotificationResponseReceivedListener(
-      (response) => {
-        console.log('addNotificationResponseREcievedListner', response);
-      }
+      (response) => console.log(response)
     );
 
     return () => {
       Notifications.removeNotificationSubscription(notificationListener);
       Notifications.removeNotificationSubscription(responseListener);
     };
-  }, [notificationListener, responseListener]);
+  }, []);
 
   // {
   //     content: {

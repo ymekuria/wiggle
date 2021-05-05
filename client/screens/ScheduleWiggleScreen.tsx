@@ -35,7 +35,8 @@ const ScheduleWiggleScreen: React.FC<ScheduleWiggleScreenProps> = ({
     cancelAllNotificationsAsync
   ] = usePushNotifications();
 
-  const [frequencySelection, setFrequencySelection] = useState('');
+  const [frequencySelection, setFrequencySelection] = useState('daily');
+  const [wiggleTypeSelection, setWiggleTypeSelection] = useState('dog');
   return (
     <LinearGradient
       colors={['rgba(163,175,243,1)', 'rgba(220,182,232,1)']}
@@ -58,9 +59,9 @@ const ScheduleWiggleScreen: React.FC<ScheduleWiggleScreenProps> = ({
         }}
       >
         {/* <Picker.Item label="Create a Wiggle" value="" /> */}
-        <Picker.Item label="Daily" value="Daily" />
-        <Picker.Item label="Twice a Day" value="Twice" />
-        <Picker.Item label="Weekly" value="Weekly" />
+        <Picker.Item label="Daily" value="daily" />
+        <Picker.Item label="Twice a Day" value="twice" />
+        <Picker.Item label="Weekly" value="weekly" />
       </Picker>
 
       <Picker
@@ -70,18 +71,18 @@ const ScheduleWiggleScreen: React.FC<ScheduleWiggleScreenProps> = ({
           height: 100
         }}
         mode={'dialog'}
-        selectedValue={frequencySelection}
-        onValueChange={(frequencyItem) => {
-          setFrequencySelection(frequencyItem);
-          console.log('item', frequencyItem);
-          if (frequencyItem !== '') {
+        selectedValue={wiggleTypeSelection}
+        onValueChange={(wiggleItem) => {
+          setWiggleTypeSelection(wiggleItem);
+          console.log('WiggleItem', wiggleItem);
+          if (wiggleItem !== '') {
             // navigation.navigate(frequencySelection as PickerItemValue);
           }
         }}
       >
         {/* <Picker.Item label="Create a Wiggle" value="" /> */}
-        <Picker.Item label="Dog Wiggle" value="Daily" />
-        <Picker.Item label="Joke Wiggle" value="Twice" />
+        <Picker.Item label="Dog Wiggle" value="dog" />
+        <Picker.Item label="Joke Wiggle" value="joke" />
       </Picker>
 
       {/* <View
@@ -102,13 +103,16 @@ const ScheduleWiggleScreen: React.FC<ScheduleWiggleScreenProps> = ({
         style={styles.buttonStyle}
         onPress={async () => {
           console.log('pressed');
-          await schedulePushNotification({
+          const identifier = await schedulePushNotification({
             content: {
-              title: 'First Noftification',
+              categoryIdentifier: 'basic',
+              title: 'Send A Wiggle',
+              subtitle: 'Interactive Noftification',
+
               body: notificationBody,
               data: { data: 'goes here' }
             },
-            trigger: { seconds: 60, repeats: true }
+            trigger: null
           });
         }}
       >
