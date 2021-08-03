@@ -39,7 +39,6 @@ const DogPicsDisplayScreen: React.FC<DogPicsDisplayScreenProps> = ({
   }, []);
 
   if (loading) {
-    console.log('loading', loading);
     return <Loading />;
   }
 

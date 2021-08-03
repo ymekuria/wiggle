@@ -3,9 +3,9 @@ import { StyleSheet, FlatList, View } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import { Text } from '../components/Themed';
 
-interface AvatarDisplayProps {
+type AvatarDisplayProps = {
   contact: any;
-}
+};
 
 const AvatarDisplay: React.FC<AvatarDisplayProps> = ({ contact }) => {
   return (

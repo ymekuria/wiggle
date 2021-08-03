@@ -58,7 +58,6 @@ const ScheduleWiggleScreen: React.FC<ScheduleWiggleScreenProps> = ({
           }
         }}
       >
-        {/* <Picker.Item label="Create a Wiggle" value="" /> */}
         <Picker.Item label="Daily" value="daily" />
         <Picker.Item label="Twice a Day" value="twice" />
         <Picker.Item label="Weekly" value="weekly" />

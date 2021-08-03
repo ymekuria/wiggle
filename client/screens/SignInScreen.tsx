@@ -3,7 +3,6 @@ import { StyleSheet, StatusBar } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Button } from 'react-native-elements';
 import { useAuth0 } from '../hooks/useAuth0';
-import { Text, View } from '../components/Themed';
 
 const SignInScreen: React.FC = (props) => {
   const { login } = useAuth0();
@@ -16,7 +15,6 @@ const SignInScreen: React.FC = (props) => {
 
       <Button
         buttonStyle={{ backgroundColor: 'rgba(247,236,250,.3)' }}
-        // raised
         title="SIGN IN"
         onPress={login}
       />

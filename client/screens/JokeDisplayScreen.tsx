@@ -14,7 +14,6 @@ import SlideIndicator from '../components/SlideIndicator';
 import Navigation from '../navigation';
 import PressableOpacity from '../components/PressableOpacity';
 import Button from '../components/Button';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const { width, height } = Dimensions.get('screen');
 const PICTURE_WIDTH = width * 0.66;
