@@ -7,11 +7,6 @@ type StateType = {
   currentContact: Partial<Contact>;
 };
 
-// type ActionCreatorsType = {
-//   setCurrentContact: (contact: Contact) => void;
-//   deleteCurrentContact: () => void;
-// };
-
 type ActionType =
   | { type: 'ADD_CURRENT_CONTACT'; payload: Contact }
   | { type: 'DELETE_CURRENT_CONTACT' };

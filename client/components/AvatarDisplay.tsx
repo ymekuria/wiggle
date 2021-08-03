@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { StyleSheet, FlatList, View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Avatar } from 'react-native-elements';
 import { Text } from '../components/Themed';
 

@@ -36,10 +36,7 @@ const App = (): JSX.Element | null => {
         <ContactProvider>
           <WiggleProvider>
             <React.Fragment>
-              <Navigation
-                // navigationRef={navigationRef}
-                colorScheme={colorScheme}
-              />
+              <Navigation colorScheme={colorScheme} />
               <StatusBar />
             </React.Fragment>
           </WiggleProvider>

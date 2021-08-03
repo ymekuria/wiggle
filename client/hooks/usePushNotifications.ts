@@ -1,10 +1,13 @@
 import { Platform } from 'react-native';
 import React, { useEffect, useState, useContext, useRef } from 'react';
+
 import * as Notifications from 'expo-notifications';
 import Constants from 'expo-constants';
 import { navigationRef } from '../navigation/navigationRef';
+import { useJokesLazyQuery, useJokeQuery } from '../__generated__/ui_types';
 
 export default () => {
+  const { data, loading, error } = useJokeQuery();
   const [expoPushToken, setExpoPushToken] = useState<string | undefined>('');
   const [notification, setNotification] = useState(false);
   const [notificationBody, setNotificationBody] = useState('');
@@ -23,6 +26,28 @@ export default () => {
 
   async function cancelNotificationAsync(identifier: string) {
     await Notifications.cancelScheduledNotificationAsync(identifier);
+  }
+  async function handleNotificationResponse(response) {
+    const { data, loading, error } = useJokeQuery();
+    const actionType = response.actionIdentifier;
+    switch (actionType) {
+      case 'dog':
+        console.log('case dog');
+        navigationRef.current?.navigate('TabOne', {
+          screen: 'DogPicsDisplayScreen'
+        });
+      case 'joke':
+        console.log('case joke');
+        navigationRef.current?.navigate('TabOne', {
+          screen: 'JokeDisplayScreen'
+        });
+      case 'yes':
+        console.log('case yes');
+
+        console.log('jokedata', data);
+      default:
+        break;
+    }
   }
   useEffect(() => {
     async function registerForPushNotificationsAsync() {
@@ -57,17 +82,18 @@ export default () => {
         // interactive buttons for push notifiaction
         Notifications.setNotificationCategoryAsync('basic', [
           { identifier: 'dog', buttonTitle: 'Send Dog Wiggle 😀' },
-          { identifier: 'joke', buttonTitle: 'Send Joke Wiggle 😕' }
+          { identifier: 'joke', buttonTitle: 'Send Joke Wiggle 😕' },
+          { identifier: 'yes', buttonTitle: 'Yes 😕' }
         ]);
       }
       // Check category is there
-      Notifications.getNotificationCategoriesAsync().then((categories) => {
-        console.log('categories', categories);
-      });
+      // Notifications.getNotificationCategoriesAsync().then((categories) => {
+      // console.log('categories', categories);
+      // });
 
       // Get experienceId
-      const experienceId = Constants.manifest.id;
-      console.log('experienceId', experienceId);
+      // const experienceId = Constants.manifest.id;
+      // console.log('experienceId', experienceId);
 
       return token;
     }
@@ -84,24 +110,6 @@ export default () => {
       setExpoPushToken(token);
     });
 
-    async function handleNotificationResponse(response) {
-      const actionType = response.actionIdentifier;
-      switch (actionType) {
-        case 'dog':
-          console.log('case yes');
-          navigationRef.current?.navigate('TabOne', {
-            screen: 'DogPicsDisplayScreen'
-          });
-        case 'joke':
-          console.log('case yes');
-          navigationRef.current?.navigate('TabOne', {
-            screen: 'JokeDisplayScreen'
-          });
-        default:
-          break;
-      }
-    }
-
     notificationListener.current = Notifications.addNotificationReceivedListener(
       (notification) => {
         setNotification(notification);
@@ -109,7 +117,7 @@ export default () => {
     );
 
     responseListener.current = Notifications.addNotificationResponseReceivedListener(
-      (response) => console.log(response)
+      handleNotificationResponse
     );
 
     return () => {

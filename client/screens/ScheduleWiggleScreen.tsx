@@ -110,7 +110,7 @@ const ScheduleWiggleScreen: React.FC<ScheduleWiggleScreenProps> = ({
               subtitle: 'Interactive Noftification',
 
               body: notificationBody,
-              data: { data: 'goes here' }
+              data: { type: 'joke' }
             },
             trigger: null
           });

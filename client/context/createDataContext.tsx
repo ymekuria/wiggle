@@ -26,7 +26,6 @@ export const createDataContext = <Actions, InitialState, T>(
     for (const action in actions) {
       // @ts-ignore
       dispatchActions[action] = actions[action](dispatch);
-      // actions[action] = actions[action](dispatch);
     }
 
     return (
