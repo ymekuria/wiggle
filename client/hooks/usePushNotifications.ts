@@ -86,14 +86,6 @@ export default () => {
           { identifier: 'yes', buttonTitle: 'Yes 😕' }
         ]);
       }
-      // Check category is there
-      // Notifications.getNotificationCategoriesAsync().then((categories) => {
-      // console.log('categories', categories);
-      // });
-
-      // Get experienceId
-      // const experienceId = Constants.manifest.id;
-      // console.log('experienceId', experienceId);
 
       return token;
     }

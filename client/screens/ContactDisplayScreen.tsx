@@ -44,9 +44,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: height * 0.125
-
-    // alignItems: 'center',
-    // justifyContent: 'center'
   },
   contactContainer: {
     margin: 10,

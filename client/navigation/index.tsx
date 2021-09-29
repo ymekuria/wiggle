@@ -17,7 +17,6 @@ import * as SecureStore from 'expo-secure-store';
 
 import NotFoundScreen from '../screens/NotFoundScreen';
 import SignInScreen from '../screens/SignInScreen';
-// import { RootStackParamList } from '../types';
 import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
 import RootNavigator from './RootNavigator';
@@ -26,11 +25,9 @@ import createApolloClient from '../utils/createApolloClient';
 import { navigationRef } from './navigationRef';
 
 type NavigationProps = {
-  // navigationRef: React.RefObject<NavigationContainerRef>;
   colorScheme: ColorSchemeName;
 };
 
-// n   // export const navigationRef = React.createRef<NavigationContainerRef>();
 const Navigation = ({ colorScheme }: NavigationProps) => {
   const { accessToken } = useAuth0();
 

@@ -45,31 +45,9 @@ const Stack = createStackNavigator<RootStackParamList>();
 // rgba(163,175,243,1) 0%, rgba(220,182,232,1)
 const RootNavigator: React.FC<RootNavigatorProps> = ({ accessToken }) => {
   return (
-    <Stack.Navigator
-      initialRouteName="Root"
-      headerMode="none"
-      //   screenOptions={
-      //   //   ({ route }) => ({
-      //   //   headerTitle: getHeaderTitle(route),
-
-      //   //   headerStyle: {
-      //   //     backgroundColor: 'rgba(163,175,243,1)'
-      //   //   }
-      //   // })
-      // }
-    >
+    <Stack.Navigator initialRouteName="Root" headerMode="none">
       {accessToken ? (
-        <Stack.Screen
-          name="Root"
-          component={BottomTabNavigator}
-          // options={({ route }) => ({
-          //   headerTitle: getHeaderTitle(route),
-
-          //   headerStyle: {
-          //     backgroundColor: 'rgba(163,175,243,1)'
-          //   }
-          // })}
-        />
+        <Stack.Screen name="Root" component={BottomTabNavigator} />
       ) : (
         <Stack.Screen
           name="SignIn"

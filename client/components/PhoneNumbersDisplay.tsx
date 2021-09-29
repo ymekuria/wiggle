@@ -50,25 +50,6 @@ const PhoneNumbersDisplay: React.FC<PhoneNumbersDisplayProps> = ({
           <Text style={styles.phoneNumberText}>{item.digits}</Text>
         </View>
       </PressableOpacity>
-      // <TouchableOpacity onPress={() => onPhoneNumberPress(item)}>
-      //   <View style={styles.phoneNumberContainer}>
-      //     <Text>{item.label}</Text>
-      //     <Text style={styles.phoneNumberText}>{item.digits}</Text>
-      //   </View>
-      // </TouchableOpacity>
-      // <Pressable
-      //   onPress={() => onPhoneNumberPress(item)}
-      //   style={({ pressed }) => {
-      //     return {
-      //       opacity: pressed ? 0.2 : 1
-      //     };
-      //   }}
-      // >
-      //   <View style={styles.phoneNumberContainer}>
-      //     <Text>{item.label}</Text>
-      //     <Text style={styles.phoneNumberText}>{item.digits}</Text>
-      //   </View>
-      // </Pressable>
     );
   };
 

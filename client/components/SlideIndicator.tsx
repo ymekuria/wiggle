@@ -1,8 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { StyleSheet, FlatList, Animated, View } from 'react-native';
 
-// import { Text, View } from '../components/Themed';
-
 type SlideIndicatorProps = {
   data: any;
   scrollX: Animated.Value;

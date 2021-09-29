@@ -11,8 +11,6 @@ import { Contact } from 'expo-contacts';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useHeaderHeight } from '@react-navigation/stack';
 
-// ...
-
 import { Text, View } from '../components/Themed';
 import useContacts from '../hooks/useContacts';
 import { SearchBar } from 'react-native-elements';
@@ -103,7 +101,6 @@ const ContactsDisplayScreen = () => {
           )}
           renderItem={renderContacts}
           keyExtractor={(contact) => contact.id.toString()}
-          // contentContainerStyle={{ padding: 5 }}
         />
       </SafeAreaView>
     </LinearGradient>

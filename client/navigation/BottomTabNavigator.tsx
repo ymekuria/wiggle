@@ -46,7 +46,6 @@ export type BottomTabNavaigatorParamList = {
   TabThree: NavigatorScreenParams<TabThreeParamList>;
   TabFour: NavigatorScreenParams<TabFourParamList>;
 };
-// background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(163,175,243,1) 0%, rgba(220,182,232,1) 100.2% );
 
 const TabOneStack = createStackNavigator<TabOneParamList>();
 
@@ -101,24 +100,13 @@ const TabTwoNavigator = () => {
         headerTintColor: headerTintColor
       })}
     >
-      {/* <TabTwoStack.Screen name="TabTwoScreen" component={TabTwoScreen} /> */}
       <TabTwoStack.Screen
         name="ContactsDisplayScreen"
         component={ContactsDisplayScreen}
-        // options={() => ({
-        //   headerStyle: {
-        //     backgroundColor: 'rgba(163,175,243,1)'
-        //   }
-        // })}
       />
       <TabTwoStack.Screen
         name="ContactDisplayScreen"
         component={ContactDisplayScreen}
-        // options={() => ({
-        //   headerStyle: {
-        //     backgroundColor: 'rgba(163,175,243,1)'
-        //   }
-        // })}
       />
     </TabTwoStack.Navigator>
   );
@@ -189,7 +177,6 @@ const BottomTabNavigator: React.FC = () => {
     <BottomTab.Navigator
       initialRouteName="TabOne"
       tabBarOptions={{
-        // activeTintColor: Colors['dark'].tint,
         activeTintColor: '#fff',
         inactiveTintColor: bottomNavTintColor,
         activeBackgroundColor: 'rgba(247,236,250,.3)',

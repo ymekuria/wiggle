@@ -48,7 +48,7 @@ app.use(checkJwt);
 app.use(validateUser(prisma));
 
 const PORT = process.env.PORT || 8088;
-console.log('port', PORT);
+const SERVER_URL = process.env.SERVER_URL || 'http://localhost:';
 
 const server = new ApolloServer({
   typeDefs: mainSchema,
@@ -72,5 +72,5 @@ server.applyMiddleware({
 });
 
 app.listen(PORT, () => {
-  console.log(`Server ready at http://localhost:${PORT}/graphql`);
+  console.log(`Server ready at ${SERVER_URL}${PORT}/graphql`);
 });

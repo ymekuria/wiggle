@@ -182,14 +182,11 @@ const fetchAccessToken = async (
     setTimeout(() => {
       let refreshTokenData: TokenData | RefreshTokenData = data;
       if (token.refresh_token) {
-        // console.log('refreshTokenData before', refreshTokenData);
-        // console.log('inside settimeout of refreshtoken flow');
         refreshTokenData = {
           ...data,
           refresh_token: token.refresh_token,
           grant_type: 'refresh_token'
         };
-        // console.log('refreshTokenData after', refreshTokenData);
       }
       fetchAccessToken(
         refreshTokenData,
@@ -213,8 +210,7 @@ const fetchAccessToken = async (
         token.refresh_token
       );
     }
-    // await SecureStore.setItemAsync('accessToken', token.access_token);
-    // const testToken = await SecureStore.getItemAsync('accessToken');
+
     setAccessToken(token.access_token);
     setUser(userInfo);
   } else {
@@ -300,39 +296,6 @@ export const Auth0Provider = ({
           onTokenRequestFailure
         );
       }
-
-      // my code below to keep user login after hard close
-      // if (!auth0Result) {
-      //   if (!accessToken) {
-      //     console.log('not access token in useEffect');
-      //     SecureStore.getItemAsync('accessToken')
-      //       .then((token) => {
-      //         if (!token) {
-      //           console.log('no token in secure store. please authenticate');
-      //           return;
-      //         }
-
-      //         const currentTime = new Date().getTime() / 1000;
-      //         const { exp } = jwt_decode(token);
-      //         console.log('exp', exp - currentTime);
-      //         // If token from secure storage is old, it is not set into state forcing the user to reathenticate
-      //         // TODO: integrate token from secure storage into refresh token flow via fetchAccessToken function
-      //         if (exp < currentTime - requestNewAccessTokenBuffer) {
-      //           console.log(
-      //             'Its time to refresh the token. Time until expiration in seconds:',
-      //             exp - currentTime
-      //           );
-      //           return;
-      //         } else {
-      //           setAccessToken(token);
-      //         }
-      //       })
-      //       .catch((error) =>
-      //         console.log('Error retriving accessToken from device:', error)
-      //       );
-      //   }
-      //   return;
-      // }
       if (
         auth0Result?.type === 'success' &&
         auth0Result?.params?.code &&

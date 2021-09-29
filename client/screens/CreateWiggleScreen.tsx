@@ -7,7 +7,6 @@ import {
   Easing,
   TouchableOpacity
 } from 'react-native';
-// import { TouchableOpacity } from 'react-native-gesture-handler';
 import { LinearGradient } from 'expo-linear-gradient';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -46,8 +45,6 @@ const CreateWiggleScreen: React.FC<CreateWiggleScreenProps> = ({
       colors={['rgba(163,175,243,1)', 'rgba(220,182,232,1)']}
       style={styles.container}
     >
-      {/* <Text style={styles.title}>Create a Wiggle</Text> */}
-
       <TouchableOpacity
         delayLongPress={200}
         onLongPress={() => {
@@ -78,8 +75,6 @@ const CreateWiggleScreen: React.FC<CreateWiggleScreenProps> = ({
           <Picker.Item label="Schedule a Wiggle" value="ScheduleWiggleScreen" />
         </Picker>
       </TouchableOpacity>
-      {/* </View> */}
-      {/* </PressableOpacity> */}
     </LinearGradient>
   );
 };
